@@ -24,33 +24,101 @@ export default function HomePage() {
             Choose Your Game
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Typing Game */}
-            <a href="/typing" className="border-3 border-black p-8 bg-white hover:bg-gray-50 transition-colors block">
+            <a href="/typing" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
               <div className="text-center">
-                <div className="text-6xl mb-4">⌨️</div>
-                <h3 className="text-2xl font-bold mono uppercase mb-4">Literature Typing</h3>
-                <p className="text-gray-700 mb-6">
-                  Type great works from Dickens, Melville, Tolkien, Austen, Shakespeare, and more.
-                  One massive word at a time for pure focus.
+                <div className="text-4xl mb-3">⌨️</div>
+                <h3 className="text-xl font-bold mono uppercase mb-3">Literature Typing</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Type great works one word at a time. Improve focus and reading.
                 </p>
-                <div className="brutalist-button inline-block">
-                  Play Typing
+                <div className="brutalist-button inline-block text-sm">
+                  Play
                 </div>
               </div>
             </a>
 
             {/* Math Grid Game */}
-            <a href="/math" className="border-3 border-black p-8 bg-white hover:bg-gray-50 transition-colors block">
+            <a href="/math" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
               <div className="text-center">
-                <div className="text-6xl mb-4">🔢</div>
-                <h3 className="text-2xl font-bold mono uppercase mb-4">Math Grid</h3>
-                <p className="text-gray-700 mb-6">
-                  Practice times tables with random grid sizes. Multiple choice answers.
-                  Passively improve your mental math skills.
+                <div className="text-4xl mb-3">🔢</div>
+                <h3 className="text-xl font-bold mono uppercase mb-3">Math Grid</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Visual times tables with random grid sizes. Multiple choice.
                 </p>
-                <div className="brutalist-button inline-block">
-                  Play Math
+                <div className="brutalist-button inline-block text-sm">
+                  Play
+                </div>
+              </div>
+            </a>
+
+            {/* Dot Counter */}
+            <a href="/dots" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+              <div className="text-center">
+                <div className="text-4xl mb-3">⚫</div>
+                <h3 className="text-xl font-bold mono uppercase mb-3">Dot Counter</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Count dots that flash briefly. Improves visual processing.
+                </p>
+                <div className="brutalist-button inline-block text-sm">
+                  Play
+                </div>
+              </div>
+            </a>
+
+            {/* Color Stroop */}
+            <a href="/stroop" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+              <div className="text-center">
+                <div className="text-4xl mb-3">🎨</div>
+                <h3 className="text-xl font-bold mono uppercase mb-3">Color Stroop</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Name the color, not the word. Classic cognitive test.
+                </p>
+                <div className="brutalist-button inline-block text-sm">
+                  Play
+                </div>
+              </div>
+            </a>
+
+            {/* Pattern Memory */}
+            <a href="/pattern" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+              <div className="text-center">
+                <div className="text-4xl mb-3">🧩</div>
+                <h3 className="text-xl font-bold mono uppercase mb-3">Pattern Memory</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Remember and repeat color sequences. Working memory training.
+                </p>
+                <div className="brutalist-button inline-block text-sm">
+                  Play
+                </div>
+              </div>
+            </a>
+
+            {/* Fraction Visualizer */}
+            <a href="/fractions" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+              <div className="text-center">
+                <div className="text-4xl mb-3">🥧</div>
+                <h3 className="text-xl font-bold mono uppercase mb-3">Fraction Visualizer</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Identify fractions from pie charts. Visual math learning.
+                </p>
+                <div className="brutalist-button inline-block text-sm">
+                  Play
+                </div>
+              </div>
+            </a>
+
+            {/* Digit Span */}
+            <a href="/digits" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+              <div className="text-center">
+                <div className="text-4xl mb-3">🔢</div>
+                <h3 className="text-xl font-bold mono uppercase mb-3">Digit Span</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Remember number sequences. Classic memory span test.
+                </p>
+                <div className="brutalist-button inline-block text-sm">
+                  Play
                 </div>
               </div>
             </a>
