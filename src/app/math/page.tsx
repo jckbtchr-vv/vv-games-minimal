@@ -185,21 +185,25 @@ export default function MathGridGame() {
           </div>
         </div>
 
-        {/* Result Feedback */}
-        {showResult && (
-          <div className="game-section text-center">
-            <div className={`text-2xl font-bold mono ${
-              isCorrect ? 'text-green-600' : 'text-red-600'
-            }`}>
-              {isCorrect ? '✓ Correct!' : '✗ Wrong'}
-            </div>
-            {!isCorrect && (
-              <div className="text-lg text-gray-600 mt-2">
-                The answer was {correctAnswer}
-              </div>
+        {/* Result Feedback - Fixed Height */}
+        <div className="game-section text-center">
+          <div className="min-h-[80px] flex flex-col justify-center">
+            {showResult && (
+              <>
+                <div className={`text-2xl font-bold mono uppercase ${
+                  isCorrect ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
+                </div>
+                {!isCorrect && (
+                  <div className="text-lg text-gray-600 mt-2 uppercase">
+                    The answer was {correctAnswer}
+                  </div>
+                )}
+              </>
             )}
           </div>
-        )}
+        </div>
 
         {/* New Game Button */}
         <div className="game-section text-center">

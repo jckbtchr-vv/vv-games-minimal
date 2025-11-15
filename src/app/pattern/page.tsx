@@ -177,29 +177,31 @@ export default function PatternMemoryGame() {
           </div>
         )}
 
-        {/* Result */}
-        {gamePhase === 'result' && (
-          <div className="text-center mb-8">
-            <div className={`text-3xl font-bold mono mb-4 ${
-              isCorrect ? 'text-green-600' : 'text-red-600'
-            }`}>
-              {isCorrect ? '✓ Perfect!' : '✗ Wrong Pattern'}
-            </div>
-            {!isCorrect && (
-              <div className="text-lg text-gray-600">
-                <div className="mb-2">Correct pattern was:</div>
-                <div className="flex justify-center space-x-2">
-                  {pattern.map((colorIndex, index) => (
-                    <div
-                      key={index}
-                      className={`w-8 h-8 border-2 border-black ${COLORS[colorIndex]}`}
-                    />
-                  ))}
-                </div>
+        {/* Result - Fixed Height */}
+        <div className="text-center mb-8 min-h-[120px] flex flex-col justify-center">
+          {gamePhase === 'result' && (
+            <>
+              <div className={`text-3xl font-bold mono uppercase mb-4 ${
+                isCorrect ? 'text-green-600' : 'text-red-600'
+              }`}>
+                {isCorrect ? '✓ PERFECT!' : '✗ WRONG PATTERN'}
               </div>
-            )}
-          </div>
-        )}
+              {!isCorrect && (
+                <div className="text-lg text-gray-600 uppercase">
+                  <div className="mb-2">Correct pattern was:</div>
+                  <div className="flex justify-center space-x-2">
+                    {pattern.map((colorIndex, index) => (
+                      <div
+                        key={index}
+                        className={`w-8 h-8 border-2 border-black ${COLORS[colorIndex]}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
 
         {/* New Game Button */}
         <div className="text-center">

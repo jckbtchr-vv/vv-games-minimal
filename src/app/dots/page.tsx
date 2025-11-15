@@ -182,12 +182,12 @@ export default function DotCounterGame() {
           {/* Result */}
           {showResult && (
             <div className="text-center">
-              <div className={`text-4xl font-bold mono mb-4 ${
+              <div className={`text-4xl font-bold mono uppercase mb-4 ${
                 isCorrect ? 'text-green-600' : 'text-red-600'
               }`}>
-                {isCorrect ? '✓ Correct!' : '✗ Wrong'}
+                {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
               </div>
-              <div className="text-2xl mb-6">
+              <div className="text-2xl mb-6 uppercase">
                 You guessed: <span className="font-bold">{userGuess}</span>
                 <br />
                 Correct answer: <span className="font-bold">{correctAnswer}</span>

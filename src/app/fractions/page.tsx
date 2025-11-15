@@ -201,21 +201,23 @@ export default function FractionVisualizerGame() {
           ))}
         </div>
 
-        {/* Result Feedback */}
-        {showResult && (
-          <div className="text-center mt-8">
-            <div className={`text-2xl font-bold mono ${
-              isCorrect ? 'text-green-600' : 'text-red-600'
-            }`}>
-              {isCorrect ? '✓ Correct!' : '✗ Wrong'}
-            </div>
-            {!isCorrect && (
-              <div className="text-lg text-gray-600 mt-2">
-                The answer was {formatFraction(currentFraction)}
+        {/* Result Feedback - Fixed Height */}
+        <div className="text-center mt-8 min-h-[80px] flex flex-col justify-center">
+          {showResult && (
+            <>
+              <div className={`text-2xl font-bold mono uppercase ${
+                isCorrect ? 'text-green-600' : 'text-red-600'
+              }`}>
+                {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
               </div>
-            )}
-          </div>
-        )}
+              {!isCorrect && (
+                <div className="text-lg text-gray-600 mt-2 uppercase">
+                  The answer was {formatFraction(currentFraction)}
+                </div>
+              )}
+            </>
+          )}
+        </div>
 
         {/* New Game Button */}
         <div className="text-center mt-12">

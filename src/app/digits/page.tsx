@@ -187,25 +187,27 @@ export default function DigitSpanGame() {
           </form>
         )}
 
-        {/* Result */}
-        {gamePhase === 'result' && (
-          <div className="text-center mb-8">
-            <div className={`text-3xl font-bold mono mb-4 ${
-              isCorrect ? 'text-green-600' : 'text-red-600'
-            }`}>
-              {isCorrect ? '✓ Perfect Memory!' : '✗ Wrong Sequence'}
-            </div>
-            <div className="text-xl mb-4">
-              <div>You entered: <span className="font-bold mono">{userInput || '(nothing)'}</span></div>
-              <div>Correct was: <span className="font-bold mono">{sequence.join('')}</span></div>
-            </div>
-            {isCorrect && (
-              <div className="text-lg text-green-600">
-                Moving to {level + 1} digits!
+        {/* Result - Fixed Height */}
+        <div className="text-center mb-8 min-h-[140px] flex flex-col justify-center">
+          {gamePhase === 'result' && (
+            <>
+              <div className={`text-3xl font-bold mono uppercase mb-4 ${
+                isCorrect ? 'text-green-600' : 'text-red-600'
+              }`}>
+                {isCorrect ? '✓ PERFECT MEMORY!' : '✗ WRONG SEQUENCE'}
               </div>
-            )}
-          </div>
-        )}
+              <div className="text-xl mb-4 uppercase">
+                <div>You entered: <span className="font-bold mono">{userInput || '(nothing)'}</span></div>
+                <div>Correct was: <span className="font-bold mono">{sequence.join('')}</span></div>
+              </div>
+              {isCorrect && (
+                <div className="text-lg text-green-600 uppercase">
+                  Moving to {level + 1} digits!
+                </div>
+              )}
+            </>
+          )}
+        </div>
 
         {/* Progress Indicator */}
         <div className="text-center mb-8">
