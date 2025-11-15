@@ -122,7 +122,7 @@ export default function DotCounterGame() {
     <main className="min-h-screen flex items-center justify-center bg-white p-4">
       <div className="w-full max-w-4xl">
         {/* Score */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <div className="text-2xl font-bold mono">
             {score} / {totalQuestions} ({accuracy}%)
           </div>
@@ -132,7 +132,7 @@ export default function DotCounterGame() {
         </div>
 
         {/* Dot Display Area */}
-        <div className="relative w-full h-96 border-3 border-black bg-gray-50 mb-8">
+        <div className="relative w-full h-64 md:h-80 border-3 border-black bg-gray-50 mb-6">
           {showDots && dots.map(dot => (
             <div
               key={dot.id}
@@ -154,8 +154,8 @@ export default function DotCounterGame() {
           )}
         </div>
 
-        {/* Input/Result Area - Fixed Height */}
-        <div className="h-48 flex items-center justify-center">
+        {/* Input/Result Area - Responsive Height */}
+        <div className="min-h-[120px] md:min-h-[140px] flex items-center justify-center">
           {/* Input Form */}
           {!showDots && !showResult && (
             <form onSubmit={handleSubmit} className="text-center">

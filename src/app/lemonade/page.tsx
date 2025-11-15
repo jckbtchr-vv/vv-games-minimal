@@ -192,8 +192,8 @@ export default function LemonadeGame() {
           </div>
         </div>
 
-        {/* Game Content - Fixed Height Container */}
-        <div className="min-h-[600px]">
+        {/* Game Content - Responsive Height Container */}
+        <div className="min-h-[400px] md:min-h-[500px]">
           {/* Buying Phase */}
           {gamePhase === 'buying' && (
             <div className="space-y-8">

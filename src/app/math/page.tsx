@@ -144,29 +144,29 @@ export default function MathGridGame() {
         </div>
 
         {/* Question and Grid */}
-        <div className="text-center mb-8">
-          <div className="text-6xl md:text-8xl font-bold mono mb-8 h-24 flex items-center justify-center">
+        <div className="text-center mb-6">
+          <div className="text-4xl md:text-6xl font-bold mono mb-6 min-h-[60px] flex items-center justify-center">
             {question}
           </div>
           
           {/* Visual Grid */}
-          <div className="mb-8 h-64 flex items-center justify-center">
+          <div className="mb-6 min-h-[120px] md:min-h-[160px] flex items-center justify-center">
             {renderGrid()}
           </div>
           
-          <div className="text-xl text-gray-600 mb-8 h-8 flex items-center justify-center">
+          <div className="text-lg md:text-xl text-gray-600 mb-6">
             How many cells are in this grid?
           </div>
         </div>
 
         {/* Multiple Choice Options */}
-        <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+        <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto">
           {options.map((option, index) => (
             <button
               key={index}
               onClick={() => handleAnswerSelect(option)}
               disabled={showResult}
-              className={`p-6 text-2xl font-bold mono border-3 border-black transition-colors ${
+              className={`p-4 md:p-6 text-xl md:text-2xl font-bold mono border-3 border-black transition-colors ${
                 showResult && option === correctAnswer
                   ? 'bg-green-500 text-white'
                   : showResult && option === selectedAnswer && option !== correctAnswer
