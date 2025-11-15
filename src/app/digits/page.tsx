@@ -14,38 +14,6 @@ export default function DigitSpanGame() {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
   const [maxLevel, setMaxLevel] = useState(3)
 
-  const generateSequence = () => {
-    const newSequence: number[] = []
-    for (let i = 0; i < level; i++) {
-      newSequence.push(Math.floor(Math.random() * 10)) // 0-9
-    }
-    setSequence(newSequence)
-    setUserInput('')
-  }
-
-  const showSequence = () => {
-    setGamePhase('showing')
-    setShowingSequence(true)
-    
-    // Show each digit in sequence
-    let step = 0
-    const showNext = () => {
-      if (step < sequence.length) {
-        setCurrentDigit(sequence[step])
-        step++
-        setTimeout(() => {
-          setCurrentDigit(null)
-          setTimeout(showNext, 200) // 200ms gap between digits
-        }, 800) // 800ms per digit
-      } else {
-        setShowingSequence(false)
-        setCurrentDigit(null)
-        setGamePhase('input')
-      }
-    }
-    
-    setTimeout(showNext, 500) // Initial delay
-  }
 
   const startNewGame = () => {
     setScore(0)
@@ -56,13 +24,40 @@ export default function DigitSpanGame() {
   }
 
   const startNewRound = () => {
-    generateSequence()
     setGamePhase('waiting')
     setIsCorrect(null)
     
+    // Generate sequence and wait for state update
+    const newSequence: number[] = []
+    for (let i = 0; i < level; i++) {
+      newSequence.push(Math.floor(Math.random() * 10))
+    }
+    setSequence(newSequence)
+    setUserInput('')
+    
     // Auto-start showing sequence after 1 second
     setTimeout(() => {
-      showSequence()
+      setGamePhase('showing')
+      setShowingSequence(true)
+      
+      // Show each digit in sequence
+      let step = 0
+      const showNext = () => {
+        if (step < newSequence.length) {
+          setCurrentDigit(newSequence[step])
+          step++
+          setTimeout(() => {
+            setCurrentDigit(null)
+            setTimeout(showNext, 200) // 200ms gap between digits
+          }, 800) // 800ms per digit
+        } else {
+          setShowingSequence(false)
+          setCurrentDigit(null)
+          setGamePhase('input')
+        }
+      }
+      
+      setTimeout(showNext, 500) // Initial delay
     }, 1000)
   }
 
@@ -79,14 +74,16 @@ export default function DigitSpanGame() {
     
     if (correct) {
       setScore(score + 1)
-      setLevel(level + 1)
-      setMaxLevel(Math.max(maxLevel, level + 1))
+      const newLevel = level + 1
+      setLevel(newLevel)
+      setMaxLevel(Math.max(maxLevel, newLevel))
       setTimeout(() => {
         startNewRound()
       }, 2000)
     } else {
       // Reset to previous level or restart
-      setLevel(Math.max(3, level - 1))
+      const newLevel = Math.max(3, level - 1)
+      setLevel(newLevel)
       setTimeout(() => {
         startNewRound()
       }, 3000)
