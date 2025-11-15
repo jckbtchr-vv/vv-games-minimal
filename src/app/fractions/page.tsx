@@ -24,10 +24,16 @@ export default function FractionVisualizerGame() {
     return { numerator, denominator }
   }
 
+  const resetSelection = () => {
+    setSelectedAnswer(null)
+    setShowResult(false)
+    setIsCorrect(null)
+  }
+
   const generateQuestion = () => {
     const fraction = generateFraction()
     setCurrentFraction(fraction)
-    
+
     // Generate 3 wrong options
     const wrongOptions: Fraction[] = []
     while (wrongOptions.length < 3) {
@@ -40,14 +46,12 @@ export default function FractionVisualizerGame() {
         wrongOptions.push(wrongFraction)
       }
     }
-    
+
     // Shuffle all options
     const allOptions = [fraction, ...wrongOptions].sort(() => Math.random() - 0.5)
     setOptions(allOptions)
-    
-    setSelectedAnswer(null)
-    setShowResult(false)
-    setIsCorrect(null)
+
+    resetSelection()
   }
 
   const startNewGame = () => {
