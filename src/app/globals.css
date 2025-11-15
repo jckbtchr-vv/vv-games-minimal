@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* T26 Carbon Font */
+@font-face {
+  font-family: 'T26 Carbon';
+  src: url('/fonts/CarbonBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback fonts */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -13,12 +23,12 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
-  font-family: 'Inter', sans-serif;
+  font-family: 'T26 Carbon', 'Inter', sans-serif;
   line-height: 1.6;
 }
 
 .mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'T26 Carbon', 'JetBrains Mono', monospace;
 }
 
 .brutalist-button {

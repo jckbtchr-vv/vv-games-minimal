@@ -8,8 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'mono': ['JetBrains Mono', 'monospace'],
-        'sans': ['Inter', 'sans-serif'],
+        'mono': ['T26 Carbon', 'JetBrains Mono', 'monospace'],
+        'sans': ['T26 Carbon', 'Inter', 'sans-serif'],
+        'carbon': ['T26 Carbon', 'JetBrains Mono', 'monospace'],
       },
       borderWidth: {
         '3': '3px',

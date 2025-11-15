@@ -25,9 +25,17 @@ npm run dev
 # Open http://localhost:3000
 ```
 
+**Custom Font**:
+```bash
+# T26 Carbon font already configured!
+# Uses CarbonBold.ttf from public/fonts/
+# Fallback to JetBrains Mono and Inter if not available
+```
+
 ## ✨ Features
 
 - **Minimal design** - Zero distractions, pure focus
+- **Custom typography** - T26 Carbon font for distinctive look
 - **Educational** - Improve typing, math, and cognitive skills
 - **Infinite variety** - Random content keeps games fresh
 - **No external dependencies** - Just React, Next.js, and Tailwind
