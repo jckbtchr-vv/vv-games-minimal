@@ -62,14 +62,15 @@ export default function FractionVisualizerGame() {
     const correct = answer.numerator === currentFraction.numerator && answer.denominator === currentFraction.denominator
     setIsCorrect(correct)
     setShowResult(true)
-    
+
     if (correct) {
       setScore(score + 1)
     }
     setTotalQuestions(totalQuestions + 1)
-    
+
     // Auto-advance after 2 seconds
     setTimeout(() => {
+      resetSelection()
       generateQuestion()
     }, 2000)
   }

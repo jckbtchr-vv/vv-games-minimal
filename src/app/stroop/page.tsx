@@ -90,8 +90,9 @@ export default function ColorStroopGame() {
     setIsCorrect(false)
     setShowResult(true)
     setTotalQuestions(totalQuestions + 1)
-    
+
     setTimeout(() => {
+      resetSelection()
       generateQuestion()
     }, 2000)
   }
@@ -106,22 +107,23 @@ export default function ColorStroopGame() {
 
   const handleAnswerSelect = (answer: string) => {
     if (showResult) return
-    
+
     setTimerActive(false)
     setSelectedAnswer(answer)
     const correct = answer === correctAnswer
     setIsCorrect(correct)
     setShowResult(true)
-    
+
     if (correct) {
       setScore(score + 1)
       // Decrease time limit slightly to increase difficulty
       setTimeLimit(Math.max(1500, timeLimit - 100))
     }
     setTotalQuestions(totalQuestions + 1)
-    
+
     // Auto-advance after 2 seconds
     setTimeout(() => {
+      resetSelection()
       generateQuestion()
     }, 2000)
   }

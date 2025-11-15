@@ -66,14 +66,15 @@ export default function MathGridGame() {
     const correct = answer === correctAnswer
     setIsCorrect(correct)
     setShowResult(true)
-    
+
     if (correct) {
       setScore(score + 1)
     }
     setTotalQuestions(totalQuestions + 1)
-    
+
     // Auto-advance to next question after 1.5 seconds
     setTimeout(() => {
+      resetSelection()
       generateNewQuestion()
     }, 1500)
   }
