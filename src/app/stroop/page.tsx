@@ -129,10 +129,10 @@ export default function ColorStroopGame() {
   const accuracy = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
   const timeProgress = timeLimit > 0 ? (timeLeft / timeLimit) * 100 : 0
 
-  if (!gameStarted) {
-    return (
-      <main className="min-h-screen bg-white">
-        {/* Game Intro */}
+  return (
+    <main className="min-h-screen bg-white">
+      {!gameStarted ? (
+        /* Game Intro */
         <div className="border-b border-gray-300 p-8 text-center">
           <h1 className="text-4xl font-bold mono mb-6 uppercase">
             COLOR STROOP
@@ -153,107 +153,102 @@ export default function ColorStroopGame() {
             START TEST
           </button>
         </div>
-      </main>
-    )
-  }
-
-  return (
-    <main className="min-h-screen bg-white">
-      {/* Game Spreadsheet Grid */}
-
-        {/* Row 1: Score and Time Limit */}
-        <div className="flex border-b border-gray-300">
-          <div className="flex-1 border-r border-gray-300 p-6 text-center">
-            <div className="text-2xl font-bold mono">
-              {score}/{totalQuestions} ({accuracy}%)
+      ) : (
+        /* Game Spreadsheet Grid */
+        <>
+          {/* Row 1: Score and Time Limit */}
+          <div className="flex border-b border-gray-300">
+            <div className="flex-1 border-r border-gray-300 p-6 text-center">
+              <div className="text-2xl font-bold mono">
+                {score}/{totalQuestions} ({accuracy}%)
+              </div>
+            </div>
+            <div className="flex-1 p-6 text-center">
+              <div className="text-lg font-bold mono uppercase">
+                TIME LIMIT<br/>
+                {timeLimit}ms
+              </div>
             </div>
           </div>
-          <div className="flex-1 p-6 text-center">
-            <div className="text-lg font-bold mono uppercase">
-              TIME LIMIT<br/>
-              {timeLimit}ms
+
+          {/* Row 2: Timer Bar */}
+          <div className="border-b border-gray-300 p-6">
+            <div className="w-full h-6 border-2 border-black bg-gray-200">
+              <div
+                className={`h-full transition-all duration-100 ${
+                  timeProgress > 50 ? 'bg-green-500' :
+                  timeProgress > 25 ? 'bg-yellow-500' : 'bg-red-500'
+                }`}
+                style={{ width: `${Math.max(0, timeProgress)}%` }}
+              />
             </div>
           </div>
-        </div>
 
-        {/* Row 2: Timer Bar */}
-        <div className="border-b border-gray-300 p-6">
-          <div className="w-full h-6 border-2 border-black bg-gray-200">
-            <div
-              className={`h-full transition-all duration-100 ${
-                timeProgress > 50 ? 'bg-green-500' :
-                timeProgress > 25 ? 'bg-yellow-500' : 'bg-red-500'
-              }`}
-              style={{ width: `${Math.max(0, timeProgress)}%` }}
-            />
+          {/* Row 3: Question */}
+          <div className="border-b border-gray-300 p-6 text-center">
+            <div className="text-lg font-bold mono uppercase mb-4">
+              WHAT COLOR IS THIS WORD?
+            </div>
           </div>
-        </div>
 
-        {/* Row 3: Question */}
-        <div className="border-b border-gray-300 p-6 text-center">
-          <div className="text-lg font-bold mono uppercase mb-4">
-            WHAT COLOR IS THIS WORD?
+          {/* Row 4: Colored Word */}
+          <div className="border-b border-gray-300 p-8 text-center">
+            <div className={`text-8xl md:text-9xl font-bold mono ${wordColor}`}>
+              {wordText}
+            </div>
           </div>
-        </div>
 
-        {/* Row 4: Colored Word */}
-        <div className="border-b border-gray-300 p-8 text-center">
-          <div className={`text-8xl md:text-9xl font-bold mono ${wordColor}`}>
-            {wordText}
+          {/* Row 5: Color Options (4 cells) */}
+          <div className="flex border-b border-gray-300">
+            {options.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => handleAnswerSelect(option)}
+                disabled={showResult}
+                className={`flex-1 border-r border-gray-300 p-6 text-xl font-bold mono transition-colors ${
+                  index < 3 ? 'border-r border-gray-300' : ''
+                } ${
+                  showResult && option === correctAnswer
+                    ? 'bg-green-500 text-white'
+                    : showResult && option === selectedAnswer && option !== correctAnswer
+                    ? 'bg-red-500 text-white'
+                    : showResult
+                    ? 'bg-gray-200 text-gray-500'
+                    : 'bg-white hover:bg-gray-100'
+                } ${!showResult ? optionColors[index] : ''}`}
+              >
+                {option}
+              </button>
+            ))}
           </div>
-        </div>
 
-        {/* Row 5: Color Options (4 cells) */}
-        <div className="flex border-b border-gray-300">
-          {options.map((option, index) => (
+          {/* Row 6: Result Feedback */}
+          <div className="border-b border-gray-300 p-6 text-center min-h-[100px] flex items-center justify-center">
+            {showResult && (
+              <div className={`text-2xl font-bold mono uppercase ${
+                isCorrect ? 'text-green-600' : 'text-red-600'
+              }`}>
+                {isCorrect ? '✓ CORRECT!' : selectedAnswer ? '✗ WRONG' : '⏰ TIME UP!'}
+                {!isCorrect && (
+                  <div className="text-lg text-gray-600 mt-2 uppercase">
+                    The color was {correctAnswer}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Row 7: New Game Button */}
+          <div className="p-6 text-center">
             <button
-              key={index}
-              onClick={() => handleAnswerSelect(option)}
-              disabled={showResult}
-              className={`flex-1 border-r border-gray-300 p-6 text-xl font-bold mono transition-colors ${
-                index < 3 ? 'border-r border-gray-300' : ''
-              } ${
-                showResult && option === correctAnswer
-                  ? 'bg-green-500 text-white'
-                  : showResult && option === selectedAnswer && option !== correctAnswer
-                  ? 'bg-red-500 text-white'
-                  : showResult
-                  ? 'bg-gray-200 text-gray-500'
-                  : 'bg-white hover:bg-gray-100'
-              } ${!showResult ? optionColors[index] : ''}`}
+              onClick={startNewGame}
+              className="brutalist-button text-lg"
             >
-              {option}
+              NEW GAME
             </button>
-          ))}
-        </div>
-
-        {/* Row 6: Result Feedback */}
-        <div className="border-b border-gray-300 p-6 text-center min-h-[100px] flex items-center justify-center">
-          {showResult && (
-            <div className={`text-2xl font-bold mono uppercase ${
-              isCorrect ? 'text-green-600' : 'text-red-600'
-            }`}>
-              {isCorrect ? '✓ CORRECT!' : selectedAnswer ? '✗ WRONG' : '⏰ TIME UP!'}
-              {!isCorrect && (
-                <div className="text-lg text-gray-600 mt-2 uppercase">
-                  The color was {correctAnswer}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Row 7: New Game Button */}
-        <div className="p-6 text-center">
-          <button
-            onClick={startNewGame}
-            className="brutalist-button text-lg"
-          >
-            NEW GAME
-          </button>
-        </div>
-
-      </div>
+          </div>
+        </>
+      )}
     </main>
   )
 }

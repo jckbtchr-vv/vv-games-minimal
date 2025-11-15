@@ -92,10 +92,10 @@ export default function PatternMemoryGame() {
     }
   }
 
-  if (!gameStarted) {
-    return (
-      <main className="min-h-screen bg-white">
-        {/* Game Intro */}
+  return (
+    <main className="min-h-screen bg-white">
+      {!gameStarted ? (
+        /* Game Intro */
         <div className="border-b border-gray-300 p-8 text-center">
           <h1 className="text-4xl font-bold mono mb-6 uppercase">
             PATTERN MEMORY
@@ -114,80 +114,74 @@ export default function PatternMemoryGame() {
             START MEMORY TEST
           </button>
         </div>
-      </main>
-    )
-  }
-
-  return (
-    <main className="min-h-screen bg-white">
-      {/* Game Spreadsheet Grid */}
-
-        {/* Row 1: Level/Score and Game Phase */}
-        <div className="flex border-b border-gray-300">
-          <div className="flex-1 border-r border-gray-300 p-6 text-center">
-            <div className="text-2xl font-bold mono">
-              LEVEL {level} • SCORE: {score}
+      ) : (
+        /* Game Spreadsheet Grid */
+        <>
+          {/* Row 1: Level/Score and Game Phase */}
+          <div className="flex border-b border-gray-300">
+            <div className="flex-1 border-r border-gray-300 p-6 text-center">
+              <div className="text-2xl font-bold mono">
+                LEVEL {level} • SCORE: {score}
+              </div>
+            </div>
+            <div className="flex-1 p-6 text-center">
+              <div className="text-lg font-bold mono uppercase">
+                {gamePhase === 'waiting' && 'GET READY...'}
+                {gamePhase === 'showing' && 'WATCH THE PATTERN'}
+                {gamePhase === 'input' && 'REPEAT THE PATTERN'}
+                {gamePhase === 'result' && (isCorrect ? 'CORRECT! NEXT LEVEL...' : 'WRONG PATTERN. TRY AGAIN...')}
+              </div>
             </div>
           </div>
-          <div className="flex-1 p-6 text-center">
-            <div className="text-lg font-bold mono uppercase">
-              {gamePhase === 'waiting' && 'GET READY...'}
-              {gamePhase === 'showing' && 'WATCH THE PATTERN'}
-              {gamePhase === 'input' && 'REPEAT THE PATTERN'}
-              {gamePhase === 'result' && (isCorrect ? 'CORRECT! NEXT LEVEL...' : 'WRONG PATTERN. TRY AGAIN...')}
-            </div>
-          </div>
-        </div>
 
-        {/* Row 2: Pattern Display */}
-        <div className="border-b border-gray-300 p-8">
-          <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
-            {COLORS.map((color, index) => (
-              <button
-                key={index}
-                onClick={() => handleColorClick(index)}
-                disabled={gamePhase !== 'input'}
-                className={`w-24 h-24 border-2 border-black transition-all duration-200 ${color} ${
-                  showingPattern && currentStep < pattern.length && pattern[currentStep] === index
-                    ? 'scale-110 shadow-lg'
-                    : showingPattern
-                    ? 'opacity-50'
-                    : gamePhase === 'input'
-                    ? 'hover:scale-105 cursor-pointer'
-                    : 'opacity-75'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Row 3: User Progress */}
-        {gamePhase === 'input' && (
-          <div className="border-b border-gray-300 p-6 text-center">
-            <div className="text-lg font-bold mono mb-4 uppercase">
-              YOUR PATTERN ({userPattern.length}/{pattern.length})
-            </div>
-            <div className="flex justify-center space-x-2">
-              {userPattern.map((colorIndex, index) => (
-                <div
+          {/* Row 2: Pattern Display */}
+          <div className="border-b border-gray-300 p-8">
+            <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
+              {COLORS.map((color, index) => (
+                <button
                   key={index}
-                  className={`w-8 h-8 border-2 border-black ${COLORS[colorIndex]}`}
-                />
-              ))}
-              {/* Show remaining slots */}
-              {Array.from({ length: pattern.length - userPattern.length }).map((_, index) => (
-                <div
-                  key={`empty-${index}`}
-                  className="w-8 h-8 border-2 border-gray-300 bg-gray-100"
+                  onClick={() => handleColorClick(index)}
+                  disabled={gamePhase !== 'input'}
+                  className={`w-24 h-24 border-2 border-black transition-all duration-200 ${color} ${
+                    showingPattern && currentStep < pattern.length && pattern[currentStep] === index
+                      ? 'scale-110 shadow-lg'
+                      : showingPattern
+                      ? 'opacity-50'
+                      : gamePhase === 'input'
+                      ? 'hover:scale-105 cursor-pointer'
+                      : 'opacity-75'
+                  }`}
                 />
               ))}
             </div>
           </div>
-        )}
 
-        {/* Row 4: Result */}
-        {gamePhase === 'result' && (
-          <>
+          {/* Row 3: User Progress */}
+          {gamePhase === 'input' && (
+            <div className="border-b border-gray-300 p-6 text-center">
+              <div className="text-lg font-bold mono mb-4 uppercase">
+                YOUR PATTERN ({userPattern.length}/{pattern.length})
+              </div>
+              <div className="flex justify-center space-x-2">
+                {userPattern.map((colorIndex, index) => (
+                  <div
+                    key={index}
+                    className={`w-8 h-8 border-2 border-black ${COLORS[colorIndex]}`}
+                  />
+                ))}
+                {/* Show remaining slots */}
+                {Array.from({ length: pattern.length - userPattern.length }).map((_, index) => (
+                  <div
+                    key={`empty-${index}`}
+                    className="w-8 h-8 border-2 border-gray-300 bg-gray-100"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Row 4: Result */}
+          {gamePhase === 'result' && (
             <div className="border-b border-gray-300 p-6 text-center min-h-[140px] flex items-center justify-center">
               <div className={`text-3xl font-bold mono uppercase mb-4 ${
                 isCorrect ? 'text-green-600' : 'text-red-600'
@@ -208,20 +202,19 @@ export default function PatternMemoryGame() {
                 </div>
               )}
             </div>
-          </>
-        )}
+          )}
 
-        {/* Row 5: New Game Button */}
-        <div className="p-6 text-center">
-          <button
-            onClick={startNewGame}
-            className="brutalist-button text-lg"
-          >
-            NEW GAME
-          </button>
-        </div>
-
-      </div>
+          {/* Row 5: New Game Button */}
+          <div className="p-6 text-center">
+            <button
+              onClick={startNewGame}
+              className="brutalist-button text-lg"
+            >
+              NEW GAME
+            </button>
+          </div>
+        </>
+      )}
     </main>
   )
 }
