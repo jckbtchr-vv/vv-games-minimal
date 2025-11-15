@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'VV Games - Ultra-Minimal Typing Game',
-  description: 'Type great works of literature one word at a time. Pure focus, zero distractions.',
-  keywords: ['typing-game', 'literature', 'minimal', 'focus', 'clean-ui'],
+  title: 'Infinite Games - Minimal Games for Focus & Learning',
+  description: 'Infinite collection of minimal games. Literature typing, math grids, and more. Pure focus, zero distractions.',
+  keywords: ['games', 'minimal', 'focus', 'learning', 'math', 'typing', 'literature'],
 }
 
 export default function RootLayout({
@@ -20,15 +20,18 @@ export default function RootLayout({
             <div className="flex items-center justify-between h-16">
               <a href="/" className="flex items-center">
                 <span className="text-2xl font-bold mono uppercase tracking-wider">
-                  VV GAMES
+                  INFINITE GAMES
                 </span>
               </a>
               <div className="flex items-center space-x-4">
                 <a href="/" className="px-4 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100">
-                  Home
+                  Games
                 </a>
                 <a href="/typing" className="px-4 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100">
-                  Play
+                  Typing
+                </a>
+                <a href="/math" className="px-4 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100">
+                  Math
                 </a>
               </div>
             </div>

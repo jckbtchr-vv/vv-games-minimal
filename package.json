@@ -1,17 +1,20 @@
 {
-  "name": "vv-games-minimal",
+  "name": "infinite-games",
   "version": "1.0.0",
-  "description": "Ultra-minimal typing game featuring great works of literature. One word at a time, pure focus.",
+  "description": "Infinite collection of minimal games for focus and learning. Literature typing, math grids, and more.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "keywords": [
-    "typing-game",
-    "literature",
+    "games",
     "minimal",
-    "focus"
+    "focus",
+    "learning",
+    "math",
+    "typing",
+    "literature"
   ],
   "author": "Jack Butcher",
   "license": "MIT",

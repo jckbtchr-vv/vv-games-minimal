@@ -1,9 +1,22 @@
-# VV Games - Minimal
+# Infinite Games
 
-**Ultra-minimal typing game featuring great works of literature.**  
-One word at a time. Pure focus. Zero dependencies.
+**An infinite collection of minimal games for focus and learning.**  
+Pure gameplay. Zero distractions. Infinite possibilities.
 
-## 🎮 Play
+## 🎮 Games
+
+### 📚 Literature Typing
+- Type great works one word at a time
+- Authors: Dickens, Melville, Tolkien, Austen, Shakespeare, Thoreau, Tolstoy
+- Instant visual feedback and WPM tracking
+
+### 🔢 Math Grid
+- Practice times tables with visual grids
+- Random grid sizes from 2×2 to 12×12
+- Multiple choice answers for passive learning
+- Score tracking and accuracy percentage
+
+## 🚀 Play
 
 **Local Development**:
 ```bash
@@ -14,11 +27,11 @@ npm run dev
 
 ## ✨ Features
 
-- **One massive word** displayed at a time
-- **Great literature** - Dickens, Melville, Tolkien, Austen, Shakespeare, Thoreau, Tolstoy
-- **Instant feedback** - Green/red visual cues for accuracy
-- **Zero distractions** - Clean, minimal interface
+- **Minimal design** - Zero distractions, pure focus
+- **Educational** - Improve typing, math, and cognitive skills
+- **Infinite variety** - Random content keeps games fresh
 - **No external dependencies** - Just React, Next.js, and Tailwind
+- **Mobile responsive** - Perfect on any device
 
 ## 🚀 Deploy
 
