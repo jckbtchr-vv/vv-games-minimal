@@ -109,10 +109,10 @@ export default function MathGridGame() {
 
   const accuracy = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
 
-  if (!gameStarted) {
-    return (
-      <main className="min-h-screen bg-white">
-        {/* Game Intro */}
+  return (
+    <main className="min-h-screen bg-white">
+      {!gameStarted ? (
+        /* Game Intro */
         <div className="border-b border-gray-300 p-8 text-center">
           <h1 className="text-4xl font-bold mono mb-6 uppercase">
             MATH GRID
@@ -130,103 +130,98 @@ export default function MathGridGame() {
             START PLAYING
           </button>
         </div>
-      </main>
-    )
-  }
-
-  return (
-    <main className="min-h-screen bg-white">
-      {/* Game Spreadsheet Grid */}
-
-        {/* Row 1: Score and Grid Size */}
-        <div className="flex border-b border-gray-300">
-          <div className="flex-1 border-r border-gray-300 p-6 text-center">
-            <div className="text-2xl font-bold mono">
-              {score}/{totalQuestions} ({accuracy}%)
-            </div>
-          </div>
-          <div className="flex-1 p-6 text-center">
-            <div className="text-xl font-bold mono uppercase">
-              GRID SIZE<br/>
-              UP TO {gridSize}×{gridSize}
-            </div>
-          </div>
-        </div>
-
-        {/* Row 2: Question */}
-        <div className="border-b border-gray-300 p-6 text-center">
-          <div className="text-4xl md:text-6xl font-bold mono">
-            {question}
-          </div>
-        </div>
-
-        {/* Row 3: Visual Grid */}
-        <div className="border-b border-gray-300 p-8 text-center">
-          <div className="flex items-center justify-center min-h-[160px]">
-            {renderGrid()}
-          </div>
-        </div>
-
-        {/* Row 4: Instructions */}
-        <div className="border-b border-gray-300 p-6 text-center">
-          <div className="text-lg md:text-xl text-gray-600 uppercase">
-            HOW MANY CELLS ARE IN THIS GRID?
-          </div>
-        </div>
-
-        {/* Row 5: Multiple Choice Options (2x2 grid) */}
-        <div className="flex border-b border-gray-300">
-          {options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswerSelect(option)}
-              disabled={showResult}
-              className={`flex-1 border-r border-gray-300 p-4 md:p-6 text-xl md:text-2xl font-bold mono transition-colors ${
-                index < 3 ? 'border-r border-gray-300' : ''
-              } ${
-                showResult && option === correctAnswer
-                  ? 'bg-green-500 text-white'
-                  : showResult && option === selectedAnswer && option !== correctAnswer
-                  ? 'bg-red-500 text-white'
-                  : showResult
-                  ? 'bg-gray-200 text-gray-500'
-                  : 'bg-white hover:bg-gray-100'
-              }`}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-
-        {/* Row 6: Result Feedback */}
-        <div className="border-b border-gray-300 p-6 text-center min-h-[100px] flex items-center justify-center">
-          {showResult && (
-            <>
-              <div className={`text-2xl font-bold mono uppercase ${
-                isCorrect ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
+      ) : (
+        /* Game Spreadsheet Grid */
+        <>
+          {/* Row 1: Score and Grid Size */}
+          <div className="flex border-b border-gray-300">
+            <div className="flex-1 border-r border-gray-300 p-6 text-center">
+              <div className="text-2xl font-bold mono">
+                {score}/{totalQuestions} ({accuracy}%)
               </div>
-              {!isCorrect && (
-                <div className="text-lg text-gray-600 mt-2 uppercase">
-                  The answer was {correctAnswer}
+            </div>
+            <div className="flex-1 p-6 text-center">
+              <div className="text-xl font-bold mono uppercase">
+                GRID SIZE<br/>
+                UP TO {gridSize}×{gridSize}
+              </div>
+            </div>
+          </div>
+
+          {/* Row 2: Question */}
+          <div className="border-b border-gray-300 p-6 text-center">
+            <div className="text-4xl md:text-6xl font-bold mono">
+              {question}
+            </div>
+          </div>
+
+          {/* Row 3: Visual Grid */}
+          <div className="border-b border-gray-300 p-8 text-center">
+            <div className="flex items-center justify-center min-h-[160px]">
+              {renderGrid()}
+            </div>
+          </div>
+
+          {/* Row 4: Instructions */}
+          <div className="border-b border-gray-300 p-6 text-center">
+            <div className="text-lg md:text-xl text-gray-600 uppercase">
+              HOW MANY CELLS ARE IN THIS GRID?
+            </div>
+          </div>
+
+          {/* Row 5: Multiple Choice Options (2x2 grid) */}
+          <div className="flex border-b border-gray-300">
+            {options.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => handleAnswerSelect(option)}
+                disabled={showResult}
+                className={`flex-1 border-r border-gray-300 p-4 md:p-6 text-xl md:text-2xl font-bold mono transition-colors ${
+                  index < 3 ? 'border-r border-gray-300' : ''
+                } ${
+                  showResult && option === correctAnswer
+                    ? 'bg-green-500 text-white'
+                    : showResult && option === selectedAnswer && option !== correctAnswer
+                    ? 'bg-red-500 text-white'
+                    : showResult
+                    ? 'bg-gray-200 text-gray-500'
+                    : 'bg-white hover:bg-gray-100'
+                }`}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+
+          {/* Row 6: Result Feedback */}
+          <div className="border-b border-gray-300 p-6 text-center min-h-[100px] flex items-center justify-center">
+            {showResult && (
+              <>
+                <div className={`text-2xl font-bold mono uppercase ${
+                  isCorrect ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
                 </div>
-              )}
-            </>
-          )}
-        </div>
+                {!isCorrect && (
+                  <div className="text-lg text-gray-600 mt-2 uppercase">
+                    The answer was {correctAnswer}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
 
-        {/* Row 7: New Game Button */}
-        <div className="p-6 text-center">
-          <button
-            onClick={startNewGame}
-            className="brutalist-button text-lg"
-          >
-            NEW GAME
-          </button>
-        </div>
-
-      </div>
+          {/* Row 7: New Game Button */}
+          <div className="p-6 text-center">
+            <button
+              onClick={startNewGame}
+              className="brutalist-button text-lg"
+            >
+              NEW GAME
+            </button>
+          </div>
+        </>
+      )}
     </main>
   )
 }
