@@ -15,14 +15,20 @@ export default function MathGridGame() {
   const [gameStarted, setGameStarted] = useState(false)
 
   // Generate random grid size between 2x2 and 12x12
+  const resetSelection = () => {
+    setSelectedAnswer(null)
+    setIsCorrect(null)
+    setShowResult(false)
+  }
+
   const generateNewQuestion = () => {
     const size = Math.floor(Math.random() * 11) + 2 // 2-12
     const rows = Math.floor(Math.random() * size) + 1 // 1 to size
     const cols = Math.floor(Math.random() * size) + 1 // 1 to size
-    
+
     const answer = rows * cols
     const questionText = `${rows} × ${cols}`
-    
+
     // Generate wrong options
     const wrongOptions: number[] = []
     while (wrongOptions.length < 3) {
@@ -34,22 +40,20 @@ export default function MathGridGame() {
         // Random wrong answers
         wrongAnswer = Math.floor(Math.random() * (size * size)) + 1
       }
-      
+
       if (wrongAnswer !== answer && wrongAnswer > 0 && !wrongOptions.includes(wrongAnswer)) {
         wrongOptions.push(wrongAnswer)
       }
     }
-    
+
     // Shuffle options
     const allOptions = [answer, ...wrongOptions].sort(() => Math.random() - 0.5)
-    
+
     setGridSize(size)
     setQuestion(questionText)
     setCorrectAnswer(answer)
     setOptions(allOptions)
-    setSelectedAnswer(null)
-    setIsCorrect(null)
-    setShowResult(false)
+    resetSelection()
   }
 
   // Start new game
