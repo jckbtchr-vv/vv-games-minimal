@@ -94,7 +94,7 @@ export default function DotCounterGame() {
   const accuracy = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className={`${gameStarted ? 'min-h-screen' : ''} bg-white`}>
       {!gameStarted ? (
         /* Game Intro */
         <div className="border-b border-gray-300 p-8 text-center">

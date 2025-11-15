@@ -130,7 +130,7 @@ export default function ColorStroopGame() {
   const timeProgress = timeLimit > 0 ? (timeLeft / timeLimit) * 100 : 0
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className={`${gameStarted ? 'min-h-screen' : ''} bg-white`}>
       {!gameStarted ? (
         /* Game Intro */
         <div className="border-b border-gray-300 p-8 text-center">

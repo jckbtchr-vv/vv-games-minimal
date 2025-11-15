@@ -100,7 +100,7 @@ export default function TypingGame() {
   const getCurrentWord = () => words[currentWordIndex] || ''
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="bg-white">
       {/* Game Spreadsheet Grid */}
       <>
         {/* Row 1: Progress */}

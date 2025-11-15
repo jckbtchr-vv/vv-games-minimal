@@ -156,7 +156,7 @@ export default function LemonadeGame() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="bg-white">
       {gameWon ? (
         /* Game Win Screen */
         <div className="border-b border-gray-300 p-8 text-center">
