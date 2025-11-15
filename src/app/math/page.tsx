@@ -110,10 +110,10 @@ export default function MathGridGame() {
   const accuracy = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
 
   return (
-    <main className={`${gameStarted ? 'min-h-screen' : ''} bg-white`}>
+    <main className={`${gameStarted ? 'min-h-screen' : 'min-h-screen flex items-center justify-center'} bg-white`}>
       {!gameStarted ? (
         /* Game Intro */
-        <div className="border-b border-gray-300 p-8 text-center">
+        <div className="max-w-2xl w-full border-b border-gray-300 p-8 text-center">
           <h1 className="text-4xl font-bold mono mb-6 uppercase">
             MATH GRID
           </h1>
