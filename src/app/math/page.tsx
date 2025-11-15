@@ -111,25 +111,24 @@ export default function MathGridGame() {
 
   if (!gameStarted) {
     return (
-      <main className="game-container">
-        <div className="game-content">
-          <div className="game-section text-center">
-            <h1 className="game-title">
-              MATH GRID
-            </h1>
-            <p className="text-xl mb-6">
-              Practice times tables with visual grids. See the grid, calculate the total, choose the right answer.
-            </p>
-            <p className="game-subtitle">
-              Random grid sizes from 2×2 to 12×12. Perfect for improving mental math skills passively.
-            </p>
-            <button
-              onClick={startNewGame}
-              className="game-button"
-            >
-              Start Playing
-            </button>
-          </div>
+      <main className="min-h-screen bg-white">
+        {/* Game Intro */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          <h1 className="text-4xl font-bold mono mb-6 uppercase">
+            MATH GRID
+          </h1>
+          <p className="text-xl mb-6">
+            Practice times tables with visual grids. See the grid, calculate the total, choose the right answer.
+          </p>
+          <p className="text-lg text-gray-600 mb-8 uppercase">
+            Random grid sizes from 2×2 to 12×12. Perfect for improving mental math skills passively.
+          </p>
+          <button
+            onClick={startNewGame}
+            className="brutalist-button text-lg"
+          >
+            START PLAYING
+          </button>
         </div>
       </main>
     )

@@ -131,25 +131,26 @@ export default function ColorStroopGame() {
 
   if (!gameStarted) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-white p-4">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-6xl md:text-8xl font-bold mono uppercase mb-6">
+      <main className="min-h-screen bg-white">
+        {/* Game Intro */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          <h1 className="text-4xl font-bold mono mb-6 uppercase">
             COLOR STROOP
           </h1>
-          <p className="text-xl mb-8">
-            Read the COLOR of the word, not the word itself. 
-            For example, if you see <span className="text-red-500 font-bold">BLUE</span>, 
+          <p className="text-xl mb-6">
+            Read the COLOR of the word, not the word itself.
+            For example, if you see <span className="text-red-500 font-bold">BLUE</span>,
             the answer is RED. The answer buttons are also colored to add extra challenge!
           </p>
-          <p className="text-lg text-gray-600 mb-12">
-            This classic cognitive test improves focus, attention, and mental flexibility. 
+          <p className="text-lg text-gray-600 mb-8 uppercase">
+            This classic cognitive test improves focus, attention, and mental flexibility.
             Gets faster as you improve!
           </p>
           <button
             onClick={startNewGame}
             className="brutalist-button text-lg"
           >
-            Start Test
+            START TEST
           </button>
         </div>
       </main>

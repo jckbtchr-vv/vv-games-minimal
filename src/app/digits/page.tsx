@@ -103,23 +103,24 @@ export default function DigitSpanGame() {
 
   if (!gameStarted) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-white p-4">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-6xl md:text-8xl font-bold mono uppercase mb-6">
+      <main className="min-h-screen bg-white">
+        {/* Game Intro */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          <h1 className="text-4xl font-bold mono mb-6 uppercase">
             DIGIT SPAN
           </h1>
-          <p className="text-xl mb-8">
+          <p className="text-xl mb-6">
             Watch a sequence of digits appear one by one, then type them back in the same order.
           </p>
-          <p className="text-lg text-gray-600 mb-12">
-            Tests working memory and attention span. Starts with 3 digits, 
+          <p className="text-lg text-gray-600 mb-8 uppercase">
+            Tests working memory and attention span. Starts with 3 digits,
             increases as you succeed. This is a classic cognitive assessment!
           </p>
           <button
             onClick={startNewGame}
             className="brutalist-button text-lg"
           >
-            Start Memory Test
+            START MEMORY TEST
           </button>
         </div>
       </main>

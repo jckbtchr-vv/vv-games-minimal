@@ -95,23 +95,24 @@ export default function DotCounterGame() {
 
   if (!gameStarted) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-white p-4">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-6xl md:text-8xl font-bold mono uppercase mb-6">
+      <main className="min-h-screen bg-white">
+        {/* Game Intro */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          <h1 className="text-4xl font-bold mono mb-6 uppercase">
             DOT COUNTER
           </h1>
-          <p className="text-xl mb-8">
+          <p className="text-xl mb-6">
             Dots will flash briefly on screen. Count them quickly and enter your answer.
           </p>
-          <p className="text-lg text-gray-600 mb-12">
-            Improves visual processing, attention, and quick counting skills. 
+          <p className="text-lg text-gray-600 mb-8 uppercase">
+            Improves visual processing, attention, and quick counting skills.
             Gets faster as you improve!
           </p>
           <button
             onClick={startNewGame}
             className="brutalist-button text-lg"
           >
-            Start Counting
+            START COUNTING
           </button>
         </div>
       </main>

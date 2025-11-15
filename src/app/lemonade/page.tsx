@@ -157,15 +157,16 @@ export default function LemonadeGame() {
 
   if (gameWon) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-white p-4">
-        <div className="text-center space-y-8">
-          <div className="text-6xl font-bold mono">
+      <main className="min-h-screen bg-white">
+        {/* Game Win Screen */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          <div className="text-6xl font-bold mono mb-6">
             🍋 SUCCESS! 🍋
           </div>
-          <div className="text-3xl font-bold">
+          <div className="text-3xl font-bold mb-6">
             ${cash.toFixed(2)} CASH
           </div>
-          <div className="text-xl text-gray-600">
+          <div className="text-xl text-gray-600 mb-8">
             You built a successful lemonade business in {currentDay} days!
           </div>
           <button

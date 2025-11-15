@@ -134,23 +134,24 @@ export default function FractionVisualizerGame() {
 
   if (!gameStarted) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-white p-4">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-6xl md:text-8xl font-bold mono uppercase mb-6">
+      <main className="min-h-screen bg-white">
+        {/* Game Intro */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          <h1 className="text-4xl font-bold mono mb-6 uppercase">
             FRACTION VISUALIZER
           </h1>
-          <p className="text-xl mb-8">
-            Look at the pie chart and identify what fraction is shaded. 
+          <p className="text-xl mb-6">
+            Look at the pie chart and identify what fraction is shaded.
             Blue sections represent the numerator.
           </p>
-          <p className="text-lg text-gray-600 mb-12">
+          <p className="text-lg text-gray-600 mb-8 uppercase">
             Improves fraction understanding, visual-spatial skills, and mathematical reasoning.
           </p>
           <button
             onClick={startNewGame}
             className="brutalist-button text-lg"
           >
-            Start Visualizing
+            START VISUALIZING
           </button>
         </div>
       </main>
