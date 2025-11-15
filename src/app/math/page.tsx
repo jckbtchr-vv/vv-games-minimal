@@ -24,7 +24,7 @@ export default function MathGridGame() {
     const questionText = `${rows} × ${cols}`
     
     // Generate wrong options
-    const wrongOptions = []
+    const wrongOptions: number[] = []
     while (wrongOptions.length < 3) {
       let wrongAnswer
       if (Math.random() < 0.5) {
