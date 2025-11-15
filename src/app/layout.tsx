@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-white">
-        <nav className="bg-white border-b-3 border-black sticky top-0 z-50">
+          <nav className="bg-white border-b border-black sticky top-0 z-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="flex items-center justify-between h-16">
               <a href="/" className="flex items-center">

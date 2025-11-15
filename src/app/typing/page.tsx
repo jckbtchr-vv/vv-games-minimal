@@ -100,50 +100,56 @@ export default function TypingGame() {
   const getCurrentWord = () => words[currentWordIndex] || ''
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-2xl">
+    <main className="game-container">
+      <div className="game-content">
         {!gameCompleted ? (
-          <div className="text-center space-y-12">
-            {/* Current Word - Ultra Large */}
-            <div className="flex items-center justify-center min-h-[200px] md:min-h-[250px] px-4">
-              <div className="text-6xl md:text-7xl font-bold mono break-all leading-tight text-center max-w-full">
-                {getCurrentWord()}
+          <>
+            {/* Current Word Section */}
+            <div className="game-section-alt text-center">
+              <div className="flex items-center justify-center min-h-[200px] md:min-h-[250px] px-4">
+                <div className="text-6xl md:text-7xl font-bold mono break-all leading-tight text-center max-w-full">
+                  {getCurrentWord()}
+                </div>
               </div>
             </div>
 
-            {/* Input - Minimal */}
-            <input
-              ref={inputRef}
-              type="text"
-              value={userInput}
-              onChange={handleInputChange}
-              className={`w-full text-4xl text-center p-6 border-0 border-b-4 bg-transparent font-mono ${
-                isCorrect === null 
-                  ? 'border-gray-300' 
-                  : isCorrect 
-                  ? 'border-green-500' 
-                  : 'border-red-500'
-              } focus:outline-none focus:border-black`}
-              placeholder="type here"
-              autoComplete="off"
-              spellCheck="false"
-              autoFocus
-            />
-
-            {/* Minimal Progress */}
-            <div className="text-xl text-gray-400 mono">
-              {currentWordIndex + 1} / {words.length}
+            {/* Input Section */}
+            <div className="game-section text-center">
+              <input
+                ref={inputRef}
+                type="text"
+                value={userInput}
+                onChange={handleInputChange}
+                className={`w-full text-4xl text-center p-6 border-0 border-b-4 bg-transparent font-mono ${
+                  isCorrect === null 
+                    ? 'border-gray-300' 
+                    : isCorrect 
+                    ? 'border-green-500' 
+                    : 'border-red-500'
+                } focus:outline-none focus:border-black`}
+                placeholder="type here"
+                autoComplete="off"
+                spellCheck="false"
+                autoFocus
+              />
             </div>
-          </div>
+
+            {/* Progress Section */}
+            <div className="game-section text-center">
+              <div className="text-xl text-gray-400 mono">
+                {currentWordIndex + 1} / {words.length}
+              </div>
+            </div>
+          </>
         ) : (
-          /* Game Complete - Minimal */
-          <div className="text-center space-y-8">
-            <div className="text-6xl font-bold mono">
+          /* Game Complete */
+          <div className="game-section text-center">
+            <div className="text-6xl font-bold mono mb-8">
               {calculateWPM()} WPM
             </div>
             <button
               onClick={startNewGame}
-              className="text-2xl mono hover:underline"
+              className="game-button"
             >
               again
             </button>

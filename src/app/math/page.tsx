@@ -111,79 +111,83 @@ export default function MathGridGame() {
 
   if (!gameStarted) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-white p-4">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-6xl md:text-8xl font-bold mono uppercase mb-6">
-            MATH GRID
-          </h1>
-          <p className="text-xl mb-8">
-            Practice times tables with visual grids. See the grid, calculate the total, choose the right answer.
-          </p>
-          <p className="text-lg text-gray-600 mb-12">
-            Random grid sizes from 2×2 to 12×12. Perfect for improving mental math skills passively.
-          </p>
-          <button
-            onClick={startNewGame}
-            className="brutalist-button text-lg"
-          >
-            Start Playing
-          </button>
+      <main className="game-container">
+        <div className="game-content">
+          <div className="game-section text-center">
+            <h1 className="game-title">
+              MATH GRID
+            </h1>
+            <p className="text-xl mb-6">
+              Practice times tables with visual grids. See the grid, calculate the total, choose the right answer.
+            </p>
+            <p className="game-subtitle">
+              Random grid sizes from 2×2 to 12×12. Perfect for improving mental math skills passively.
+            </p>
+            <button
+              onClick={startNewGame}
+              className="game-button"
+            >
+              Start Playing
+            </button>
+          </div>
         </div>
       </main>
     )
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-4xl">
+    <main className="game-container">
+      <div className="game-content">
         {/* Score */}
-        <div className="text-center mb-8">
-          <div className="text-2xl font-bold mono">
+        <div className="game-section text-center">
+          <div className="game-score">
             {score} / {totalQuestions} ({accuracy}%)
           </div>
         </div>
 
         {/* Question and Grid */}
-        <div className="text-center mb-6">
+        <div className="game-section-alt text-center">
           <div className="text-4xl md:text-6xl font-bold mono mb-6 min-h-[60px] flex items-center justify-center">
             {question}
           </div>
           
           {/* Visual Grid */}
-          <div className="mb-6 min-h-[120px] md:min-h-[160px] flex items-center justify-center">
+          <div className="centered-content mb-6">
             {renderGrid()}
           </div>
           
-          <div className="text-lg md:text-xl text-gray-600 mb-6">
+          <div className="game-subtitle">
             How many cells are in this grid?
           </div>
         </div>
 
         {/* Multiple Choice Options */}
-        <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto">
-          {options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswerSelect(option)}
-              disabled={showResult}
-              className={`p-4 md:p-6 text-xl md:text-2xl font-bold mono border-3 border-black transition-colors ${
-                showResult && option === correctAnswer
-                  ? 'bg-green-500 text-white'
-                  : showResult && option === selectedAnswer && option !== correctAnswer
-                  ? 'bg-red-500 text-white'
-                  : showResult
-                  ? 'bg-gray-200 text-gray-500'
-                  : 'bg-white hover:bg-gray-100'
-              }`}
-            >
-              {option}
-            </button>
-          ))}
+        <div className="game-section">
+          <div className="game-grid grid-cols-2">
+            {options.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => handleAnswerSelect(option)}
+                disabled={showResult}
+                className={`p-4 md:p-6 text-xl md:text-2xl font-bold mono border-3 border-black transition-colors ${
+                  showResult && option === correctAnswer
+                    ? 'bg-green-500 text-white'
+                    : showResult && option === selectedAnswer && option !== correctAnswer
+                    ? 'bg-red-500 text-white'
+                    : showResult
+                    ? 'bg-gray-200 text-gray-500'
+                    : 'bg-white hover:bg-gray-100'
+                }`}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Result Feedback */}
         {showResult && (
-          <div className="text-center mt-8">
+          <div className="game-section text-center">
             <div className={`text-2xl font-bold mono ${
               isCorrect ? 'text-green-600' : 'text-red-600'
             }`}>
@@ -198,10 +202,10 @@ export default function MathGridGame() {
         )}
 
         {/* New Game Button */}
-        <div className="text-center mt-12">
+        <div className="game-section text-center">
           <button
             onClick={startNewGame}
-            className="border-3 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="game-button"
           >
             New Game
           </button>
