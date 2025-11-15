@@ -138,8 +138,8 @@ export default function DigitSpanGame() {
           </div>
         </div>
 
-        {/* Digit Display */}
-        <div className="text-center mb-12">
+        {/* Digit Display - Fixed Height */}
+        <div className="text-center mb-12 min-h-[200px] flex items-center justify-center">
           {showingSequence && currentDigit !== null && (
             <div className="text-9xl font-bold mono text-blue-600 animate-pulse">
               {currentDigit}
@@ -147,7 +147,7 @@ export default function DigitSpanGame() {
           )}
           
           {gamePhase === 'input' && (
-            <div className="text-6xl font-bold mono text-gray-400 mb-8">
+            <div className="text-6xl font-bold mono text-gray-400">
               ? ? ?
             </div>
           )}
@@ -159,30 +159,32 @@ export default function DigitSpanGame() {
           )}
         </div>
 
-        {/* Input Form */}
-        {gamePhase === 'input' && (
-          <form onSubmit={handleSubmit} className="text-center mb-8">
-            <input
-              type="text"
-              value={userInput}
-              onChange={handleInputChange}
-              className="text-4xl text-center p-4 border-2 border-black font-mono w-64 mr-4"
-              placeholder="Enter digits..."
-              autoFocus
-              maxLength={sequence.length}
-            />
-            <button
-              type="submit"
-              className="brutalist-button text-lg"
-              disabled={userInput.length !== sequence.length}
-            >
-              Submit
-            </button>
-            <div className="text-sm text-gray-600 mt-2">
-              Enter {sequence.length} digits ({userInput.length}/{sequence.length})
-            </div>
-          </form>
-        )}
+        {/* Input Form - Fixed Height */}
+        <div className="text-center mb-8 min-h-[120px] flex items-center justify-center">
+          {gamePhase === 'input' && (
+            <form onSubmit={handleSubmit} className="text-center">
+              <input
+                type="text"
+                value={userInput}
+                onChange={handleInputChange}
+                className="text-4xl text-center p-4 border-2 border-black font-mono w-64 mr-4"
+                placeholder="Enter digits..."
+                autoFocus
+                maxLength={sequence.length}
+              />
+              <button
+                type="submit"
+                className="brutalist-button text-lg"
+                disabled={userInput.length !== sequence.length}
+              >
+                Submit
+              </button>
+              <div className="text-sm text-gray-600 mt-2">
+                Enter {sequence.length} digits ({userInput.length}/{sequence.length})
+              </div>
+            </form>
+          )}
+        </div>
 
         {/* Result - Fixed Height */}
         <div className="text-center mb-8 min-h-[140px] flex flex-col justify-center">
@@ -206,19 +208,23 @@ export default function DigitSpanGame() {
           )}
         </div>
 
-        {/* Progress Indicator */}
-        <div className="text-center mb-8">
-          <div className="text-sm text-gray-600 mb-2">Sequence Progress</div>
-          <div className="flex justify-center space-x-1">
-            {Array.from({ length: sequence.length }).map((_, index) => (
-              <div
-                key={index}
-                className={`w-4 h-4 border-2 border-black ${
-                  index < userInput.length ? 'bg-blue-500' : 'bg-gray-200'
-                }`}
-              />
-            ))}
-          </div>
+        {/* Progress Indicator - Fixed Height */}
+        <div className="text-center mb-8 min-h-[60px] flex flex-col justify-center">
+          {gamePhase === 'input' && sequence.length > 0 && (
+            <>
+              <div className="text-sm text-gray-600 mb-2">Sequence Progress</div>
+              <div className="flex justify-center space-x-1">
+                {Array.from({ length: sequence.length }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-4 h-4 border-2 border-black ${
+                      index < userInput.length ? 'bg-blue-500' : 'bg-gray-200'
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         {/* New Game Button */}
