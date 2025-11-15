@@ -220,7 +220,7 @@ export default function TraceGame() {
   }
 
   return (
-    <main className={`${gameStarted ? 'h-screen' : ''} bg-white`}>
+    <main className={`${gameStarted ? 'h-[calc(100vh-4rem)]' : ''} bg-white`}>
       {/* Game Spreadsheet Grid */}
       <>
         {/* Row 1: Progress and Score */}

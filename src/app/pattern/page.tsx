@@ -93,7 +93,7 @@ export default function PatternMemoryGame() {
   }
 
   return (
-    <main className={`${gameStarted ? 'h-screen' : 'flex items-center justify-center'} bg-white`}>
+    <main className={`${gameStarted ? 'h-[calc(100vh-4rem)]' : 'flex items-center justify-center'} bg-white`}>
       {!gameStarted ? (
         /* Game Intro */
         <div className="max-w-2xl w-full p-8 text-center">
