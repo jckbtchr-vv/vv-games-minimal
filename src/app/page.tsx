@@ -106,7 +106,6 @@ export default function HomePage() {
               {/* Empty space */}
             </div>
           </div>
-                      </div>
         </div>
       </section>
     </main>
