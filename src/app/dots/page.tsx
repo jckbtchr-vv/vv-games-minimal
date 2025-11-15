@@ -119,20 +119,20 @@ export default function DotCounterGame() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-4xl">
+    <main className="game-spreadsheet">
+      <div className="game-cell space-y-6">
         {/* Score */}
-        <div className="text-center mb-6">
-          <div className="text-2xl font-bold mono">
+        <div className="text-center">
+          <div className="text-2xl font-bold mono mb-2">
             {score} / {totalQuestions} ({accuracy}%)
           </div>
-          <div className="text-sm text-gray-600 mt-2">
+          <div className="text-sm text-gray-600">
             Flash speed: {flashDuration}ms
           </div>
         </div>
 
         {/* Dot Display Area */}
-        <div className="relative w-full h-64 md:h-80 border-2 border-black bg-gray-50 mb-6">
+        <div className="relative w-full h-64 md:h-80 border-2 border-black bg-gray-50 mx-auto max-w-lg">
           {showDots && dots.map(dot => (
             <div
               key={dot.id}
@@ -144,7 +144,7 @@ export default function DotCounterGame() {
               }}
             />
           ))}
-          
+
           {!showDots && !showResult && (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-2xl font-bold mono text-gray-400">
@@ -154,7 +154,7 @@ export default function DotCounterGame() {
           )}
         </div>
 
-        {/* Input/Result Area - Responsive Height */}
+        {/* Input/Result Area */}
         <div className="min-h-[120px] md:min-h-[140px] flex items-center justify-center">
           {/* Input Form */}
           {!showDots && !showResult && (
@@ -203,10 +203,10 @@ export default function DotCounterGame() {
         </div>
 
         {/* New Game Button */}
-        <div className="text-center mt-12">
+        <div className="text-center">
           <button
             onClick={startNewGame}
-            className="border-2 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="brutalist-button text-lg"
           >
             New Game
           </button>

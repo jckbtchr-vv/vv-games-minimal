@@ -100,12 +100,12 @@ export default function TypingGame() {
   const getCurrentWord = () => words[currentWordIndex] || ''
 
   return (
-    <main className="game-container">
-      <div className="game-content">
+    <main className="game-spreadsheet">
+      <div className="game-cell space-y-6">
         {!gameCompleted ? (
           <>
             {/* Current Word Section */}
-            <div className="game-section-alt text-center">
+            <div className="text-center">
               <div className="flex items-center justify-center min-h-[160px] md:min-h-[180px]">
                 <div className="text-5xl md:text-6xl font-bold mono break-all leading-tight text-center max-w-full">
                   {getCurrentWord()}
@@ -114,7 +114,7 @@ export default function TypingGame() {
             </div>
 
             {/* Input Section */}
-            <div className="game-section text-center">
+            <div className="text-center">
               <input
                 ref={inputRef}
                 type="text"
@@ -135,7 +135,7 @@ export default function TypingGame() {
             </div>
 
             {/* Progress Section */}
-            <div className="game-section text-center">
+            <div className="text-center">
               <div className="text-lg text-gray-400 mono">
                 {currentWordIndex + 1} / {words.length}
               </div>
@@ -143,13 +143,13 @@ export default function TypingGame() {
           </>
         ) : (
           /* Game Complete */
-          <div className="game-section text-center">
-            <div className="text-5xl font-bold mono mb-6">
+          <div className="text-center space-y-6">
+            <div className="text-5xl font-bold mono">
               {calculateWPM()} WPM
             </div>
             <button
               onClick={startNewGame}
-              className="game-button"
+              className="brutalist-button text-lg"
             >
               again
             </button>

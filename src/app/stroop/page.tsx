@@ -157,11 +157,11 @@ export default function ColorStroopGame() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-4xl">
+    <main className="game-spreadsheet">
+      <div className="game-cell space-y-6">
         {/* Score and Timer */}
-        <div className="text-center mb-8">
-          <div className="text-2xl font-bold mono mb-4">
+        <div className="text-center">
+          <div className="text-2xl font-bold mono mb-2">
             {score} / {totalQuestions} ({accuracy}%)
           </div>
           <div className="text-sm text-gray-600 mb-4">
@@ -169,9 +169,9 @@ export default function ColorStroopGame() {
           </div>
           {/* Timer Bar */}
           <div className="w-full max-w-md mx-auto h-4 border-2 border-black bg-gray-200">
-            <div 
+            <div
               className={`h-full transition-all duration-100 ${
-                timeProgress > 50 ? 'bg-green-500' : 
+                timeProgress > 50 ? 'bg-green-500' :
                 timeProgress > 25 ? 'bg-yellow-500' : 'bg-red-500'
               }`}
               style={{ width: `${Math.max(0, timeProgress)}%` }}
@@ -180,7 +180,7 @@ export default function ColorStroopGame() {
         </div>
 
         {/* Question */}
-        <div className="text-center mb-12">
+        <div className="text-center">
           <div className="text-lg text-gray-600 mb-4">
             What COLOR is this word?
           </div>
@@ -190,7 +190,7 @@ export default function ColorStroopGame() {
         </div>
 
         {/* Multiple Choice Options */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto">
           {options.map((option, index) => (
             <button
               key={index}
@@ -212,7 +212,7 @@ export default function ColorStroopGame() {
         </div>
 
         {/* Result Feedback - Fixed Height */}
-        <div className="text-center mt-8 min-h-[80px] flex flex-col justify-center">
+        <div className="text-center min-h-[80px] flex flex-col justify-center">
           {showResult && (
             <>
               <div className={`text-2xl font-bold mono uppercase ${
@@ -230,10 +230,10 @@ export default function ColorStroopGame() {
         </div>
 
         {/* New Game Button */}
-        <div className="text-center mt-12">
+        <div className="text-center">
           <button
             onClick={startNewGame}
-            className="border-2 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="brutalist-button text-lg"
           >
             New Game
           </button>

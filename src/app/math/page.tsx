@@ -136,80 +136,76 @@ export default function MathGridGame() {
   }
 
   return (
-    <main className="game-container">
-      <div className="game-content">
+    <main className="game-spreadsheet">
+      <div className="game-cell space-y-6">
         {/* Score */}
-        <div className="game-section text-center">
-          <div className="game-score">
+        <div className="text-center">
+          <div className="text-2xl font-bold mono mb-4">
             {score} / {totalQuestions} ({accuracy}%)
           </div>
         </div>
 
         {/* Question and Grid */}
-        <div className="game-section-alt text-center">
-          <div className="text-4xl md:text-6xl font-bold mono mb-6 min-h-[60px] flex items-center justify-center">
+        <div className="text-center space-y-6">
+          <div className="text-4xl md:text-6xl font-bold mono min-h-[60px] flex items-center justify-center">
             {question}
           </div>
-          
+
           {/* Visual Grid */}
-          <div className="centered-content mb-6">
+          <div className="flex items-center justify-center min-h-[120px] md:min-h-[160px]">
             {renderGrid()}
           </div>
-          
-          <div className="game-subtitle">
+
+          <div className="text-lg md:text-xl text-gray-600 mb-6">
             How many cells are in this grid?
           </div>
         </div>
 
         {/* Multiple Choice Options */}
-        <div className="game-section">
-          <div className="game-grid grid-cols-2">
-            {options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswerSelect(option)}
-                disabled={showResult}
-                className={`p-4 md:p-6 text-xl md:text-2xl font-bold mono border-2 border-black transition-colors ${
-                  showResult && option === correctAnswer
-                    ? 'bg-green-500 text-white'
-                    : showResult && option === selectedAnswer && option !== correctAnswer
-                    ? 'bg-red-500 text-white'
-                    : showResult
-                    ? 'bg-gray-200 text-gray-500'
-                    : 'bg-white hover:bg-gray-100'
-                }`}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
+        <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+          {options.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => handleAnswerSelect(option)}
+              disabled={showResult}
+              className={`p-4 md:p-6 text-xl md:text-2xl font-bold mono border-2 border-black transition-colors ${
+                showResult && option === correctAnswer
+                  ? 'bg-green-500 text-white'
+                  : showResult && option === selectedAnswer && option !== correctAnswer
+                  ? 'bg-red-500 text-white'
+                  : showResult
+                  ? 'bg-gray-200 text-gray-500'
+                  : 'bg-white hover:bg-gray-100'
+              }`}
+            >
+              {option}
+            </button>
+          ))}
         </div>
 
         {/* Result Feedback - Fixed Height */}
-        <div className="game-section text-center">
-          <div className="min-h-[80px] flex flex-col justify-center">
-            {showResult && (
-              <>
-                <div className={`text-2xl font-bold mono uppercase ${
-                  isCorrect ? 'text-green-600' : 'text-red-600'
-                }`}>
-                  {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
+        <div className="text-center min-h-[80px] flex flex-col justify-center">
+          {showResult && (
+            <>
+              <div className={`text-2xl font-bold mono uppercase ${
+                isCorrect ? 'text-green-600' : 'text-red-600'
+              }`}>
+                {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
+              </div>
+              {!isCorrect && (
+                <div className="text-lg text-gray-600 mt-2 uppercase">
+                  The answer was {correctAnswer}
                 </div>
-                {!isCorrect && (
-                  <div className="text-lg text-gray-600 mt-2 uppercase">
-                    The answer was {correctAnswer}
-                  </div>
-                )}
-              </>
-            )}
-          </div>
+              )}
+            </>
+          )}
         </div>
 
         {/* New Game Button */}
-        <div className="game-section text-center">
+        <div className="text-center">
           <button
             onClick={startNewGame}
-            className="game-button"
+            className="brutalist-button text-lg"
           >
             New Game
           </button>
