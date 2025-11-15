@@ -102,7 +102,7 @@ export default function DigitSpanGame() {
   }
 
   return (
-    <main className={`${gameStarted ? 'min-h-screen' : 'flex items-center justify-center'} bg-white`}>
+    <main className={`${gameStarted ? 'h-screen' : 'flex items-center justify-center'} bg-white`}>
       {!gameStarted ? (
         /* Game Intro */
         <div className="max-w-2xl w-full p-8 text-center">
