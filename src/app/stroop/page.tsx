@@ -157,18 +157,28 @@ export default function ColorStroopGame() {
   }
 
   return (
-    <main className="game-spreadsheet">
-      <div className="game-cell space-y-6">
-        {/* Score and Timer */}
-        <div className="text-center">
-          <div className="text-2xl font-bold mono mb-2">
-            {score} / {totalQuestions} ({accuracy}%)
+    <main className="min-h-screen bg-white">
+      {/* Game Spreadsheet Grid */}
+      <div className="max-w-4xl mx-auto">
+
+        {/* Row 1: Score and Time Limit */}
+        <div className="flex border-b border-gray-300">
+          <div className="flex-1 border-r border-gray-300 p-6 text-center">
+            <div className="text-2xl font-bold mono">
+              {score}/{totalQuestions} ({accuracy}%)
+            </div>
           </div>
-          <div className="text-sm text-gray-600 mb-4">
-            Time limit: {timeLimit}ms
+          <div className="flex-1 p-6 text-center">
+            <div className="text-lg font-bold mono uppercase">
+              TIME LIMIT<br/>
+              {timeLimit}ms
+            </div>
           </div>
-          {/* Timer Bar */}
-          <div className="w-full max-w-md mx-auto h-4 border-2 border-black bg-gray-200">
+        </div>
+
+        {/* Row 2: Timer Bar */}
+        <div className="border-b border-gray-300 p-6">
+          <div className="w-full h-6 border-2 border-black bg-gray-200">
             <div
               className={`h-full transition-all duration-100 ${
                 timeProgress > 50 ? 'bg-green-500' :
@@ -179,24 +189,30 @@ export default function ColorStroopGame() {
           </div>
         </div>
 
-        {/* Question */}
-        <div className="text-center">
-          <div className="text-lg text-gray-600 mb-4">
-            What COLOR is this word?
+        {/* Row 3: Question */}
+        <div className="border-b border-gray-300 p-6 text-center">
+          <div className="text-lg font-bold mono uppercase mb-4">
+            WHAT COLOR IS THIS WORD?
           </div>
-          <div className={`text-8xl md:text-9xl font-bold mono ${wordColor} mb-8`}>
+        </div>
+
+        {/* Row 4: Colored Word */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          <div className={`text-8xl md:text-9xl font-bold mono ${wordColor}`}>
             {wordText}
           </div>
         </div>
 
-        {/* Multiple Choice Options */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto">
+        {/* Row 5: Color Options (4 cells) */}
+        <div className="flex border-b border-gray-300">
           {options.map((option, index) => (
             <button
               key={index}
               onClick={() => handleAnswerSelect(option)}
               disabled={showResult}
-              className={`p-4 text-xl font-bold mono border-2 border-black transition-colors ${
+              className={`flex-1 border-r border-gray-300 p-6 text-xl font-bold mono transition-colors ${
+                index < 3 ? 'border-r border-gray-300' : ''
+              } ${
                 showResult && option === correctAnswer
                   ? 'bg-green-500 text-white'
                   : showResult && option === selectedAnswer && option !== correctAnswer
@@ -211,33 +227,32 @@ export default function ColorStroopGame() {
           ))}
         </div>
 
-        {/* Result Feedback - Fixed Height */}
-        <div className="text-center min-h-[80px] flex flex-col justify-center">
+        {/* Row 6: Result Feedback */}
+        <div className="border-b border-gray-300 p-6 text-center min-h-[100px] flex items-center justify-center">
           {showResult && (
-            <>
-              <div className={`text-2xl font-bold mono uppercase ${
-                isCorrect ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {isCorrect ? '✓ CORRECT!' : selectedAnswer ? '✗ WRONG' : '⏰ TIME UP!'}
-              </div>
+            <div className={`text-2xl font-bold mono uppercase ${
+              isCorrect ? 'text-green-600' : 'text-red-600'
+            }`}>
+              {isCorrect ? '✓ CORRECT!' : selectedAnswer ? '✗ WRONG' : '⏰ TIME UP!'}
               {!isCorrect && (
                 <div className="text-lg text-gray-600 mt-2 uppercase">
                   The color was {correctAnswer}
                 </div>
               )}
-            </>
+            </div>
           )}
         </div>
 
-        {/* New Game Button */}
-        <div className="text-center">
+        {/* Row 7: New Game Button */}
+        <div className="p-6 text-center">
           <button
             onClick={startNewGame}
             className="brutalist-button text-lg"
           >
-            New Game
+            NEW GAME
           </button>
         </div>
+
       </div>
     </main>
   )

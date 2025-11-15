@@ -158,35 +158,39 @@ export default function FractionVisualizerGame() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-4xl">
-        {/* Score */}
-        <div className="text-center mb-8">
+    <main className="min-h-screen bg-white">
+      {/* Game Spreadsheet Grid */}
+      <div className="max-w-4xl mx-auto">
+
+        {/* Row 1: Score */}
+        <div className="border-b border-gray-300 p-6 text-center">
           <div className="text-2xl font-bold mono">
-            {score} / {totalQuestions} ({accuracy}%)
+            {score}/{totalQuestions} ({accuracy}%)
           </div>
         </div>
 
-        {/* Question */}
-        <div className="text-center mb-8">
-          <div className="text-2xl font-bold mono mb-8">
-            What fraction is shaded?
-          </div>
-          
-          {/* Pie Chart */}
-          <div className="mb-8">
-            {renderPieChart(currentFraction, 300)}
+        {/* Row 2: Question */}
+        <div className="border-b border-gray-300 p-6 text-center">
+          <div className="text-2xl font-bold mono uppercase">
+            WHAT FRACTION IS SHADED?
           </div>
         </div>
 
-        {/* Multiple Choice Options */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+        {/* Row 3: Pie Chart */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          {renderPieChart(currentFraction, 300)}
+        </div>
+
+        {/* Row 4: Multiple Choice Options */}
+        <div className="flex border-b border-gray-300">
           {options.map((option, index) => (
             <button
               key={index}
               onClick={() => handleAnswerSelect(option)}
               disabled={showResult}
-              className={`p-6 text-2xl font-bold mono border-2 border-black transition-colors ${
+              className={`flex-1 border-r border-gray-300 p-6 text-2xl font-bold mono transition-colors ${
+                index < 3 ? 'border-r border-gray-300' : ''
+              } ${
                 showResult && option.numerator === currentFraction.numerator && option.denominator === currentFraction.denominator
                   ? 'bg-green-500 text-white'
                   : showResult && selectedAnswer && option.numerator === selectedAnswer.numerator && option.denominator === selectedAnswer.denominator && !(option.numerator === currentFraction.numerator && option.denominator === currentFraction.denominator)
@@ -201,8 +205,8 @@ export default function FractionVisualizerGame() {
           ))}
         </div>
 
-        {/* Result Feedback - Fixed Height */}
-        <div className="text-center mt-8 min-h-[80px] flex flex-col justify-center">
+        {/* Row 5: Result Feedback */}
+        <div className="border-b border-gray-300 p-6 text-center min-h-[100px] flex items-center justify-center">
           {showResult && (
             <>
               <div className={`text-2xl font-bold mono uppercase ${
@@ -219,15 +223,16 @@ export default function FractionVisualizerGame() {
           )}
         </div>
 
-        {/* New Game Button */}
-        <div className="text-center mt-12">
+        {/* Row 6: New Game Button */}
+        <div className="p-6 text-center">
           <button
             onClick={startNewGame}
-            className="border-2 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="brutalist-button text-lg"
           >
-            New Game
+            NEW GAME
           </button>
         </div>
+
       </div>
     </main>
   )

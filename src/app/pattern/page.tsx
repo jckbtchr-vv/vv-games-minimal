@@ -118,46 +118,54 @@ export default function PatternMemoryGame() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-4xl">
-        {/* Score and Level */}
-        <div className="text-center mb-8">
-          <div className="text-2xl font-bold mono mb-2">
-            Level {level} • Score: {score}
+    <main className="min-h-screen bg-white">
+      {/* Game Spreadsheet Grid */}
+      <div className="max-w-4xl mx-auto">
+
+        {/* Row 1: Level/Score and Game Phase */}
+        <div className="flex border-b border-gray-300">
+          <div className="flex-1 border-r border-gray-300 p-6 text-center">
+            <div className="text-2xl font-bold mono">
+              LEVEL {level} • SCORE: {score}
+            </div>
           </div>
-          <div className="text-lg text-gray-600">
-            {gamePhase === 'waiting' && 'Get ready...'}
-            {gamePhase === 'showing' && 'Watch the pattern'}
-            {gamePhase === 'input' && 'Repeat the pattern'}
-            {gamePhase === 'result' && (isCorrect ? 'Correct! Next level...' : 'Wrong pattern. Try again...')}
+          <div className="flex-1 p-6 text-center">
+            <div className="text-lg font-bold mono uppercase">
+              {gamePhase === 'waiting' && 'GET READY...'}
+              {gamePhase === 'showing' && 'WATCH THE PATTERN'}
+              {gamePhase === 'input' && 'REPEAT THE PATTERN'}
+              {gamePhase === 'result' && (isCorrect ? 'CORRECT! NEXT LEVEL...' : 'WRONG PATTERN. TRY AGAIN...')}
+            </div>
           </div>
         </div>
 
-        {/* Pattern Display */}
-        <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-12">
-          {COLORS.map((color, index) => (
-            <button
-              key={index}
-              onClick={() => handleColorClick(index)}
-              disabled={gamePhase !== 'input'}
-              className={`w-24 h-24 border-2 border-black transition-all duration-200 ${color} ${
-                showingPattern && currentStep < pattern.length && pattern[currentStep] === index
-                  ? 'scale-110 shadow-lg'
-                  : showingPattern
-                  ? 'opacity-50'
-                  : gamePhase === 'input'
-                  ? 'hover:scale-105 cursor-pointer'
-                  : 'opacity-75'
-              }`}
-            />
-          ))}
+        {/* Row 2: Pattern Display */}
+        <div className="border-b border-gray-300 p-8">
+          <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
+            {COLORS.map((color, index) => (
+              <button
+                key={index}
+                onClick={() => handleColorClick(index)}
+                disabled={gamePhase !== 'input'}
+                className={`w-24 h-24 border-2 border-black transition-all duration-200 ${color} ${
+                  showingPattern && currentStep < pattern.length && pattern[currentStep] === index
+                    ? 'scale-110 shadow-lg'
+                    : showingPattern
+                    ? 'opacity-50'
+                    : gamePhase === 'input'
+                    ? 'hover:scale-105 cursor-pointer'
+                    : 'opacity-75'
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* User Progress */}
+        {/* Row 3: User Progress */}
         {gamePhase === 'input' && (
-          <div className="text-center mb-8">
-            <div className="text-lg font-bold mono mb-4">
-              Your Pattern ({userPattern.length}/{pattern.length})
+          <div className="border-b border-gray-300 p-6 text-center">
+            <div className="text-lg font-bold mono mb-4 uppercase">
+              YOUR PATTERN ({userPattern.length}/{pattern.length})
             </div>
             <div className="flex justify-center space-x-2">
               {userPattern.map((colorIndex, index) => (
@@ -177,10 +185,10 @@ export default function PatternMemoryGame() {
           </div>
         )}
 
-        {/* Result - Fixed Height */}
-        <div className="text-center mb-8 min-h-[120px] flex flex-col justify-center">
-          {gamePhase === 'result' && (
-            <>
+        {/* Row 4: Result */}
+        {gamePhase === 'result' && (
+          <>
+            <div className="border-b border-gray-300 p-6 text-center min-h-[140px] flex items-center justify-center">
               <div className={`text-3xl font-bold mono uppercase mb-4 ${
                 isCorrect ? 'text-green-600' : 'text-red-600'
               }`}>
@@ -199,19 +207,20 @@ export default function PatternMemoryGame() {
                   </div>
                 </div>
               )}
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
 
-        {/* New Game Button */}
-        <div className="text-center">
+        {/* Row 5: New Game Button */}
+        <div className="p-6 text-center">
           <button
             onClick={startNewGame}
-            className="border-2 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="brutalist-button text-lg"
           >
-            New Game
+            NEW GAME
           </button>
         </div>
+
       </div>
     </main>
   )

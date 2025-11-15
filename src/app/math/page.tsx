@@ -136,39 +136,56 @@ export default function MathGridGame() {
   }
 
   return (
-    <main className="game-spreadsheet">
-      <div className="game-cell space-y-6">
-        {/* Score */}
-        <div className="text-center">
-          <div className="text-2xl font-bold mono mb-4">
-            {score} / {totalQuestions} ({accuracy}%)
+    <main className="min-h-screen bg-white">
+      {/* Game Spreadsheet Grid */}
+      <div className="max-w-4xl mx-auto">
+
+        {/* Row 1: Score and Grid Size */}
+        <div className="flex border-b border-gray-300">
+          <div className="flex-1 border-r border-gray-300 p-6 text-center">
+            <div className="text-2xl font-bold mono">
+              {score}/{totalQuestions} ({accuracy}%)
+            </div>
+          </div>
+          <div className="flex-1 p-6 text-center">
+            <div className="text-xl font-bold mono uppercase">
+              GRID SIZE<br/>
+              UP TO {gridSize}×{gridSize}
+            </div>
           </div>
         </div>
 
-        {/* Question and Grid */}
-        <div className="text-center space-y-6">
-          <div className="text-4xl md:text-6xl font-bold mono min-h-[60px] flex items-center justify-center">
+        {/* Row 2: Question */}
+        <div className="border-b border-gray-300 p-6 text-center">
+          <div className="text-4xl md:text-6xl font-bold mono">
             {question}
           </div>
+        </div>
 
-          {/* Visual Grid */}
-          <div className="flex items-center justify-center min-h-[120px] md:min-h-[160px]">
+        {/* Row 3: Visual Grid */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          <div className="flex items-center justify-center min-h-[160px]">
             {renderGrid()}
-          </div>
-
-          <div className="text-lg md:text-xl text-gray-600 mb-6">
-            How many cells are in this grid?
           </div>
         </div>
 
-        {/* Multiple Choice Options */}
-        <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+        {/* Row 4: Instructions */}
+        <div className="border-b border-gray-300 p-6 text-center">
+          <div className="text-lg md:text-xl text-gray-600 uppercase">
+            HOW MANY CELLS ARE IN THIS GRID?
+          </div>
+        </div>
+
+        {/* Row 5: Multiple Choice Options (2x2 grid) */}
+        <div className="flex border-b border-gray-300">
           {options.map((option, index) => (
             <button
               key={index}
               onClick={() => handleAnswerSelect(option)}
               disabled={showResult}
-              className={`p-4 md:p-6 text-xl md:text-2xl font-bold mono border-2 border-black transition-colors ${
+              className={`flex-1 border-r border-gray-300 p-4 md:p-6 text-xl md:text-2xl font-bold mono transition-colors ${
+                index < 3 ? 'border-r border-gray-300' : ''
+              } ${
                 showResult && option === correctAnswer
                   ? 'bg-green-500 text-white'
                   : showResult && option === selectedAnswer && option !== correctAnswer
@@ -183,8 +200,8 @@ export default function MathGridGame() {
           ))}
         </div>
 
-        {/* Result Feedback - Fixed Height */}
-        <div className="text-center min-h-[80px] flex flex-col justify-center">
+        {/* Row 6: Result Feedback */}
+        <div className="border-b border-gray-300 p-6 text-center min-h-[100px] flex items-center justify-center">
           {showResult && (
             <>
               <div className={`text-2xl font-bold mono uppercase ${
@@ -201,15 +218,16 @@ export default function MathGridGame() {
           )}
         </div>
 
-        {/* New Game Button */}
-        <div className="text-center">
+        {/* Row 7: New Game Button */}
+        <div className="p-6 text-center">
           <button
             onClick={startNewGame}
             className="brutalist-button text-lg"
           >
-            New Game
+            NEW GAME
           </button>
         </div>
+
       </div>
     </main>
   )

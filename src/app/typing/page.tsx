@@ -100,61 +100,66 @@ export default function TypingGame() {
   const getCurrentWord = () => words[currentWordIndex] || ''
 
   return (
-    <main className="game-spreadsheet">
-      <div className="game-cell space-y-6">
-        {!gameCompleted ? (
+    <main className="min-h-screen bg-white">
+      {/* Game Spreadsheet Grid */}
+      <div className="max-w-4xl mx-auto">
+
+        {/* Row 1: Progress */}
+        <div className="border-b border-gray-300 p-6 text-center">
+          <div className="text-lg text-gray-400 mono uppercase">
+            {currentWordIndex + 1} / {words.length}
+          </div>
+        </div>
+
+        {/* Row 2: Current Word */}
+        <div className="border-b border-gray-300 p-8 text-center">
+          <div className="flex items-center justify-center min-h-[200px]">
+            <div className="text-5xl md:text-6xl font-bold mono break-all leading-tight text-center max-w-full">
+              {getCurrentWord()}
+            </div>
+          </div>
+        </div>
+
+        {/* Row 3: Input Field */}
+        <div className="border-b border-gray-300 p-6 text-center">
+          <input
+            ref={inputRef}
+            type="text"
+            value={userInput}
+            onChange={handleInputChange}
+            className={`w-full text-3xl md:text-4xl text-center p-4 border-0 border-b-4 bg-transparent font-mono ${
+              isCorrect === null
+                ? 'border-gray-300'
+                : isCorrect
+                ? 'border-green-500'
+                : 'border-red-500'
+            } focus:outline-none focus:border-black`}
+            placeholder="type here"
+            autoComplete="off"
+            spellCheck="false"
+            autoFocus
+          />
+        </div>
+
+        {/* Row 4: Game Complete */}
+        {gameCompleted && (
           <>
-            {/* Current Word Section */}
-            <div className="text-center">
-              <div className="flex items-center justify-center min-h-[160px] md:min-h-[180px]">
-                <div className="text-5xl md:text-6xl font-bold mono break-all leading-tight text-center max-w-full">
-                  {getCurrentWord()}
-                </div>
+            <div className="border-b border-gray-300 p-8 text-center">
+              <div className="text-5xl font-bold mono">
+                {calculateWPM()} WPM
               </div>
             </div>
-
-            {/* Input Section */}
-            <div className="text-center">
-              <input
-                ref={inputRef}
-                type="text"
-                value={userInput}
-                onChange={handleInputChange}
-                className={`w-full text-3xl md:text-4xl text-center p-4 border-0 border-b-4 bg-transparent font-mono ${
-                  isCorrect === null
-                    ? 'border-gray-300'
-                    : isCorrect
-                    ? 'border-green-500'
-                    : 'border-red-500'
-                } focus:outline-none focus:border-black`}
-                placeholder="type here"
-                autoComplete="off"
-                spellCheck="false"
-                autoFocus
-              />
-            </div>
-
-            {/* Progress Section */}
-            <div className="text-center">
-              <div className="text-lg text-gray-400 mono">
-                {currentWordIndex + 1} / {words.length}
-              </div>
+            <div className="p-6 text-center">
+              <button
+                onClick={startNewGame}
+                className="brutalist-button text-lg"
+              >
+                AGAIN
+              </button>
             </div>
           </>
-        ) : (
-          /* Game Complete */
-          <div className="text-center space-y-6">
-            <div className="text-5xl font-bold mono">
-              {calculateWPM()} WPM
-            </div>
-            <button
-              onClick={startNewGame}
-              className="brutalist-button text-lg"
-            >
-              again
-            </button>
-          </div>
         )}
+
       </div>
     </main>
   )

@@ -127,73 +127,81 @@ export default function DigitSpanGame() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-4xl">
-        {/* Score and Level */}
-        <div className="text-center mb-8">
-          <div className="text-2xl font-bold mono mb-2">
-            Level {level} • Score: {score} • Max: {maxLevel}
+    <main className="min-h-screen bg-white">
+      {/* Game Spreadsheet Grid */}
+      <div className="max-w-4xl mx-auto">
+
+        {/* Row 1: Level/Score and Game Phase */}
+        <div className="flex border-b border-gray-300">
+          <div className="flex-1 border-r border-gray-300 p-6 text-center">
+            <div className="text-2xl font-bold mono">
+              LEVEL {level} • SCORE: {score} • MAX: {maxLevel}
+            </div>
           </div>
-          <div className="text-lg text-gray-600">
-            {gamePhase === 'waiting' && 'Get ready to memorize...'}
-            {gamePhase === 'showing' && 'Watch the digits'}
-            {gamePhase === 'input' && 'Type the sequence you saw'}
-            {gamePhase === 'result' && (isCorrect ? 'Correct! Level up...' : 'Wrong sequence. Try again...')}
+          <div className="flex-1 p-6 text-center">
+            <div className="text-lg font-bold mono uppercase">
+              {gamePhase === 'waiting' && 'GET READY TO MEMORIZE...'}
+              {gamePhase === 'showing' && 'WATCH THE DIGITS'}
+              {gamePhase === 'input' && 'TYPE THE SEQUENCE YOU SAW'}
+              {gamePhase === 'result' && (isCorrect ? 'CORRECT! LEVEL UP...' : 'WRONG SEQUENCE. TRY AGAIN...')}
+            </div>
           </div>
         </div>
 
-        {/* Digit Display - Fixed Height */}
-        <div className="text-center mb-8 min-h-[120px] flex items-center justify-center">
+        {/* Row 2: Digit Display */}
+        <div className="border-b border-gray-300 p-8 text-center min-h-[160px] flex items-center justify-center">
           {showingSequence && currentDigit !== null && (
             <div className="text-6xl md:text-8xl font-bold mono text-blue-600 animate-pulse">
               {currentDigit}
             </div>
           )}
-          
+
           {gamePhase === 'input' && (
             <div className="text-6xl font-bold mono text-gray-400">
               ? ? ?
             </div>
           )}
-          
+
           {gamePhase === 'waiting' && (
-            <div className="text-4xl font-bold mono text-gray-400">
-              {level} digits coming up...
+            <div className="text-4xl font-bold mono text-gray-400 uppercase">
+              {level} DIGITS COMING UP...
             </div>
           )}
         </div>
 
-        {/* Input Form - Fixed Height */}
-        <div className="text-center mb-6 min-h-[80px] flex items-center justify-center">
-          {gamePhase === 'input' && (
-            <form onSubmit={handleSubmit} className="text-center">
-              <input
-                type="text"
-                value={userInput}
-                onChange={handleInputChange}
-                className="text-4xl text-center p-4 border-2 border-black font-mono w-64 mr-4"
-                placeholder="Enter digits..."
-                autoFocus
-                maxLength={sequence.length}
-              />
-              <button
-                type="submit"
-                className="brutalist-button text-lg"
-                disabled={userInput.length !== sequence.length}
-              >
-                Submit
-              </button>
-              <div className="text-sm text-gray-600 mt-2">
-                Enter {sequence.length} digits ({userInput.length}/{sequence.length})
-              </div>
-            </form>
-          )}
-        </div>
+        {/* Row 3: Input Form */}
+        {gamePhase === 'input' && (
+          <>
+            <div className="border-b border-gray-300 p-6 text-center">
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  value={userInput}
+                  onChange={handleInputChange}
+                  className="text-4xl text-center p-4 border-2 border-black font-mono w-64 mr-4"
+                  placeholder="Enter digits..."
+                  autoFocus
+                  maxLength={sequence.length}
+                />
+                <button
+                  type="submit"
+                  className="brutalist-button text-lg"
+                  disabled={userInput.length !== sequence.length}
+                >
+                  SUBMIT
+                </button>
+                <div className="text-sm text-gray-600 mt-2 uppercase">
+                  Enter {sequence.length} digits ({userInput.length}/{sequence.length})
+                </div>
+              </form>
+            </div>
+          </>
+        )}
 
-        {/* Result - Fixed Height */}
-        <div className="text-center mb-6 min-h-[100px] flex flex-col justify-center">
-          {gamePhase === 'result' && (
-            <>
+        {/* Row 4: Result */}
+        {gamePhase === 'result' && (
+          <>
+            <div className="border-b border-gray-300 p-6 text-center min-h-[120px] flex items-center justify-center">
               <div className={`text-3xl font-bold mono uppercase mb-4 ${
                 isCorrect ? 'text-green-600' : 'text-red-600'
               }`}>
@@ -208,15 +216,15 @@ export default function DigitSpanGame() {
                   Moving to {level + 1} digits!
                 </div>
               )}
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
 
-        {/* Progress Indicator - Fixed Height */}
-        <div className="text-center mb-6 min-h-[40px] flex flex-col justify-center">
-          {gamePhase === 'input' && sequence.length > 0 && (
-            <>
-              <div className="text-sm text-gray-600 mb-2">Sequence Progress</div>
+        {/* Row 5: Progress Indicator */}
+        {gamePhase === 'input' && sequence.length > 0 && (
+          <>
+            <div className="border-b border-gray-300 p-6 text-center">
+              <div className="text-sm text-gray-600 mb-2 uppercase">Sequence Progress</div>
               <div className="flex justify-center space-x-1">
                 {Array.from({ length: sequence.length }).map((_, index) => (
                   <div
@@ -227,19 +235,20 @@ export default function DigitSpanGame() {
                   />
                 ))}
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
 
-        {/* New Game Button */}
-        <div className="text-center">
+        {/* Row 6: New Game Button */}
+        <div className="p-6 text-center">
           <button
             onClick={startNewGame}
-            className="border-2 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="brutalist-button text-lg"
           >
-            New Game
+            NEW GAME
           </button>
         </div>
+
       </div>
     </main>
   )

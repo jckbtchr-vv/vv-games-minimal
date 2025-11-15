@@ -119,98 +119,115 @@ export default function DotCounterGame() {
   }
 
   return (
-    <main className="game-spreadsheet">
-      <div className="game-cell space-y-6">
-        {/* Score */}
-        <div className="text-center">
-          <div className="text-2xl font-bold mono mb-2">
-            {score} / {totalQuestions} ({accuracy}%)
-          </div>
-          <div className="text-sm text-gray-600">
-            Flash speed: {flashDuration}ms
-          </div>
-        </div>
+    <main className="min-h-screen bg-white">
+      {/* Game Spreadsheet Grid */}
+      <div className="max-w-4xl mx-auto">
 
-        {/* Dot Display Area */}
-        <div className="relative w-full h-64 md:h-80 border-2 border-black bg-gray-50 mx-auto max-w-lg">
-          {showDots && dots.map(dot => (
-            <div
-              key={dot.id}
-              className="absolute w-4 h-4 bg-black rounded-full"
-              style={{
-                left: `${dot.x}%`,
-                top: `${dot.y}%`,
-                transform: 'translate(-50%, -50%)'
-              }}
-            />
-          ))}
-
-          {!showDots && !showResult && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-2xl font-bold mono text-gray-400">
-                How many dots did you see?
-              </div>
+        {/* Row 1: Score and Flash Speed */}
+        <div className="flex border-b border-gray-300">
+          <div className="flex-1 border-r border-gray-300 p-6 text-center">
+            <div className="text-2xl font-bold mono">
+              {score}/{totalQuestions} ({accuracy}%)
             </div>
-          )}
+          </div>
+          <div className="flex-1 p-6 text-center">
+            <div className="text-lg font-bold mono uppercase">
+              FLASH SPEED<br/>
+              {flashDuration}ms
+            </div>
+          </div>
         </div>
 
-        {/* Input/Result Area */}
-        <div className="min-h-[120px] md:min-h-[140px] flex items-center justify-center">
-          {/* Input Form */}
-          {!showDots && !showResult && (
-            <form onSubmit={handleSubmit} className="text-center">
-              <input
-                type="number"
-                value={userGuess}
-                onChange={(e) => setUserGuess(e.target.value)}
-                className="text-4xl text-center p-4 border-2 border-black font-mono w-32 mr-4"
-                placeholder="?"
-                autoFocus
-                min="0"
-                max="50"
+        {/* Row 2: Dot Display Area */}
+        <div className="border-b border-gray-300 p-8">
+          <div className="relative w-full h-80 border-2 border-black bg-gray-50 mx-auto max-w-lg">
+            {showDots && dots.map(dot => (
+              <div
+                key={dot.id}
+                className="absolute w-4 h-4 bg-black rounded-full"
+                style={{
+                  left: `${dot.x}%`,
+                  top: `${dot.y}%`,
+                  transform: 'translate(-50%, -50%)'
+                }}
               />
-              <button
-                type="submit"
-                className="brutalist-button text-lg"
-                disabled={!userGuess}
-              >
-                Submit
-              </button>
-            </form>
-          )}
+            ))}
 
-          {/* Result */}
-          {showResult && (
-            <div className="text-center">
+            {!showDots && !showResult && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-2xl font-bold mono text-gray-400 uppercase">
+                  HOW MANY DOTS DID YOU SEE?
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Row 3: Input Form */}
+        {!showDots && !showResult && (
+          <>
+            <div className="border-b border-gray-300 p-6 text-center">
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="number"
+                  value={userGuess}
+                  onChange={(e) => setUserGuess(e.target.value)}
+                  className="text-4xl text-center p-4 border-2 border-black font-mono w-32 mr-4"
+                  placeholder="?"
+                  autoFocus
+                  min="0"
+                  max="50"
+                />
+                <button
+                  type="submit"
+                  className="brutalist-button text-lg"
+                  disabled={!userGuess}
+                >
+                  SUBMIT
+                </button>
+              </form>
+            </div>
+          </>
+        )}
+
+        {/* Row 4: Result */}
+        {showResult && (
+          <>
+            <div className="border-b border-gray-300 p-6 text-center min-h-[120px] flex items-center justify-center">
               <div className={`text-4xl font-bold mono uppercase mb-4 ${
                 isCorrect ? 'text-green-600' : 'text-red-600'
               }`}>
                 {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
               </div>
-              <div className="text-2xl mb-6 uppercase">
+              <div className="text-2xl uppercase">
                 You guessed: <span className="font-bold">{userGuess}</span>
                 <br />
                 Correct answer: <span className="font-bold">{correctAnswer}</span>
               </div>
+            </div>
+            <div className="p-6 text-center">
               <button
                 onClick={startNewRound}
                 className="brutalist-button text-lg"
               >
-                Next Round
+                NEXT ROUND
               </button>
             </div>
-          )}
-        </div>
+          </>
+        )}
 
-        {/* New Game Button */}
-        <div className="text-center">
-          <button
-            onClick={startNewGame}
-            className="brutalist-button text-lg"
-          >
-            New Game
-          </button>
-        </div>
+        {/* Row 5: New Game Button */}
+        {!showResult && (
+          <div className="p-6 text-center">
+            <button
+              onClick={startNewGame}
+              className="brutalist-button text-lg"
+            >
+              NEW GAME
+            </button>
+          </div>
+        )}
+
       </div>
     </main>
   )
