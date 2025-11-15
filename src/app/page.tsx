@@ -1,6 +1,6 @@
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
+    <main>
       {/* Games Selection - Spreadsheet Style */}
       <section className="bg-white">
 
@@ -83,7 +83,7 @@ export default function HomePage() {
           </div>
 
           {/* Row 3 */}
-          <div className="flex">
+          <div className="flex border-b border-gray-300">
             <a href="/digits" className="flex-1 border-r border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
               <div className="text-3xl mb-3">🔢</div>
               <h3 className="text-lg font-bold mono uppercase mb-3">Digit Span</h3>
@@ -96,7 +96,7 @@ export default function HomePage() {
               </div>
             </a>
 
-            <a href="/lemonade" className="flex-1 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+            <a href="/lemonade" className="flex-1 border-r border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
               <div className="text-3xl mb-3">🍋</div>
               <h3 className="text-lg font-bold mono uppercase mb-3">Lemonade Stand</h3>
               <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
