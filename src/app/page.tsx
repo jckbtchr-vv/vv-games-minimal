@@ -5,7 +5,7 @@ export default function HomePage() {
       <section className="bg-white">
         <div className="grid grid-cols-1 md:grid-cols-3">
           {/* Literature Typing */}
-          <a href="/typing" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+          <a href="/typing" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-2xl mb-3">|</div>
             <h3 className="text-lg font-bold mono uppercase mb-3">Literature Typing</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
