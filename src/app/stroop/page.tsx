@@ -27,31 +27,37 @@ export default function ColorStroopGame() {
   const [timeLeft, setTimeLeft] = useState(0)
   const [timerActive, setTimerActive] = useState(false)
 
+  const resetSelection = () => {
+    setSelectedAnswer(null)
+    setShowResult(false)
+    setIsCorrect(null)
+  }
+
   const generateQuestion = () => {
     // Pick random word and random color (often different to create conflict)
     const wordIndex = Math.floor(Math.random() * COLORS.length)
     const colorIndex = Math.floor(Math.random() * COLORS.length)
-    
+
     const word = COLORS[wordIndex].name
     const color = COLORS[colorIndex]
-    
+
     setWordText(word)
     setWordColor(color.value)
     setCorrectAnswer(color.name) // Answer is the COLOR, not the word
-    
+
     // Generate 4 random options including the correct answer
     const shuffledColors = [...COLORS].sort(() => Math.random() - 0.5)
     const optionSet = new Set([color.name])
-    
+
     // Add 3 more random options
     for (const c of shuffledColors) {
       if (optionSet.size >= 4) break
       optionSet.add(c.name)
     }
-    
+
     const finalOptions = Array.from(optionSet).sort(() => Math.random() - 0.5)
     setOptions(finalOptions)
-    
+
     // Assign random colors to each option button (different from the option text)
     const buttonColors = finalOptions.map(option => {
       // Get all colors except the one that matches the option name
@@ -60,11 +66,9 @@ export default function ColorStroopGame() {
       return randomColor.value
     })
     setOptionColors(buttonColors)
-    
-    setSelectedAnswer(null)
-    setShowResult(false)
-    setIsCorrect(null)
-    
+
+    resetSelection()
+
     // Start timer
     setTimeLeft(timeLimit)
     setTimerActive(true)
