@@ -20,26 +20,27 @@ export default function DigitSpanGame() {
     setLevel(3)
     setMaxLevel(3)
     setGameStarted(true)
-    startNewRound()
+    startNewRound(3) // Explicitly start with level 3
   }
 
-  const startNewRound = () => {
+  const startNewRound = (overrideLevel?: number) => {
     setGamePhase('waiting')
     setIsCorrect(null)
-    
-    // Generate sequence and wait for state update
+
+    // Generate sequence for the specified level (or current level)
+    const sequenceLength = overrideLevel ?? level
     const newSequence: number[] = []
-    for (let i = 0; i < level; i++) {
+    for (let i = 0; i < sequenceLength; i++) {
       newSequence.push(Math.floor(Math.random() * 10))
     }
     setSequence(newSequence)
     setUserInput('')
-    
+
     // Auto-start showing sequence after 1 second
     setTimeout(() => {
       setGamePhase('showing')
       setShowingSequence(true)
-      
+
       // Show each digit in sequence
       let step = 0
       const showNext = () => {
@@ -56,7 +57,7 @@ export default function DigitSpanGame() {
           setGamePhase('input')
         }
       }
-      
+
       setTimeout(showNext, 500) // Initial delay
     }, 1000)
   }
@@ -77,15 +78,18 @@ export default function DigitSpanGame() {
       const newLevel = level + 1
       setLevel(newLevel)
       setMaxLevel(Math.max(maxLevel, newLevel))
+      // Use setTimeout with state updater function to ensure level has updated
       setTimeout(() => {
-        startNewRound()
+        const currentLevel = newLevel
+        startNewRound(currentLevel)
       }, 2000)
     } else {
       // Reset to previous level or restart
       const newLevel = Math.max(3, level - 1)
       setLevel(newLevel)
       setTimeout(() => {
-        startNewRound()
+        const currentLevel = newLevel
+        startNewRound(currentLevel)
       }, 3000)
     }
   }
