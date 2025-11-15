@@ -3,7 +3,6 @@ export default function HomePage() {
     <main className="min-h-screen">
       {/* Games Selection - Spreadsheet Style */}
       <section className="bg-white">
-        <div className="max-w-6xl mx-auto">
 
           {/* Row 1 */}
           <div className="flex border-b border-gray-300">
@@ -114,7 +113,6 @@ export default function HomePage() {
               {/* Empty space */}
             </div>
           </div>
-        </div>
       </section>
     </main>
   )
