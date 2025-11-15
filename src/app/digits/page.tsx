@@ -101,10 +101,10 @@ export default function DigitSpanGame() {
     }
   }
 
-  if (!gameStarted) {
-    return (
-      <main className="min-h-screen bg-white">
-        {/* Game Intro */}
+  return (
+    <main className="min-h-screen bg-white">
+      {!gameStarted ? (
+        /* Game Intro */
         <div className="border-b border-gray-300 p-8 text-center">
           <h1 className="text-4xl font-bold mono mb-6 uppercase">
             DIGIT SPAN
@@ -123,55 +123,49 @@ export default function DigitSpanGame() {
             START MEMORY TEST
           </button>
         </div>
-      </main>
-    )
-  }
-
-  return (
-    <main className="min-h-screen bg-white">
-      {/* Game Spreadsheet Grid */}
-
-        {/* Row 1: Level/Score and Game Phase */}
-        <div className="flex border-b border-gray-300">
-          <div className="flex-1 border-r border-gray-300 p-6 text-center">
-            <div className="text-2xl font-bold mono">
-              LEVEL {level} • SCORE: {score} • MAX: {maxLevel}
+      ) : (
+        /* Game Spreadsheet Grid */
+        <>
+          {/* Row 1: Level/Score and Game Phase */}
+          <div className="flex border-b border-gray-300">
+            <div className="flex-1 border-r border-gray-300 p-6 text-center">
+              <div className="text-2xl font-bold mono">
+                LEVEL {level} • SCORE: {score} • MAX: {maxLevel}
+              </div>
+            </div>
+            <div className="flex-1 p-6 text-center">
+              <div className="text-lg font-bold mono uppercase">
+                {gamePhase === 'waiting' && 'GET READY TO MEMORIZE...'}
+                {gamePhase === 'showing' && 'WATCH THE DIGITS'}
+                {gamePhase === 'input' && 'TYPE THE SEQUENCE YOU SAW'}
+                {gamePhase === 'result' && (isCorrect ? 'CORRECT! LEVEL UP...' : 'WRONG SEQUENCE. TRY AGAIN...')}
+              </div>
             </div>
           </div>
-          <div className="flex-1 p-6 text-center">
-            <div className="text-lg font-bold mono uppercase">
-              {gamePhase === 'waiting' && 'GET READY TO MEMORIZE...'}
-              {gamePhase === 'showing' && 'WATCH THE DIGITS'}
-              {gamePhase === 'input' && 'TYPE THE SEQUENCE YOU SAW'}
-              {gamePhase === 'result' && (isCorrect ? 'CORRECT! LEVEL UP...' : 'WRONG SEQUENCE. TRY AGAIN...')}
-            </div>
+
+          {/* Row 2: Digit Display */}
+          <div className="border-b border-gray-300 p-8 text-center min-h-[160px] flex items-center justify-center">
+            {showingSequence && currentDigit !== null && (
+              <div className="text-6xl md:text-8xl font-bold mono text-blue-600 animate-pulse">
+                {currentDigit}
+              </div>
+            )}
+
+            {gamePhase === 'input' && (
+              <div className="text-6xl font-bold mono text-gray-400">
+                ? ? ?
+              </div>
+            )}
+
+            {gamePhase === 'waiting' && (
+              <div className="text-4xl font-bold mono text-gray-400 uppercase">
+                {level} DIGITS COMING UP...
+              </div>
+            )}
           </div>
-        </div>
 
-        {/* Row 2: Digit Display */}
-        <div className="border-b border-gray-300 p-8 text-center min-h-[160px] flex items-center justify-center">
-          {showingSequence && currentDigit !== null && (
-            <div className="text-6xl md:text-8xl font-bold mono text-blue-600 animate-pulse">
-              {currentDigit}
-            </div>
-          )}
-
+          {/* Row 3: Input Form */}
           {gamePhase === 'input' && (
-            <div className="text-6xl font-bold mono text-gray-400">
-              ? ? ?
-            </div>
-          )}
-
-          {gamePhase === 'waiting' && (
-            <div className="text-4xl font-bold mono text-gray-400 uppercase">
-              {level} DIGITS COMING UP...
-            </div>
-          )}
-        </div>
-
-        {/* Row 3: Input Form */}
-        {gamePhase === 'input' && (
-          <>
             <div className="border-b border-gray-300 p-6 text-center">
               <form onSubmit={handleSubmit}>
                 <input
@@ -195,12 +189,10 @@ export default function DigitSpanGame() {
                 </div>
               </form>
             </div>
-          </>
-        )}
+          )}
 
-        {/* Row 4: Result */}
-        {gamePhase === 'result' && (
-          <>
+          {/* Row 4: Result */}
+          {gamePhase === 'result' && (
             <div className="border-b border-gray-300 p-6 text-center min-h-[120px] flex items-center justify-center">
               <div className={`text-3xl font-bold mono uppercase mb-4 ${
                 isCorrect ? 'text-green-600' : 'text-red-600'
@@ -217,12 +209,10 @@ export default function DigitSpanGame() {
                 </div>
               )}
             </div>
-          </>
-        )}
+          )}
 
-        {/* Row 5: Progress Indicator */}
-        {gamePhase === 'input' && sequence.length > 0 && (
-          <>
+          {/* Row 5: Progress Indicator */}
+          {gamePhase === 'input' && sequence.length > 0 && (
             <div className="border-b border-gray-300 p-6 text-center">
               <div className="text-sm text-gray-600 mb-2 uppercase">Sequence Progress</div>
               <div className="flex justify-center space-x-1">
@@ -236,20 +226,19 @@ export default function DigitSpanGame() {
                 ))}
               </div>
             </div>
-          </>
-        )}
+          )}
 
-        {/* Row 6: New Game Button */}
-        <div className="p-6 text-center">
-          <button
-            onClick={startNewGame}
-            className="brutalist-button text-lg"
-          >
-            NEW GAME
-          </button>
-        </div>
-
-      </div>
+          {/* Row 6: New Game Button */}
+          <div className="p-6 text-center">
+            <button
+              onClick={startNewGame}
+              className="brutalist-button text-lg"
+            >
+              NEW GAME
+            </button>
+          </div>
+        </>
+      )}
     </main>
   )
 }

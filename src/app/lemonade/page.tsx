@@ -155,10 +155,10 @@ export default function LemonadeGame() {
     setPrice(0.75)
   }
 
-  if (gameWon) {
-    return (
-      <main className="min-h-screen bg-white">
-        {/* Game Win Screen */}
+  return (
+    <main className="min-h-screen bg-white">
+      {gameWon ? (
+        /* Game Win Screen */
         <div className="border-b border-gray-300 p-8 text-center">
           <div className="text-6xl font-bold mono mb-6">
             🍋 SUCCESS! 🍋
@@ -176,256 +176,251 @@ export default function LemonadeGame() {
             PLAY AGAIN
           </button>
         </div>
-      </main>
-    )
-  }
-
-  return (
-    <main className="min-h-screen bg-white">
-      {/* Game Spreadsheet Grid */}
-
-        {/* Row 1: Header Info */}
-        <div className="flex border-b border-gray-300">
-          <div className="flex-1 border-r border-gray-300 p-6 text-center">
-            <div className="text-2xl font-bold mono">
-              DAY {currentDay} • {WEATHER_ICONS[weather]} {weather.toUpperCase()} • ${cash.toFixed(2)}
-            </div>
-          </div>
-          <div className="flex-1 p-6 text-center">
-            <div className="text-lg font-bold mono uppercase">
-              GOAL: $50.00<br/>
-              TOMORROW: {WEATHER_ICONS[nextWeather]} {nextWeather}
-            </div>
-          </div>
-        </div>
-
-        {/* Row 2: Game Phase Content */}
-        <div className="border-b border-gray-300 p-8">
-          {/* Buying Phase */}
-          {gamePhase === 'buying' && (
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mono mb-8 uppercase">BUY INGREDIENTS</h2>
-
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                {/* Lemons */}
-                <div className="text-center">
-                  <div className="text-4xl mb-2">🍋</div>
-                  <div className="text-xl font-bold mb-4">LEMONS</div>
-                  <div className="text-lg mb-4 uppercase">Have: {inventory.lemons} | $0.10 each</div>
-                  <div className="flex items-center justify-center space-x-4">
-                    <button
-                      onClick={() => setBuyingCart(prev => ({ ...prev, lemons: Math.max(0, prev.lemons - 1) }))}
-                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
-                    >
-                      -
-                    </button>
-                    <div className="text-2xl font-bold mono w-12">{buyingCart.lemons}</div>
-                    <button
-                      onClick={() => setBuyingCart(prev => ({ ...prev, lemons: prev.lemons + 1 }))}
-                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-
-                {/* Sugar */}
-                <div className="text-center">
-                  <div className="text-4xl mb-2">🍯</div>
-                  <div className="text-xl font-bold mb-4">SUGAR</div>
-                  <div className="text-lg mb-4 uppercase">Have: {inventory.sugar} | $0.05 each</div>
-                  <div className="flex items-center justify-center space-x-4">
-                    <button
-                      onClick={() => setBuyingCart(prev => ({ ...prev, sugar: Math.max(0, prev.sugar - 1) }))}
-                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
-                    >
-                      -
-                    </button>
-                    <div className="text-2xl font-bold mono w-12">{buyingCart.sugar}</div>
-                    <button
-                      onClick={() => setBuyingCart(prev => ({ ...prev, sugar: prev.sugar + 1 }))}
-                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-
-                {/* Water */}
-                <div className="text-center">
-                  <div className="text-4xl mb-2">💧</div>
-                  <div className="text-xl font-bold mb-4">WATER</div>
-                  <div className="text-lg mb-4 uppercase">Have: {inventory.water} | $0.02 each</div>
-                  <div className="flex items-center justify-center space-x-4">
-                    <button
-                      onClick={() => setBuyingCart(prev => ({ ...prev, water: Math.max(0, prev.water - 1) }))}
-                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
-                    >
-                      -
-                    </button>
-                    <div className="text-2xl font-bold mono w-12">{buyingCart.water}</div>
-                    <button
-                      onClick={() => setBuyingCart(prev => ({ ...prev, water: prev.water + 1 }))}
-                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
+      ) : (
+        /* Game Spreadsheet Grid */
+        <>
+          {/* Row 1: Header Info */}
+          <div className="flex border-b border-gray-300">
+            <div className="flex-1 border-r border-gray-300 p-6 text-center">
+              <div className="text-2xl font-bold mono">
+                DAY {currentDay} • {WEATHER_ICONS[weather]} {weather.toUpperCase()} • ${cash.toFixed(2)}
               </div>
+            </div>
+            <div className="flex-1 p-6 text-center">
+              <div className="text-lg font-bold mono uppercase">
+                GOAL: $50.00<br/>
+                TOMORROW: {WEATHER_ICONS[nextWeather]} {nextWeather}
+              </div>
+            </div>
+          </div>
 
+          {/* Row 2: Game Phase Content */}
+          <div className="border-b border-gray-300 p-8">
+            {/* Buying Phase */}
+            {gamePhase === 'buying' && (
               <div className="text-center">
-                <div className="text-2xl font-bold mb-6 uppercase">
-                  Total Cost: ${calculateCartCost().toFixed(2)}
+                <h2 className="text-3xl font-bold mono mb-8 uppercase">BUY INGREDIENTS</h2>
+
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                  {/* Lemons */}
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">🍋</div>
+                    <div className="text-xl font-bold mb-4">LEMONS</div>
+                    <div className="text-lg mb-4 uppercase">Have: {inventory.lemons} | $0.10 each</div>
+                    <div className="flex items-center justify-center space-x-4">
+                      <button
+                        onClick={() => setBuyingCart(prev => ({ ...prev, lemons: Math.max(0, prev.lemons - 1) }))}
+                        className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
+                      >
+                        -
+                      </button>
+                      <div className="text-2xl font-bold mono w-12">{buyingCart.lemons}</div>
+                      <button
+                        onClick={() => setBuyingCart(prev => ({ ...prev, lemons: prev.lemons + 1 }))}
+                        className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Sugar */}
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">🍯</div>
+                    <div className="text-xl font-bold mb-4">SUGAR</div>
+                    <div className="text-lg mb-4 uppercase">Have: {inventory.sugar} | $0.05 each</div>
+                    <div className="flex items-center justify-center space-x-4">
+                      <button
+                        onClick={() => setBuyingCart(prev => ({ ...prev, sugar: Math.max(0, prev.sugar - 1) }))}
+                        className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
+                      >
+                        -
+                      </button>
+                      <div className="text-2xl font-bold mono w-12">{buyingCart.sugar}</div>
+                      <button
+                        onClick={() => setBuyingCart(prev => ({ ...prev, sugar: prev.sugar + 1 }))}
+                        className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Water */}
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">💧</div>
+                    <div className="text-xl font-bold mb-4">WATER</div>
+                    <div className="text-lg mb-4 uppercase">Have: {inventory.water} | $0.02 each</div>
+                    <div className="flex items-center justify-center space-x-4">
+                      <button
+                        onClick={() => setBuyingCart(prev => ({ ...prev, water: Math.max(0, prev.water - 1) }))}
+                        className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
+                      >
+                        -
+                      </button>
+                      <div className="text-2xl font-bold mono w-12">{buyingCart.water}</div>
+                      <button
+                        onClick={() => setBuyingCart(prev => ({ ...prev, water: prev.water + 1 }))}
+                        className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          )}
-
-          {/* Production Phase */}
-          {gamePhase === 'production' && (
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mono mb-8 uppercase">MAKE LEMONADE</h2>
-
-              <div className="text-lg mb-6 uppercase">
-                Inventory: {inventory.lemons} 🍋 | {inventory.sugar} 🍯 | {inventory.water} 💧
-              </div>
-              <div className="text-lg mb-8 uppercase">
-                Max cups you can make: <span className="font-bold">{getMaxCups()}</span>
-              </div>
-
-              <div className="flex items-center justify-center space-x-6">
-                <button
-                  onClick={() => setCupsToMake(Math.max(0, cupsToMake - 1))}
-                  className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
-                >
-                  -
-                </button>
 
                 <div className="text-center">
-                  <div className="text-6xl font-bold mono">{cupsToMake}</div>
-                  <div className="text-lg uppercase">CUPS</div>
-                </div>
-
-                <button
-                  onClick={() => setCupsToMake(Math.min(getMaxCups(), cupsToMake + 1))}
-                  className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Pricing Phase */}
-          {gamePhase === 'pricing' && (
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mono mb-8 uppercase">SET PRICE</h2>
-
-              <div className="text-lg mb-6 uppercase">
-                You made <span className="font-bold">{cupsToMake} cups</span>
-              </div>
-              <div className="text-lg mb-8 uppercase">
-                Weather: {WEATHER_ICONS[weather]} {weather} (Expected demand: ~{WEATHER_DEMAND[weather]} customers)
-              </div>
-
-              <div className="flex items-center justify-center space-x-6">
-                <button
-                  onClick={() => setPrice(Math.max(0.25, price - 0.05))}
-                  className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
-                >
-                  -
-                </button>
-
-                <div className="text-6xl font-bold mono">
-                  ${price.toFixed(2)}
-                </div>
-
-                <button
-                  onClick={() => setPrice(Math.min(2.00, price + 0.05))}
-                  className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Results Phase */}
-          {gamePhase === 'results' && dayResult && (
-            <div className="text-center">
-              <h2 className="text-4xl font-bold mono mb-8 uppercase">DAY {currentDay} RESULTS</h2>
-
-              <div className="grid md:grid-cols-4 gap-4 text-center mb-8">
-                <div>
-                  <div className="text-3xl font-bold mono">{dayResult.cupsSold}</div>
-                  <div className="text-sm uppercase">Sold</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold mono">{dayResult.wastedCups}</div>
-                  <div className="text-sm uppercase">Wasted</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold mono">${dayResult.revenue.toFixed(2)}</div>
-                  <div className="text-sm uppercase">Revenue</div>
-                </div>
-                <div>
-                  <div className={`text-3xl font-bold mono ${dayResult.profit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    ${dayResult.profit.toFixed(2)}
+                  <div className="text-2xl font-bold mb-6 uppercase">
+                    Total Cost: ${calculateCartCost().toFixed(2)}
                   </div>
-                  <div className="text-sm uppercase">Profit</div>
                 </div>
               </div>
+            )}
 
-              <div className="text-xl font-bold uppercase">
-                Cash: ${cash.toFixed(2)} / $50.00
+            {/* Production Phase */}
+            {gamePhase === 'production' && (
+              <div className="text-center">
+                <h2 className="text-3xl font-bold mono mb-8 uppercase">MAKE LEMONADE</h2>
+
+                <div className="text-lg mb-6 uppercase">
+                  Inventory: {inventory.lemons} 🍋 | {inventory.sugar} 🍯 | {inventory.water} 💧
+                </div>
+                <div className="text-lg mb-8 uppercase">
+                  Max cups you can make: <span className="font-bold">{getMaxCups()}</span>
+                </div>
+
+                <div className="flex items-center justify-center space-x-6">
+                  <button
+                    onClick={() => setCupsToMake(Math.max(0, cupsToMake - 1))}
+                    className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
+                  >
+                    -
+                  </button>
+
+                  <div className="text-center">
+                    <div className="text-6xl font-bold mono">{cupsToMake}</div>
+                    <div className="text-lg uppercase">CUPS</div>
+                  </div>
+
+                  <button
+                    onClick={() => setCupsToMake(Math.min(getMaxCups(), cupsToMake + 1))}
+                    className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
 
-        {/* Row 3: Action Buttons */}
-        <div className="p-6 text-center">
-          {gamePhase === 'buying' && (
-            <button
-              onClick={buyIngredients}
-              disabled={calculateCartCost() > cash || calculateCartCost() === 0}
-              className="brutalist-button text-xl disabled:opacity-50"
-            >
-              BUY INGREDIENTS
-            </button>
-          )}
+            {/* Pricing Phase */}
+            {gamePhase === 'pricing' && (
+              <div className="text-center">
+                <h2 className="text-3xl font-bold mono mb-8 uppercase">SET PRICE</h2>
 
-          {gamePhase === 'production' && (
-            <button
-              onClick={startProduction}
-              disabled={cupsToMake === 0}
-              className="brutalist-button text-xl disabled:opacity-50"
-            >
-              MAKE {cupsToMake} CUPS
-            </button>
-          )}
+                <div className="text-lg mb-6 uppercase">
+                  You made <span className="font-bold">{cupsToMake} cups</span>
+                </div>
+                <div className="text-lg mb-8 uppercase">
+                  Weather: {WEATHER_ICONS[weather]} {weather} (Expected demand: ~{WEATHER_DEMAND[weather]} customers)
+                </div>
 
-          {gamePhase === 'pricing' && (
-            <button
-              onClick={runDay}
-              className="brutalist-button text-xl"
-            >
-              OPEN STAND
-            </button>
-          )}
+                <div className="flex items-center justify-center space-x-6">
+                  <button
+                    onClick={() => setPrice(Math.max(0.25, price - 0.05))}
+                    className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
+                  >
+                    -
+                  </button>
 
-          {gamePhase === 'results' && (
-            <button
-              onClick={nextDay}
-              className="brutalist-button text-xl"
-            >
-              NEXT DAY
-            </button>
-          )}
-        </div>
+                  <div className="text-6xl font-bold mono">
+                    ${price.toFixed(2)}
+                  </div>
 
-      </div>
+                  <button
+                    onClick={() => setPrice(Math.min(2.00, price + 0.05))}
+                    className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Results Phase */}
+            {gamePhase === 'results' && dayResult && (
+              <div className="text-center">
+                <h2 className="text-4xl font-bold mono mb-8 uppercase">DAY {currentDay} RESULTS</h2>
+
+                <div className="grid md:grid-cols-4 gap-4 text-center mb-8">
+                  <div>
+                    <div className="text-3xl font-bold mono">{dayResult.cupsSold}</div>
+                    <div className="text-sm uppercase">Sold</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold mono">{dayResult.wastedCups}</div>
+                    <div className="text-sm uppercase">Wasted</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold mono">${dayResult.revenue.toFixed(2)}</div>
+                    <div className="text-sm uppercase">Revenue</div>
+                  </div>
+                  <div>
+                    <div className={`text-3xl font-bold mono ${dayResult.profit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      ${dayResult.profit.toFixed(2)}
+                    </div>
+                    <div className="text-sm uppercase">Profit</div>
+                  </div>
+                </div>
+
+                <div className="text-xl font-bold uppercase">
+                  Cash: ${cash.toFixed(2)} / $50.00
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Row 3: Action Buttons */}
+          <div className="p-6 text-center">
+            {gamePhase === 'buying' && (
+              <button
+                onClick={buyIngredients}
+                disabled={calculateCartCost() > cash || calculateCartCost() === 0}
+                className="brutalist-button text-xl disabled:opacity-50"
+              >
+                BUY INGREDIENTS
+              </button>
+            )}
+
+            {gamePhase === 'production' && (
+              <button
+                onClick={startProduction}
+                disabled={cupsToMake === 0}
+                className="brutalist-button text-xl disabled:opacity-50"
+              >
+                MAKE {cupsToMake} CUPS
+              </button>
+            )}
+
+            {gamePhase === 'pricing' && (
+              <button
+                onClick={runDay}
+                className="brutalist-button text-xl"
+              >
+                OPEN STAND
+              </button>
+            )}
+
+            {gamePhase === 'results' && (
+              <button
+                onClick={nextDay}
+                className="brutalist-button text-xl"
+              >
+                NEXT DAY
+              </button>
+            )}
+          </div>
+        </>
+      )}
     </main>
   )
 }

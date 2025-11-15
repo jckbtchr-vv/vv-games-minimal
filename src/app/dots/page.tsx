@@ -93,10 +93,10 @@ export default function DotCounterGame() {
 
   const accuracy = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
 
-  if (!gameStarted) {
-    return (
-      <main className="min-h-screen bg-white">
-        {/* Game Intro */}
+  return (
+    <main className="min-h-screen bg-white">
+      {!gameStarted ? (
+        /* Game Intro */
         <div className="border-b border-gray-300 p-8 text-center">
           <h1 className="text-4xl font-bold mono mb-6 uppercase">
             DOT COUNTER
@@ -115,57 +115,51 @@ export default function DotCounterGame() {
             START COUNTING
           </button>
         </div>
-      </main>
-    )
-  }
-
-  return (
-    <main className="min-h-screen bg-white">
-      {/* Game Spreadsheet Grid */}
-
-        {/* Row 1: Score and Flash Speed */}
-        <div className="flex border-b border-gray-300">
-          <div className="flex-1 border-r border-gray-300 p-6 text-center">
-            <div className="text-2xl font-bold mono">
-              {score}/{totalQuestions} ({accuracy}%)
-            </div>
-          </div>
-          <div className="flex-1 p-6 text-center">
-            <div className="text-lg font-bold mono uppercase">
-              FLASH SPEED<br/>
-              {flashDuration}ms
-            </div>
-          </div>
-        </div>
-
-        {/* Row 2: Dot Display Area */}
-        <div className="border-b border-gray-300 p-8">
-          <div className="relative w-full h-80 border-2 border-black bg-gray-50 mx-auto max-w-lg">
-            {showDots && dots.map(dot => (
-              <div
-                key={dot.id}
-                className="absolute w-4 h-4 bg-black rounded-full"
-                style={{
-                  left: `${dot.x}%`,
-                  top: `${dot.y}%`,
-                  transform: 'translate(-50%, -50%)'
-                }}
-              />
-            ))}
-
-            {!showDots && !showResult && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-2xl font-bold mono text-gray-400 uppercase">
-                  HOW MANY DOTS DID YOU SEE?
-                </div>
+      ) : (
+        /* Game Spreadsheet Grid */
+        <>
+          {/* Row 1: Score and Flash Speed */}
+          <div className="flex border-b border-gray-300">
+            <div className="flex-1 border-r border-gray-300 p-6 text-center">
+              <div className="text-2xl font-bold mono">
+                {score}/{totalQuestions} ({accuracy}%)
               </div>
-            )}
+            </div>
+            <div className="flex-1 p-6 text-center">
+              <div className="text-lg font-bold mono uppercase">
+                FLASH SPEED<br/>
+                {flashDuration}ms
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Row 3: Input Form */}
-        {!showDots && !showResult && (
-          <>
+          {/* Row 2: Dot Display Area */}
+          <div className="border-b border-gray-300 p-8">
+            <div className="relative w-full h-80 border-2 border-black bg-gray-50 mx-auto max-w-lg">
+              {showDots && dots.map(dot => (
+                <div
+                  key={dot.id}
+                  className="absolute w-4 h-4 bg-black rounded-full"
+                  style={{
+                    left: `${dot.x}%`,
+                    top: `${dot.y}%`,
+                    transform: 'translate(-50%, -50%)'
+                  }}
+                />
+              ))}
+
+              {!showDots && !showResult && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-2xl font-bold mono text-gray-400 uppercase">
+                    HOW MANY DOTS DID YOU SEE?
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Row 3: Input Form */}
+          {!showDots && !showResult && (
             <div className="border-b border-gray-300 p-6 text-center">
               <form onSubmit={handleSubmit}>
                 <input
@@ -187,48 +181,47 @@ export default function DotCounterGame() {
                 </button>
               </form>
             </div>
-          </>
-        )}
+          )}
 
-        {/* Row 4: Result */}
-        {showResult && (
-          <>
-            <div className="border-b border-gray-300 p-6 text-center min-h-[120px] flex items-center justify-center">
-              <div className={`text-4xl font-bold mono uppercase mb-4 ${
-                isCorrect ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
+          {/* Row 4: Result */}
+          {showResult && (
+            <>
+              <div className="border-b border-gray-300 p-6 text-center min-h-[120px] flex items-center justify-center">
+                <div className={`text-4xl font-bold mono uppercase mb-4 ${
+                  isCorrect ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
+                </div>
+                <div className="text-2xl uppercase">
+                  You guessed: <span className="font-bold">{userGuess}</span>
+                  <br />
+                  Correct answer: <span className="font-bold">{correctAnswer}</span>
+                </div>
               </div>
-              <div className="text-2xl uppercase">
-                You guessed: <span className="font-bold">{userGuess}</span>
-                <br />
-                Correct answer: <span className="font-bold">{correctAnswer}</span>
+              <div className="p-6 text-center">
+                <button
+                  onClick={startNewRound}
+                  className="brutalist-button text-lg"
+                >
+                  NEXT ROUND
+                </button>
               </div>
-            </div>
+            </>
+          )}
+
+          {/* Row 5: New Game Button */}
+          {!showResult && (
             <div className="p-6 text-center">
               <button
-                onClick={startNewRound}
+                onClick={startNewGame}
                 className="brutalist-button text-lg"
               >
-                NEXT ROUND
+                NEW GAME
               </button>
             </div>
-          </>
-        )}
-
-        {/* Row 5: New Game Button */}
-        {!showResult && (
-          <div className="p-6 text-center">
-            <button
-              onClick={startNewGame}
-              className="brutalist-button text-lg"
-            >
-              NEW GAME
-            </button>
-          </div>
-        )}
-
-      </div>
+          )}
+        </>
+      )}
     </main>
   )
 }

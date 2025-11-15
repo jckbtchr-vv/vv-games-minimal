@@ -132,10 +132,10 @@ export default function FractionVisualizerGame() {
 
   const accuracy = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
 
-  if (!gameStarted) {
-    return (
-      <main className="min-h-screen bg-white">
-        {/* Game Intro */}
+  return (
+    <main className="min-h-screen bg-white">
+      {!gameStarted ? (
+        /* Game Intro */
         <div className="border-b border-gray-300 p-8 text-center">
           <h1 className="text-4xl font-bold mono mb-6 uppercase">
             FRACTION VISUALIZER
@@ -154,86 +154,81 @@ export default function FractionVisualizerGame() {
             START VISUALIZING
           </button>
         </div>
-      </main>
-    )
-  }
-
-  return (
-    <main className="min-h-screen bg-white">
-      {/* Game Spreadsheet Grid */}
-
-        {/* Row 1: Score */}
-        <div className="border-b border-gray-300 p-6 text-center">
-          <div className="text-2xl font-bold mono">
-            {score}/{totalQuestions} ({accuracy}%)
+      ) : (
+        /* Game Spreadsheet Grid */
+        <>
+          {/* Row 1: Score */}
+          <div className="border-b border-gray-300 p-6 text-center">
+            <div className="text-2xl font-bold mono">
+              {score}/{totalQuestions} ({accuracy}%)
+            </div>
           </div>
-        </div>
 
-        {/* Row 2: Question */}
-        <div className="border-b border-gray-300 p-6 text-center">
-          <div className="text-2xl font-bold mono uppercase">
-            WHAT FRACTION IS SHADED?
+          {/* Row 2: Question */}
+          <div className="border-b border-gray-300 p-6 text-center">
+            <div className="text-2xl font-bold mono uppercase">
+              WHAT FRACTION IS SHADED?
+            </div>
           </div>
-        </div>
 
-        {/* Row 3: Pie Chart */}
-        <div className="border-b border-gray-300 p-8 text-center">
-          {renderPieChart(currentFraction, 300)}
-        </div>
+          {/* Row 3: Pie Chart */}
+          <div className="border-b border-gray-300 p-8 text-center">
+            {renderPieChart(currentFraction, 300)}
+          </div>
 
-        {/* Row 4: Multiple Choice Options */}
-        <div className="flex border-b border-gray-300">
-          {options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswerSelect(option)}
-              disabled={showResult}
-              className={`flex-1 border-r border-gray-300 p-6 text-2xl font-bold mono transition-colors ${
-                index < 3 ? 'border-r border-gray-300' : ''
-              } ${
-                showResult && option.numerator === currentFraction.numerator && option.denominator === currentFraction.denominator
-                  ? 'bg-green-500 text-white'
-                  : showResult && selectedAnswer && option.numerator === selectedAnswer.numerator && option.denominator === selectedAnswer.denominator && !(option.numerator === currentFraction.numerator && option.denominator === currentFraction.denominator)
-                  ? 'bg-red-500 text-white'
-                  : showResult
-                  ? 'bg-gray-200 text-gray-500'
-                  : 'bg-white hover:bg-gray-100'
-              }`}
-            >
-              {formatFraction(option)}
-            </button>
-          ))}
-        </div>
+          {/* Row 4: Multiple Choice Options */}
+          <div className="flex border-b border-gray-300">
+            {options.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => handleAnswerSelect(option)}
+                disabled={showResult}
+                className={`flex-1 border-r border-gray-300 p-6 text-2xl font-bold mono transition-colors ${
+                  index < 3 ? 'border-r border-gray-300' : ''
+                } ${
+                  showResult && option.numerator === currentFraction.numerator && option.denominator === currentFraction.denominator
+                    ? 'bg-green-500 text-white'
+                    : showResult && selectedAnswer && option.numerator === selectedAnswer.numerator && option.denominator === selectedAnswer.denominator && !(option.numerator === currentFraction.numerator && option.denominator === currentFraction.denominator)
+                    ? 'bg-red-500 text-white'
+                    : showResult
+                    ? 'bg-gray-200 text-gray-500'
+                    : 'bg-white hover:bg-gray-100'
+                }`}
+              >
+                {formatFraction(option)}
+              </button>
+            ))}
+          </div>
 
-        {/* Row 5: Result Feedback */}
-        <div className="border-b border-gray-300 p-6 text-center min-h-[100px] flex items-center justify-center">
-          {showResult && (
-            <>
-              <div className={`text-2xl font-bold mono uppercase ${
-                isCorrect ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
-              </div>
-              {!isCorrect && (
-                <div className="text-lg text-gray-600 mt-2 uppercase">
-                  The answer was {formatFraction(currentFraction)}
+          {/* Row 5: Result Feedback */}
+          <div className="border-b border-gray-300 p-6 text-center min-h-[100px] flex items-center justify-center">
+            {showResult && (
+              <>
+                <div className={`text-2xl font-bold mono uppercase ${
+                  isCorrect ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {isCorrect ? '✓ CORRECT!' : '✗ WRONG'}
                 </div>
-              )}
-            </>
-          )}
-        </div>
+                {!isCorrect && (
+                  <div className="text-lg text-gray-600 mt-2 uppercase">
+                    The answer was {formatFraction(currentFraction)}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
 
-        {/* Row 6: New Game Button */}
-        <div className="p-6 text-center">
-          <button
-            onClick={startNewGame}
-            className="brutalist-button text-lg"
-          >
-            NEW GAME
-          </button>
-        </div>
-
-      </div>
+          {/* Row 6: New Game Button */}
+          <div className="p-6 text-center">
+            <button
+              onClick={startNewGame}
+              className="brutalist-button text-lg"
+            >
+              NEW GAME
+            </button>
+          </div>
+        </>
+      )}
     </main>
   )
 }
