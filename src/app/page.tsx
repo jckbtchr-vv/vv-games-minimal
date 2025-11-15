@@ -7,7 +7,7 @@ export default function HomePage() {
           {/* Row 1 */}
           <div className="flex border-b border-gray-300">
             <a href="/typing" className="flex-1 border-r border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
-              <div className="text-2xl mb-3">∘</div>
+              <div className="text-2xl mb-3">|</div>
               <h3 className="text-lg font-bold mono uppercase mb-3">Literature Typing</h3>
               <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
                 TYPE GREAT WORKS ONE WORD AT A TIME.<br/>
