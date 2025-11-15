@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import DarkModeToggle from '@/components/DarkModeToggle'
 
 export const metadata: Metadata = {
   title: 'Infinite Games - Minimal Games for Focus & Learning',
@@ -45,10 +46,11 @@ export default function RootLayout({
                 <a href="/fractions" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
                   Fractions
                 </a>
-                <a href="/digits" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
-                  Digits
-                </a>
-              </div>
+                            <a href="/digits" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                              Digits
+                            </a>
+                            <DarkModeToggle />
+                          </div>
             </div>
           </div>
         </nav>

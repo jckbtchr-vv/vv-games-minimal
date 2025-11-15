@@ -20,6 +20,11 @@
   --background-rgb: 255, 255, 255;
 }
 
+[data-theme="dark"] {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 0, 0, 0;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
@@ -39,4 +44,114 @@ body {
 .brutalist-button:hover {
   @apply bg-white text-black;
   box-shadow: 4px 4px 0px 0px black;
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .brutalist-button {
+  @apply bg-white text-black border-white;
+}
+
+[data-theme="dark"] .brutalist-button:hover {
+  @apply bg-black text-white;
+  box-shadow: 4px 4px 0px 0px white;
+}
+
+[data-theme="dark"] .bg-white {
+  @apply bg-black;
+}
+
+[data-theme="dark"] .bg-gray-100 {
+  @apply bg-gray-900;
+}
+
+[data-theme="dark"] .bg-gray-200 {
+  @apply bg-gray-800;
+}
+
+[data-theme="dark"] .border-black {
+  @apply border-white;
+}
+
+[data-theme="dark"] .text-black {
+  @apply text-white;
+}
+
+[data-theme="dark"] .text-gray-600 {
+  @apply text-gray-400;
+}
+
+[data-theme="dark"] .text-gray-700 {
+  @apply text-gray-300;
+}
+
+[data-theme="dark"] .hover\:bg-gray-50:hover {
+  @apply bg-gray-900;
+}
+
+[data-theme="dark"] .hover\:bg-gray-100:hover {
+  @apply bg-gray-800;
+}
+
+/* Game-specific dark mode styles */
+[data-theme="dark"] .border-gray-300 {
+  @apply border-gray-600;
+}
+
+[data-theme="dark"] .text-gray-400 {
+  @apply text-gray-500;
+}
+
+[data-theme="dark"] .focus\:border-black:focus {
+  @apply border-white;
+}
+
+[data-theme="dark"] .hover\:underline:hover {
+  @apply text-white;
+}
+
+/* Input field dark mode */
+[data-theme="dark"] input {
+  color: white;
+}
+
+[data-theme="dark"] input::placeholder {
+  color: #9ca3af;
+}
+
+/* Button and interactive elements */
+[data-theme="dark"] button {
+  color: white;
+}
+
+/* Ensure proper contrast for game elements */
+[data-theme="dark"] .bg-green-500 {
+  @apply bg-green-400;
+}
+
+[data-theme="dark"] .bg-red-500 {
+  @apply bg-red-400;
+}
+
+[data-theme="dark"] .bg-blue-500 {
+  @apply bg-blue-400;
+}
+
+[data-theme="dark"] .bg-yellow-500 {
+  @apply bg-yellow-400;
+}
+
+[data-theme="dark"] .bg-purple-500 {
+  @apply bg-purple-400;
+}
+
+[data-theme="dark"] .border-green-500 {
+  @apply border-green-400;
+}
+
+[data-theme="dark"] .border-red-500 {
+  @apply border-red-400;
+}
+
+[data-theme="dark"] .border-blue-500 {
+  @apply border-blue-400;
 }
