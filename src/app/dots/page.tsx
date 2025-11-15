@@ -154,50 +154,53 @@ export default function DotCounterGame() {
           )}
         </div>
 
-        {/* Input Form */}
-        {!showDots && !showResult && (
-          <form onSubmit={handleSubmit} className="text-center">
-            <input
-              type="number"
-              value={userGuess}
-              onChange={(e) => setUserGuess(e.target.value)}
-              className="text-4xl text-center p-4 border-3 border-black font-mono w-32 mr-4"
-              placeholder="?"
-              autoFocus
-              min="0"
-              max="50"
-            />
-            <button
-              type="submit"
-              className="brutalist-button text-lg"
-              disabled={!userGuess}
-            >
-              Submit
-            </button>
-          </form>
-        )}
+        {/* Input/Result Area - Fixed Height */}
+        <div className="h-48 flex items-center justify-center">
+          {/* Input Form */}
+          {!showDots && !showResult && (
+            <form onSubmit={handleSubmit} className="text-center">
+              <input
+                type="number"
+                value={userGuess}
+                onChange={(e) => setUserGuess(e.target.value)}
+                className="text-4xl text-center p-4 border-3 border-black font-mono w-32 mr-4"
+                placeholder="?"
+                autoFocus
+                min="0"
+                max="50"
+              />
+              <button
+                type="submit"
+                className="brutalist-button text-lg"
+                disabled={!userGuess}
+              >
+                Submit
+              </button>
+            </form>
+          )}
 
-        {/* Result */}
-        {showResult && (
-          <div className="text-center">
-            <div className={`text-4xl font-bold mono mb-4 ${
-              isCorrect ? 'text-green-600' : 'text-red-600'
-            }`}>
-              {isCorrect ? '✓ Correct!' : '✗ Wrong'}
+          {/* Result */}
+          {showResult && (
+            <div className="text-center">
+              <div className={`text-4xl font-bold mono mb-4 ${
+                isCorrect ? 'text-green-600' : 'text-red-600'
+              }`}>
+                {isCorrect ? '✓ Correct!' : '✗ Wrong'}
+              </div>
+              <div className="text-2xl mb-6">
+                You guessed: <span className="font-bold">{userGuess}</span>
+                <br />
+                Correct answer: <span className="font-bold">{correctAnswer}</span>
+              </div>
+              <button
+                onClick={startNewRound}
+                className="brutalist-button text-lg"
+              >
+                Next Round
+              </button>
             </div>
-            <div className="text-2xl mb-6">
-              You guessed: <span className="font-bold">{userGuess}</span>
-              <br />
-              Correct answer: <span className="font-bold">{correctAnswer}</span>
-            </div>
-            <button
-              onClick={startNewRound}
-              className="brutalist-button text-lg"
-            >
-              Next Round
-            </button>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* New Game Button */}
         <div className="text-center mt-12">

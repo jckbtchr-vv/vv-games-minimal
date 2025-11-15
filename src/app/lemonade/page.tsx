@@ -192,9 +192,11 @@ export default function LemonadeGame() {
           </div>
         </div>
 
-        {/* Buying Phase */}
-        {gamePhase === 'buying' && (
-          <div className="space-y-8">
+        {/* Game Content - Fixed Height Container */}
+        <div className="min-h-[600px]">
+          {/* Buying Phase */}
+          {gamePhase === 'buying' && (
+            <div className="space-y-8">
             <div className="border-3 border-black p-8 bg-gray-100">
               <h2 className="text-2xl font-bold mono mb-8 text-center">BUY INGREDIENTS</h2>
               
@@ -279,8 +281,8 @@ export default function LemonadeGame() {
                 </button>
               </div>
             </div>
-          </div>
-        )}
+            </div>
+          )}
 
         {/* Production Phase */}
         {gamePhase === 'production' && (
@@ -414,6 +416,7 @@ export default function LemonadeGame() {
             </div>
           </div>
         )}
+        </div>
       </div>
     </main>
   )

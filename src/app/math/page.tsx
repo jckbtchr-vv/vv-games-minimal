@@ -145,16 +145,16 @@ export default function MathGridGame() {
 
         {/* Question and Grid */}
         <div className="text-center mb-8">
-          <div className="text-6xl md:text-8xl font-bold mono mb-8">
+          <div className="text-6xl md:text-8xl font-bold mono mb-8 h-24 flex items-center justify-center">
             {question}
           </div>
           
           {/* Visual Grid */}
-          <div className="mb-8">
+          <div className="mb-8 h-64 flex items-center justify-center">
             {renderGrid()}
           </div>
           
-          <div className="text-xl text-gray-600 mb-8">
+          <div className="text-xl text-gray-600 mb-8 h-8 flex items-center justify-center">
             How many cells are in this grid?
           </div>
         </div>
