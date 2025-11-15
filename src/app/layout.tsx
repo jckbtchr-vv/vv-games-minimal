@@ -23,35 +23,35 @@ export default function RootLayout({
                   INFINITE GAMES
                 </span>
               </a>
-              <div className="flex items-center space-x-2">
-                <a href="/" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+              <div className="flex items-center space-x-1">
+                <a href="/" className="px-2 py-1 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
                   Games
                 </a>
-                <a href="/typing" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                <a href="/typing" className="px-2 py-1 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
                   Type
                 </a>
-                <a href="/math" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                <a href="/math" className="px-2 py-1 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
                   Math
                 </a>
-                <a href="/dots" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                <a href="/dots" className="px-2 py-1 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
                   Dots
                 </a>
-                <a href="/stroop" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                <a href="/stroop" className="px-2 py-1 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
                   Color
                 </a>
-                <a href="/pattern" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                <a href="/pattern" className="px-2 py-1 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
                   Pattern
                 </a>
-                <a href="/fractions" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                <a href="/fractions" className="px-2 py-1 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
                   Fractions
                 </a>
-                            <a href="/digits" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
-                              Digits
-                            </a>
-                            <a href="/lemonade" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
-                              Lemonade
-                            </a>
-                          </div>
+                <a href="/digits" className="px-2 py-1 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                  Digits
+                </a>
+                <a href="/lemonade" className="px-2 py-1 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                  Lemonade
+                </a>
+              </div>
             </div>
           </div>
         </nav>

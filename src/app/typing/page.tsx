@@ -106,8 +106,8 @@ export default function TypingGame() {
           <>
             {/* Current Word Section */}
             <div className="game-section-alt text-center">
-              <div className="flex items-center justify-center min-h-[200px] md:min-h-[250px] px-4">
-                <div className="text-6xl md:text-7xl font-bold mono break-all leading-tight text-center max-w-full">
+              <div className="flex items-center justify-center min-h-[160px] md:min-h-[180px]">
+                <div className="text-5xl md:text-6xl font-bold mono break-all leading-tight text-center max-w-full">
                   {getCurrentWord()}
                 </div>
               </div>
@@ -120,11 +120,11 @@ export default function TypingGame() {
                 type="text"
                 value={userInput}
                 onChange={handleInputChange}
-                className={`w-full text-4xl text-center p-6 border-0 border-b-4 bg-transparent font-mono ${
-                  isCorrect === null 
-                    ? 'border-gray-300' 
-                    : isCorrect 
-                    ? 'border-green-500' 
+                className={`w-full text-3xl md:text-4xl text-center p-4 border-0 border-b-4 bg-transparent font-mono ${
+                  isCorrect === null
+                    ? 'border-gray-300'
+                    : isCorrect
+                    ? 'border-green-500'
                     : 'border-red-500'
                 } focus:outline-none focus:border-black`}
                 placeholder="type here"
@@ -136,7 +136,7 @@ export default function TypingGame() {
 
             {/* Progress Section */}
             <div className="game-section text-center">
-              <div className="text-xl text-gray-400 mono">
+              <div className="text-lg text-gray-400 mono">
                 {currentWordIndex + 1} / {words.length}
               </div>
             </div>
@@ -144,7 +144,7 @@ export default function TypingGame() {
         ) : (
           /* Game Complete */
           <div className="game-section text-center">
-            <div className="text-6xl font-bold mono mb-8">
+            <div className="text-5xl font-bold mono mb-6">
               {calculateWPM()} WPM
             </div>
             <button

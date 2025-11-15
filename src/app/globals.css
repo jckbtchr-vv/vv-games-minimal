@@ -32,7 +32,7 @@ body {
 }
 
 .brutalist-button {
-  @apply bg-black text-white px-6 py-3 font-bold uppercase tracking-wide border-2 border-black;
+  @apply bg-black text-white px-4 py-2 font-bold uppercase tracking-wide border-2 border-black;
   transition: all 0.1s ease;
 }
 
@@ -51,7 +51,7 @@ body {
 }
 
 .game-section {
-  @apply py-8 px-4 border-b border-gray-200;
+  @apply py-6 px-4 border-b border-gray-200;
 }
 
 .game-section:last-child {
@@ -59,7 +59,7 @@ body {
 }
 
 .game-section-alt {
-  @apply py-8 px-4 bg-gray-50 border-b border-gray-200;
+  @apply py-6 px-4 bg-gray-50 border-b border-gray-200;
 }
 
 .game-section-alt:last-child {
