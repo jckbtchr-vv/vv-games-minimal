@@ -102,7 +102,6 @@ export default function TypingGame() {
   return (
     <main className="min-h-screen bg-white">
       {/* Game Spreadsheet Grid */}
-      <div className="max-w-4xl mx-auto">
 
         {/* Row 1: Progress */}
         <div className="border-b border-gray-300 p-6 text-center">

@@ -138,7 +138,6 @@ export default function MathGridGame() {
   return (
     <main className="min-h-screen bg-white">
       {/* Game Spreadsheet Grid */}
-      <div className="max-w-4xl mx-auto">
 
         {/* Row 1: Score and Grid Size */}
         <div className="flex border-b border-gray-300">
