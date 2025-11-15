@@ -109,20 +109,34 @@ export default function HomePage() {
               </div>
             </a>
 
-            {/* Digit Span */}
-            <a href="/digits" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
-              <div className="text-center">
-                <div className="text-4xl mb-3">🔢</div>
-                <h3 className="text-xl font-bold mono uppercase mb-3">Digit Span</h3>
-                <p className="text-gray-700 text-sm mb-4">
-                  Remember number sequences. Classic memory span test.
-                </p>
-                <div className="brutalist-button inline-block text-sm">
-                  Play
-                </div>
-              </div>
-            </a>
-          </div>
+                        {/* Digit Span */}
+                        <a href="/digits" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+                          <div className="text-center">
+                            <div className="text-4xl mb-3">🔢</div>
+                            <h3 className="text-xl font-bold mono uppercase mb-3">Digit Span</h3>
+                            <p className="text-gray-700 text-sm mb-4">
+                              Remember number sequences. Classic memory span test.
+                            </p>
+                            <div className="brutalist-button inline-block text-sm">
+                              Play
+                            </div>
+                          </div>
+                        </a>
+
+                        {/* Lemonade Stand */}
+                        <a href="/lemonade" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+                          <div className="text-center">
+                            <div className="text-4xl mb-3">🍋</div>
+                            <h3 className="text-xl font-bold mono uppercase mb-3">Lemonade Stand</h3>
+                            <p className="text-gray-700 text-sm mb-4">
+                              Daily business simulator. Recipe ratios, pricing, and profit.
+                            </p>
+                            <div className="brutalist-button inline-block text-sm">
+                              Play
+                            </div>
+                          </div>
+                        </a>
+                      </div>
         </div>
       </section>
 

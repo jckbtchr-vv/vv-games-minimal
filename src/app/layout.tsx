@@ -49,6 +49,9 @@ export default function RootLayout({
                             <a href="/digits" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
                               Digits
                             </a>
+                            <a href="/lemonade" className="px-3 py-2 font-bold uppercase tracking-wide text-black hover:bg-gray-100 text-sm">
+                              Lemonade
+                            </a>
                             <DarkModeToggle />
                           </div>
             </div>
