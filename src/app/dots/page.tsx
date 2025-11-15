@@ -132,7 +132,7 @@ export default function DotCounterGame() {
         </div>
 
         {/* Dot Display Area */}
-        <div className="relative w-full h-64 md:h-80 border-3 border-black bg-gray-50 mb-6">
+        <div className="relative w-full h-64 md:h-80 border-2 border-black bg-gray-50 mb-6">
           {showDots && dots.map(dot => (
             <div
               key={dot.id}
@@ -163,7 +163,7 @@ export default function DotCounterGame() {
                 type="number"
                 value={userGuess}
                 onChange={(e) => setUserGuess(e.target.value)}
-                className="text-4xl text-center p-4 border-3 border-black font-mono w-32 mr-4"
+                className="text-4xl text-center p-4 border-2 border-black font-mono w-32 mr-4"
                 placeholder="?"
                 autoFocus
                 min="0"
@@ -206,7 +206,7 @@ export default function DotCounterGame() {
         <div className="text-center mt-12">
           <button
             onClick={startNewGame}
-            className="border-3 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="border-2 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
           >
             New Game
           </button>

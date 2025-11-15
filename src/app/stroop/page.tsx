@@ -168,7 +168,7 @@ export default function ColorStroopGame() {
             Time limit: {timeLimit}ms
           </div>
           {/* Timer Bar */}
-          <div className="w-full max-w-md mx-auto h-4 border-3 border-black bg-gray-200">
+          <div className="w-full max-w-md mx-auto h-4 border-2 border-black bg-gray-200">
             <div 
               className={`h-full transition-all duration-100 ${
                 timeProgress > 50 ? 'bg-green-500' : 
@@ -196,7 +196,7 @@ export default function ColorStroopGame() {
               key={index}
               onClick={() => handleAnswerSelect(option)}
               disabled={showResult}
-              className={`p-4 text-xl font-bold mono border-3 border-black transition-colors ${
+              className={`p-4 text-xl font-bold mono border-2 border-black transition-colors ${
                 showResult && option === correctAnswer
                   ? 'bg-green-500 text-white'
                   : showResult && option === selectedAnswer && option !== correctAnswer
@@ -233,7 +233,7 @@ export default function ColorStroopGame() {
         <div className="text-center mt-12">
           <button
             onClick={startNewGame}
-            className="border-3 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="border-2 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
           >
             New Game
           </button>

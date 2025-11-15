@@ -140,7 +140,7 @@ export default function PatternMemoryGame() {
               key={index}
               onClick={() => handleColorClick(index)}
               disabled={gamePhase !== 'input'}
-              className={`w-24 h-24 border-3 border-black transition-all duration-200 ${color} ${
+              className={`w-24 h-24 border-2 border-black transition-all duration-200 ${color} ${
                 showingPattern && currentStep < pattern.length && pattern[currentStep] === index
                   ? 'scale-110 shadow-lg'
                   : showingPattern
@@ -205,7 +205,7 @@ export default function PatternMemoryGame() {
         <div className="text-center">
           <button
             onClick={startNewGame}
-            className="border-3 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="border-2 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
           >
             New Game
           </button>

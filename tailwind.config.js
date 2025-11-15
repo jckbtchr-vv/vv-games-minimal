@@ -13,7 +13,7 @@ module.exports = {
         'carbon': ['T26 Carbon', 'JetBrains Mono', 'monospace'],
       },
       borderWidth: {
-        '3': '3px',
+        '2': '2px',
       },
       boxShadow: {
         'brutalist': '4px 4px 0px 0px black',

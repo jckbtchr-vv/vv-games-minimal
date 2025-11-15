@@ -197,7 +197,7 @@ export default function LemonadeGame() {
           {/* Buying Phase */}
           {gamePhase === 'buying' && (
             <div className="space-y-8">
-            <div className="border-3 border-black p-8 bg-gray-100">
+            <div className="border-2 border-black p-8 bg-gray-100">
               <h2 className="text-2xl font-bold mono mb-8 text-center">BUY INGREDIENTS</h2>
               
               <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -209,14 +209,14 @@ export default function LemonadeGame() {
                   <div className="flex items-center justify-center space-x-4">
                     <button
                       onClick={() => setBuyingCart(prev => ({ ...prev, lemons: Math.max(0, prev.lemons - 1) }))}
-                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
                     >
                       -
                     </button>
                     <div className="text-2xl font-bold mono w-12">{buyingCart.lemons}</div>
                     <button
                       onClick={() => setBuyingCart(prev => ({ ...prev, lemons: prev.lemons + 1 }))}
-                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
                     >
                       +
                     </button>
@@ -231,14 +231,14 @@ export default function LemonadeGame() {
                   <div className="flex items-center justify-center space-x-4">
                     <button
                       onClick={() => setBuyingCart(prev => ({ ...prev, sugar: Math.max(0, prev.sugar - 1) }))}
-                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
                     >
                       -
                     </button>
                     <div className="text-2xl font-bold mono w-12">{buyingCart.sugar}</div>
                     <button
                       onClick={() => setBuyingCart(prev => ({ ...prev, sugar: prev.sugar + 1 }))}
-                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
                     >
                       +
                     </button>
@@ -253,14 +253,14 @@ export default function LemonadeGame() {
                   <div className="flex items-center justify-center space-x-4">
                     <button
                       onClick={() => setBuyingCart(prev => ({ ...prev, water: Math.max(0, prev.water - 1) }))}
-                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
                     >
                       -
                     </button>
                     <div className="text-2xl font-bold mono w-12">{buyingCart.water}</div>
                     <button
                       onClick={() => setBuyingCart(prev => ({ ...prev, water: prev.water + 1 }))}
-                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                      className="text-2xl font-bold border-2 border-black px-4 py-2 hover:bg-gray-100"
                     >
                       +
                     </button>
@@ -287,7 +287,7 @@ export default function LemonadeGame() {
         {/* Production Phase */}
         {gamePhase === 'production' && (
           <div className="space-y-8">
-            <div className="border-3 border-black p-8 bg-gray-100">
+            <div className="border-2 border-black p-8 bg-gray-100">
               <h2 className="text-2xl font-bold mono mb-8 text-center">MAKE LEMONADE</h2>
               
               <div className="text-center space-y-6">
@@ -301,7 +301,7 @@ export default function LemonadeGame() {
                 <div className="flex items-center justify-center space-x-6">
                   <button
                     onClick={() => setCupsToMake(Math.max(0, cupsToMake - 1))}
-                    className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
+                    className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
                   >
                     -
                   </button>
@@ -313,7 +313,7 @@ export default function LemonadeGame() {
                   
                   <button
                     onClick={() => setCupsToMake(Math.min(getMaxCups(), cupsToMake + 1))}
-                    className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
+                    className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
                   >
                     +
                   </button>
@@ -334,7 +334,7 @@ export default function LemonadeGame() {
         {/* Pricing Phase */}
         {gamePhase === 'pricing' && (
           <div className="space-y-8">
-            <div className="border-3 border-black p-8 bg-white">
+            <div className="border-2 border-black p-8 bg-white">
               <h2 className="text-2xl font-bold mono mb-8 text-center">SET PRICE</h2>
               
               <div className="text-center space-y-6">
@@ -348,7 +348,7 @@ export default function LemonadeGame() {
                 <div className="flex items-center justify-center space-x-6">
                   <button
                     onClick={() => setPrice(Math.max(0.25, price - 0.05))}
-                    className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
+                    className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
                   >
                     -
                   </button>
@@ -359,7 +359,7 @@ export default function LemonadeGame() {
                   
                   <button
                     onClick={() => setPrice(Math.min(2.00, price + 0.05))}
-                    className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
+                    className="text-4xl font-bold border-2 border-black px-6 py-3 hover:bg-gray-100"
                   >
                     +
                   </button>
@@ -379,7 +379,7 @@ export default function LemonadeGame() {
         {/* Results Phase */}
         {gamePhase === 'results' && dayResult && (
           <div className="space-y-8">
-            <div className="border-3 border-black p-8 bg-gray-100 text-center">
+            <div className="border-2 border-black p-8 bg-gray-100 text-center">
               <h2 className="text-3xl font-bold mono mb-6">DAY {currentDay} RESULTS</h2>
               
               <div className="grid md:grid-cols-4 gap-4 text-center mb-6">

@@ -169,7 +169,7 @@ export default function DigitSpanGame() {
               type="text"
               value={userInput}
               onChange={handleInputChange}
-              className="text-4xl text-center p-4 border-3 border-black font-mono w-64 mr-4"
+              className="text-4xl text-center p-4 border-2 border-black font-mono w-64 mr-4"
               placeholder="Enter digits..."
               autoFocus
               maxLength={sequence.length}
@@ -226,7 +226,7 @@ export default function DigitSpanGame() {
         <div className="text-center">
           <button
             onClick={startNewGame}
-            className="border-3 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
+            className="border-2 border-black bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors"
           >
             New Game
           </button>

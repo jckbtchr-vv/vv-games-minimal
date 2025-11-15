@@ -96,7 +96,7 @@ export default function MathGridGame() {
     
     return (
       <div 
-        className="inline-grid gap-1 p-4 bg-gray-200 border-3 border-black"
+        className="inline-grid gap-1 p-4 bg-gray-200 border-2 border-black"
         style={{ 
           gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
           gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`
@@ -169,7 +169,7 @@ export default function MathGridGame() {
                 key={index}
                 onClick={() => handleAnswerSelect(option)}
                 disabled={showResult}
-                className={`p-4 md:p-6 text-xl md:text-2xl font-bold mono border-3 border-black transition-colors ${
+                className={`p-4 md:p-6 text-xl md:text-2xl font-bold mono border-2 border-black transition-colors ${
                   showResult && option === correctAnswer
                     ? 'bg-green-500 text-white'
                     : showResult && option === selectedAnswer && option !== correctAnswer

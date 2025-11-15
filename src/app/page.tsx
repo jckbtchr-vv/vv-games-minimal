@@ -26,7 +26,7 @@ export default function HomePage() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Typing Game */}
-            <a href="/typing" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+            <a href="/typing" className="border-2 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
               <div className="text-center">
                 <div className="text-4xl mb-3">⌨️</div>
                 <h3 className="text-xl font-bold mono uppercase mb-3">Literature Typing</h3>
@@ -40,7 +40,7 @@ export default function HomePage() {
             </a>
 
             {/* Math Grid Game */}
-            <a href="/math" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+            <a href="/math" className="border-2 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
               <div className="text-center">
                 <div className="text-4xl mb-3">🔢</div>
                 <h3 className="text-xl font-bold mono uppercase mb-3">Math Grid</h3>
@@ -54,7 +54,7 @@ export default function HomePage() {
             </a>
 
             {/* Dot Counter */}
-            <a href="/dots" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+            <a href="/dots" className="border-2 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
               <div className="text-center">
                 <div className="text-4xl mb-3">⚫</div>
                 <h3 className="text-xl font-bold mono uppercase mb-3">Dot Counter</h3>
@@ -68,7 +68,7 @@ export default function HomePage() {
             </a>
 
             {/* Color Stroop */}
-            <a href="/stroop" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+            <a href="/stroop" className="border-2 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
               <div className="text-center">
                 <div className="text-4xl mb-3">🎨</div>
                 <h3 className="text-xl font-bold mono uppercase mb-3">Color Stroop</h3>
@@ -82,7 +82,7 @@ export default function HomePage() {
             </a>
 
             {/* Pattern Memory */}
-            <a href="/pattern" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+            <a href="/pattern" className="border-2 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
               <div className="text-center">
                 <div className="text-4xl mb-3">🧩</div>
                 <h3 className="text-xl font-bold mono uppercase mb-3">Pattern Memory</h3>
@@ -96,7 +96,7 @@ export default function HomePage() {
             </a>
 
             {/* Fraction Visualizer */}
-            <a href="/fractions" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+            <a href="/fractions" className="border-2 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
               <div className="text-center">
                 <div className="text-4xl mb-3">🥧</div>
                 <h3 className="text-xl font-bold mono uppercase mb-3">Fraction Visualizer</h3>
@@ -110,7 +110,7 @@ export default function HomePage() {
             </a>
 
                         {/* Digit Span */}
-                        <a href="/digits" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+                        <a href="/digits" className="border-2 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
                           <div className="text-center">
                             <div className="text-4xl mb-3">🔢</div>
                             <h3 className="text-xl font-bold mono uppercase mb-3">Digit Span</h3>
@@ -124,7 +124,7 @@ export default function HomePage() {
                         </a>
 
                         {/* Lemonade Stand */}
-                        <a href="/lemonade" className="border-3 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
+                        <a href="/lemonade" className="border-2 border-black p-6 bg-white hover:bg-gray-50 transition-colors block">
                           <div className="text-center">
                             <div className="text-4xl mb-3">🍋</div>
                             <h3 className="text-xl font-bold mono uppercase mb-3">Lemonade Stand</h3>
