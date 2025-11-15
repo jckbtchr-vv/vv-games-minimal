@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.brutalist-button {
+  @apply bg-black text-white px-6 py-3 font-bold uppercase tracking-wide border-3 border-black;
+  transition: all 0.1s ease;
+}
+
+.brutalist-button:hover {
+  @apply bg-white text-black;
+  box-shadow: 4px 4px 0px 0px black;
+}
