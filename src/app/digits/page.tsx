@@ -139,9 +139,9 @@ export default function DigitSpanGame() {
         </div>
 
         {/* Digit Display - Fixed Height */}
-        <div className="text-center mb-12 min-h-[200px] flex items-center justify-center">
+        <div className="text-center mb-8 min-h-[120px] flex items-center justify-center">
           {showingSequence && currentDigit !== null && (
-            <div className="text-9xl font-bold mono text-blue-600 animate-pulse">
+            <div className="text-6xl md:text-8xl font-bold mono text-blue-600 animate-pulse">
               {currentDigit}
             </div>
           )}
@@ -160,7 +160,7 @@ export default function DigitSpanGame() {
         </div>
 
         {/* Input Form - Fixed Height */}
-        <div className="text-center mb-8 min-h-[120px] flex items-center justify-center">
+        <div className="text-center mb-6 min-h-[80px] flex items-center justify-center">
           {gamePhase === 'input' && (
             <form onSubmit={handleSubmit} className="text-center">
               <input
@@ -187,7 +187,7 @@ export default function DigitSpanGame() {
         </div>
 
         {/* Result - Fixed Height */}
-        <div className="text-center mb-8 min-h-[140px] flex flex-col justify-center">
+        <div className="text-center mb-6 min-h-[100px] flex flex-col justify-center">
           {gamePhase === 'result' && (
             <>
               <div className={`text-3xl font-bold mono uppercase mb-4 ${
@@ -209,7 +209,7 @@ export default function DigitSpanGame() {
         </div>
 
         {/* Progress Indicator - Fixed Height */}
-        <div className="text-center mb-8 min-h-[60px] flex flex-col justify-center">
+        <div className="text-center mb-6 min-h-[40px] flex flex-col justify-center">
           {gamePhase === 'input' && sequence.length > 0 && (
             <>
               <div className="text-sm text-gray-600 mb-2">Sequence Progress</div>
