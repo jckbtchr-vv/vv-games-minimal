@@ -107,16 +107,73 @@ export default function TraceGame() {
     }
   }
 
+  const calculateAccuracy = (userPath: string[], targetPath: string) => {
+    if (userPath.length < 5) return 0
+
+    // Parse target path into points (simplified - sample key points)
+    const targetPoints: number[][] = []
+    const pathSegments = targetPath.split(/[ML]/).filter(s => s.trim())
+
+    pathSegments.forEach(segment => {
+      const coords = segment.trim().split(' ')
+      for (let i = 0; i < coords.length; i += 2) {
+        const x = parseFloat(coords[i])
+        const y = parseFloat(coords[i + 1])
+        if (!isNaN(x) && !isNaN(y)) {
+          targetPoints.push([x, y])
+        }
+      }
+    })
+
+    if (targetPoints.length === 0) return 0
+
+    // Parse user path points
+    const userPoints = userPath.map(point => {
+      const [x, y] = point.split(',').map(Number)
+      return [x, y]
+    })
+
+    // Calculate average distance from user points to nearest target points
+    let totalDistance = 0
+    let validPoints = 0
+
+    targetPoints.forEach(targetPoint => {
+      let minDistance = Infinity
+
+      userPoints.forEach(userPoint => {
+        const distance = Math.sqrt(
+          Math.pow(userPoint[0] - targetPoint[0], 2) +
+          Math.pow(userPoint[1] - targetPoint[1], 2)
+        )
+        minDistance = Math.min(minDistance, distance)
+      })
+
+      if (minDistance < 50) { // Only count points within reasonable distance
+        totalDistance += minDistance
+        validPoints++
+      }
+    })
+
+    if (validPoints === 0) return 0
+
+    const avgDistance = totalDistance / validPoints
+
+    // Convert distance to accuracy (closer = higher accuracy)
+    // Max reasonable distance is about 30 units for good tracing
+    const accuracy = Math.max(0, Math.min(100, 100 - (avgDistance / 30) * 100))
+
+    return Math.round(accuracy)
+  }
+
   const handleMouseUp = () => {
     if (isTracing && startTime) {
       const endTime = Date.now()
       setEndTime(endTime)
       setTimeTaken((endTime - startTime) / 1000)
 
-      // Calculate accuracy (simplified - check if path has reasonable coverage)
-      const pathLength = userPath.length
-      const accuracy = Math.min(100, Math.max(0, (pathLength / 50) * 100))
-      setAccuracy(Math.round(accuracy))
+      // Calculate accuracy based on path proximity
+      const accuracy = calculateAccuracy(userPath, currentShape.path)
+      setAccuracy(accuracy)
 
       setIsTracing(false)
       setTotalAttempts(prev => prev + 1)
