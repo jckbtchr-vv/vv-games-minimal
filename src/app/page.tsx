@@ -7,7 +7,7 @@ export default function HomePage() {
           {/* Literature Typing */}
           <a href="/typing" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-2xl mb-3">|</div>
-            <h3 className="text-lg font-bold mono uppercase mb-3">Literature Typing</h3>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Type</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               TYPE GREAT WORKS ONE WORD AT A TIME.<br/>
               IMPROVE FOCUS AND READING.
@@ -20,7 +20,7 @@ export default function HomePage() {
           {/* Math Grid */}
           <a href="/math" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">∑</div>
-            <h3 className="text-lg font-bold mono uppercase mb-3">Math Grid</h3>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Multiply</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               VISUAL TIMES TABLES WITH RANDOM GRID SIZES.<br/>
               MULTIPLE CHOICE.
@@ -33,7 +33,7 @@ export default function HomePage() {
           {/* Dot Counter */}
           <a href="/dots" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">●</div>
-            <h3 className="text-lg font-bold mono uppercase mb-3">Dot Counter</h3>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Count</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               COUNT DOTS THAT FLASH BRIEFLY.<br/>
               IMPROVES VISUAL PROCESSING.
@@ -46,7 +46,7 @@ export default function HomePage() {
           {/* Color Stroop */}
           <a href="/stroop" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-2xl mb-3">◇</div>
-            <h3 className="text-lg font-bold mono uppercase mb-3">Color Stroop</h3>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Read</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               NAME THE COLOR, NOT THE WORD.<br/>
               CLASSIC COGNITIVE TEST.
@@ -59,7 +59,7 @@ export default function HomePage() {
           {/* Pattern Memory */}
           <a href="/pattern" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">⊞</div>
-            <h3 className="text-lg font-bold mono uppercase mb-3">Pattern Memory</h3>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Remember</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               REMEMBER AND REPEAT COLOR SEQUENCES.<br/>
               WORKING MEMORY TRAINING.
@@ -72,7 +72,7 @@ export default function HomePage() {
           {/* Fraction Visualizer */}
           <a href="/fractions" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">○</div>
-            <h3 className="text-lg font-bold mono uppercase mb-3">Fraction Visualizer</h3>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Visualize</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               IDENTIFY FRACTIONS FROM PIE CHARTS.<br/>
               VISUAL MATH LEARNING.
@@ -85,7 +85,7 @@ export default function HomePage() {
           {/* Digit Span */}
           <a href="/digits" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">□</div>
-            <h3 className="text-lg font-bold mono uppercase mb-3">Digit Span</h3>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Recall</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               REMEMBER NUMBER SEQUENCES.<br/>
               CLASSIC MEMORY SPAN TEST.
@@ -98,7 +98,7 @@ export default function HomePage() {
           {/* Lemonade Stand */}
           <a href="/lemonade" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">⌂</div>
-            <h3 className="text-lg font-bold mono uppercase mb-3">Lemonade Stand</h3>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Manage</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               DAILY BUSINESS SIMULATOR.<br/>
               RECIPE RATIOS, PRICING, AND PROFIT.
@@ -111,7 +111,7 @@ export default function HomePage() {
           {/* Shape Tracing */}
           <a href="/trace" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
             <div className="text-3xl mb-3">⎓</div>
-            <h3 className="text-lg font-bold mono uppercase mb-3">Shape Tracing</h3>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Trace</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               TRACE SHAPES WITH SPEED AND ACCURACY.<br/>
               FINE MOTOR SKILLS TRAINING.
