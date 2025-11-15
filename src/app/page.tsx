@@ -3,9 +3,9 @@ export default function HomePage() {
     <main>
       {/* Games Selection - Spreadsheet Style */}
       <section className="bg-white">
-        <div className="grid grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3">
           {/* Literature Typing */}
-          <a href="/typing" className="border-r border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+          <a href="/typing" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
             <div className="text-2xl mb-3">|</div>
             <h3 className="text-lg font-bold mono uppercase mb-3">Literature Typing</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
@@ -18,7 +18,7 @@ export default function HomePage() {
           </a>
 
           {/* Math Grid */}
-          <a href="/math" className="border-r border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+          <a href="/math" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">∑</div>
             <h3 className="text-lg font-bold mono uppercase mb-3">Math Grid</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
@@ -44,7 +44,7 @@ export default function HomePage() {
           </a>
 
           {/* Color Stroop */}
-          <a href="/stroop" className="border-r border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+          <a href="/stroop" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-2xl mb-3">◇</div>
             <h3 className="text-lg font-bold mono uppercase mb-3">Color Stroop</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
@@ -57,7 +57,7 @@ export default function HomePage() {
           </a>
 
           {/* Pattern Memory */}
-          <a href="/pattern" className="border-r border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+          <a href="/pattern" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">⊞</div>
             <h3 className="text-lg font-bold mono uppercase mb-3">Pattern Memory</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
@@ -83,7 +83,7 @@ export default function HomePage() {
           </a>
 
           {/* Digit Span */}
-          <a href="/digits" className="border-r border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+          <a href="/digits" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">□</div>
             <h3 className="text-lg font-bold mono uppercase mb-3">Digit Span</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
@@ -96,7 +96,7 @@ export default function HomePage() {
           </a>
 
           {/* Lemonade Stand */}
-          <a href="/lemonade" className="border-r border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+          <a href="/lemonade" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">⌂</div>
             <h3 className="text-lg font-bold mono uppercase mb-3">Lemonade Stand</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
