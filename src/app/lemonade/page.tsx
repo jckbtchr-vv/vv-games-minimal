@@ -3,15 +3,24 @@
 import { useState, useEffect } from 'react'
 
 type Weather = 'sunny' | 'cloudy' | 'rainy' | 'hot'
+type GamePhase = 'buying' | 'production' | 'pricing' | 'results'
+
+interface Inventory {
+  lemons: number
+  sugar: number
+  water: number
+}
 
 interface DayResult {
   day: number
   weather: Weather
-  recipe: { lemon: number; sugar: number; water: number }
+  cupsPlanned: number
+  cupsSold: number
   price: number
-  customers: number
-  satisfaction: number
+  revenue: number
+  costs: number
   profit: number
+  wastedCups: number
 }
 
 const WEATHER_ICONS = {
@@ -22,100 +31,128 @@ const WEATHER_ICONS = {
 }
 
 const WEATHER_DEMAND = {
-  sunny: 1.0,
-  cloudy: 0.7,
-  rainy: 0.3,
-  hot: 1.4
+  sunny: 25,
+  cloudy: 18,
+  rainy: 8,
+  hot: 35
+}
+
+const INGREDIENT_COSTS = {
+  lemons: 0.10,
+  sugar: 0.05,
+  water: 0.02
 }
 
 export default function LemonadeGame() {
   const [currentDay, setCurrentDay] = useState(1)
-  const [totalProfit, setTotalProfit] = useState(0)
+  const [cash, setCash] = useState(10.00) // Starting cash
   const [weather, setWeather] = useState<Weather>('sunny')
-  
-  // Recipe state (0-100)
-  const [lemon, setLemon] = useState(50)
-  const [sugar, setSugar] = useState(50)
-  const [water, setWater] = useState(50)
-  
-  // Pricing state
-  const [price, setPrice] = useState(0.50)
+  const [nextWeather, setNextWeather] = useState<Weather>('sunny')
   
   // Game state
-  const [dayStarted, setDayStarted] = useState(false)
+  const [gamePhase, setGamePhase] = useState<GamePhase>('buying')
   const [dayResult, setDayResult] = useState<DayResult | null>(null)
   const [gameWon, setGameWon] = useState(false)
+  
+  // Inventory state
+  const [inventory, setInventory] = useState<Inventory>({ lemons: 0, sugar: 0, water: 0 })
+  const [buyingCart, setBuyingCart] = useState<Inventory>({ lemons: 0, sugar: 0, water: 0 })
+  
+  // Production state
+  const [cupsToMake, setCupsToMake] = useState(0)
+  const [price, setPrice] = useState(0.75)
 
-  // Generate random weather for the day
+  // Generate weather for current and next day
   useEffect(() => {
     const weathers: Weather[] = ['sunny', 'cloudy', 'rainy', 'hot']
-    setWeather(weathers[Math.floor(Math.random() * weathers.length)])
-  }, [currentDay])
+    setWeather(nextWeather)
+    setNextWeather(weathers[Math.floor(Math.random() * weathers.length)])
+  }, [currentDay, nextWeather])
 
-  const calculateRecipeSatisfaction = () => {
-    // Perfect recipe is around 60% lemon, 40% sugar, 30% water
-    const lemonScore = Math.max(0, 100 - Math.abs(lemon - 60))
-    const sugarScore = Math.max(0, 100 - Math.abs(sugar - 40))
-    const waterScore = Math.max(0, 100 - Math.abs(water - 30))
-    
-    return (lemonScore + sugarScore + waterScore) / 300
+  const calculateCartCost = () => {
+    return (buyingCart.lemons * INGREDIENT_COSTS.lemons) + 
+           (buyingCart.sugar * INGREDIENT_COSTS.sugar) + 
+           (buyingCart.water * INGREDIENT_COSTS.water)
+  }
+
+  const getMaxCups = () => {
+    return Math.min(inventory.lemons, inventory.sugar, inventory.water)
+  }
+
+  const buyIngredients = () => {
+    const cost = calculateCartCost()
+    setCash(prev => prev - cost)
+    setInventory(prev => ({
+      lemons: prev.lemons + buyingCart.lemons,
+      sugar: prev.sugar + buyingCart.sugar,
+      water: prev.water + buyingCart.water
+    }))
+    setBuyingCart({ lemons: 0, sugar: 0, water: 0 })
+    setGamePhase('production')
+  }
+
+  const startProduction = () => {
+    // Use ingredients for cups
+    setInventory(prev => ({
+      lemons: prev.lemons - cupsToMake,
+      sugar: prev.sugar - cupsToMake,
+      water: prev.water - cupsToMake
+    }))
+    setGamePhase('pricing')
   }
 
   const runDay = () => {
-    setDayStarted(true)
+    // Calculate demand based on weather and price
+    const baseDemand = WEATHER_DEMAND[weather]
+    const priceMultiplier = Math.max(0.2, 1.5 - (price - 0.75))
+    const actualDemand = Math.floor(baseDemand * priceMultiplier * (0.8 + Math.random() * 0.4))
     
-    // Calculate base customers based on weather
-    const baseCustomers = Math.floor(20 * WEATHER_DEMAND[weather])
+    const cupsSold = Math.min(cupsToMake, actualDemand)
+    const wastedCups = cupsToMake - cupsSold
     
-    // Recipe satisfaction affects repeat customers
-    const recipeSatisfaction = calculateRecipeSatisfaction()
-    
-    // Price affects customer volume (sweet spot around $0.75)
-    const priceMultiplier = Math.max(0.1, 2 - Math.abs(price - 0.75) * 2)
-    
-    // Final customer count
-    const customers = Math.floor(baseCustomers * recipeSatisfaction * priceMultiplier)
-    
-    // Calculate profit
-    const revenue = customers * price
-    const costs = customers * 0.25 // Fixed cost per cup
-    const profit = revenue - costs
+    const revenue = cupsSold * price
+    const ingredientCost = cupsToMake * (INGREDIENT_COSTS.lemons + INGREDIENT_COSTS.sugar + INGREDIENT_COSTS.water)
+    const profit = revenue - ingredientCost
     
     const result: DayResult = {
       day: currentDay,
       weather,
-      recipe: { lemon, sugar, water },
+      cupsPlanned: cupsToMake,
+      cupsSold,
       price,
-      customers,
-      satisfaction: recipeSatisfaction,
-      profit
+      revenue,
+      costs: ingredientCost,
+      profit,
+      wastedCups
     }
     
+    setCash(prev => prev + profit)
     setDayResult(result)
-    setTotalProfit(prev => prev + profit)
+    setGamePhase('results')
     
     // Check win condition
-    if (totalProfit + profit >= 50) {
+    if (cash + profit >= 50) {
       setGameWon(true)
     }
   }
 
   const nextDay = () => {
     setCurrentDay(prev => prev + 1)
-    setDayStarted(false)
+    setGamePhase('buying')
     setDayResult(null)
+    setCupsToMake(0)
   }
 
   const resetGame = () => {
     setCurrentDay(1)
-    setTotalProfit(0)
-    setDayStarted(false)
+    setCash(10.00)
+    setGamePhase('buying')
     setDayResult(null)
     setGameWon(false)
-    setLemon(50)
-    setSugar(50)
-    setWater(50)
-    setPrice(0.50)
+    setInventory({ lemons: 0, sugar: 0, water: 0 })
+    setBuyingCart({ lemons: 0, sugar: 0, water: 0 })
+    setCupsToMake(0)
+    setPrice(0.75)
   }
 
   if (gameWon) {
@@ -126,10 +163,10 @@ export default function LemonadeGame() {
             🍋 SUCCESS! 🍋
           </div>
           <div className="text-3xl font-bold">
-            ${totalProfit.toFixed(2)} PROFIT
+            ${cash.toFixed(2)} CASH
           </div>
           <div className="text-xl text-gray-600">
-            You built a successful lemonade empire in {currentDay} days!
+            You built a successful lemonade business in {currentDay} days!
           </div>
           <button
             onClick={resetGame}
@@ -148,148 +185,233 @@ export default function LemonadeGame() {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="text-4xl font-bold mono mb-4">
-            DAY {currentDay} | {WEATHER_ICONS[weather]} {weather.toUpperCase()} | ${totalProfit.toFixed(2)} TOTAL
+            DAY {currentDay} | {WEATHER_ICONS[weather]} {weather.toUpperCase()} | ${cash.toFixed(2)} CASH
           </div>
           <div className="text-lg text-gray-600">
-            Goal: Reach $50.00 total profit
+            Tomorrow: {WEATHER_ICONS[nextWeather]} {nextWeather} | Goal: Reach $50.00
           </div>
         </div>
 
-        {!dayStarted ? (
-          <div className="space-y-12">
-            {/* Recipe Section */}
+        {/* Buying Phase */}
+        {gamePhase === 'buying' && (
+          <div className="space-y-8">
             <div className="border-3 border-black p-8 bg-gray-100">
-              <h2 className="text-2xl font-bold mono mb-8 text-center">RECIPE</h2>
+              <h2 className="text-2xl font-bold mono mb-8 text-center">BUY INGREDIENTS</h2>
               
-              <div className="space-y-6">
-                {/* Lemon Slider */}
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xl font-bold">🍋 LEMON</span>
-                    <span className="text-xl font-bold mono">{lemon}%</span>
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                {/* Lemons */}
+                <div className="text-center">
+                  <div className="text-4xl mb-2">🍋</div>
+                  <div className="text-xl font-bold mb-4">LEMONS</div>
+                  <div className="text-lg mb-4">Have: {inventory.lemons} | $0.10 each</div>
+                  <div className="flex items-center justify-center space-x-4">
+                    <button
+                      onClick={() => setBuyingCart(prev => ({ ...prev, lemons: Math.max(0, prev.lemons - 1) }))}
+                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                    >
+                      -
+                    </button>
+                    <div className="text-2xl font-bold mono w-12">{buyingCart.lemons}</div>
+                    <button
+                      onClick={() => setBuyingCart(prev => ({ ...prev, lemons: prev.lemons + 1 }))}
+                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                    >
+                      +
+                    </button>
                   </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={lemon}
-                    onChange={(e) => setLemon(Number(e.target.value))}
-                    className="w-full h-4 bg-gray-300 border-2 border-black"
-                  />
                 </div>
 
-                {/* Sugar Slider */}
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xl font-bold">🍯 SUGAR</span>
-                    <span className="text-xl font-bold mono">{sugar}%</span>
+                {/* Sugar */}
+                <div className="text-center">
+                  <div className="text-4xl mb-2">🍯</div>
+                  <div className="text-xl font-bold mb-4">SUGAR</div>
+                  <div className="text-lg mb-4">Have: {inventory.sugar} | $0.05 each</div>
+                  <div className="flex items-center justify-center space-x-4">
+                    <button
+                      onClick={() => setBuyingCart(prev => ({ ...prev, sugar: Math.max(0, prev.sugar - 1) }))}
+                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                    >
+                      -
+                    </button>
+                    <div className="text-2xl font-bold mono w-12">{buyingCart.sugar}</div>
+                    <button
+                      onClick={() => setBuyingCart(prev => ({ ...prev, sugar: prev.sugar + 1 }))}
+                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                    >
+                      +
+                    </button>
                   </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={sugar}
-                    onChange={(e) => setSugar(Number(e.target.value))}
-                    className="w-full h-4 bg-gray-300 border-2 border-black"
-                  />
                 </div>
 
-                {/* Water Slider */}
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xl font-bold">💧 WATER</span>
-                    <span className="text-xl font-bold mono">{water}%</span>
+                {/* Water */}
+                <div className="text-center">
+                  <div className="text-4xl mb-2">💧</div>
+                  <div className="text-xl font-bold mb-4">WATER</div>
+                  <div className="text-lg mb-4">Have: {inventory.water} | $0.02 each</div>
+                  <div className="flex items-center justify-center space-x-4">
+                    <button
+                      onClick={() => setBuyingCart(prev => ({ ...prev, water: Math.max(0, prev.water - 1) }))}
+                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                    >
+                      -
+                    </button>
+                    <div className="text-2xl font-bold mono w-12">{buyingCart.water}</div>
+                    <button
+                      onClick={() => setBuyingCart(prev => ({ ...prev, water: prev.water + 1 }))}
+                      className="text-2xl font-bold border-3 border-black px-4 py-2 hover:bg-gray-100"
+                    >
+                      +
+                    </button>
                   </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={water}
-                    onChange={(e) => setWater(Number(e.target.value))}
-                    className="w-full h-4 bg-gray-300 border-2 border-black"
-                  />
                 </div>
               </div>
-            </div>
 
-            {/* Pricing Section */}
-            <div className="border-3 border-black p-8 bg-white">
-              <h2 className="text-2xl font-bold mono mb-8 text-center">PRICING</h2>
-              
-              <div className="flex items-center justify-center space-x-6">
-                <button
-                  onClick={() => setPrice(Math.max(0.25, price - 0.05))}
-                  className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
-                >
-                  -
-                </button>
-                
-                <div className="text-6xl font-bold mono">
-                  ${price.toFixed(2)}
+              <div className="text-center space-y-4">
+                <div className="text-2xl font-bold">
+                  Total Cost: ${calculateCartCost().toFixed(2)}
                 </div>
-                
                 <button
-                  onClick={() => setPrice(Math.min(2.00, price + 0.05))}
-                  className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
+                  onClick={buyIngredients}
+                  disabled={calculateCartCost() > cash || calculateCartCost() === 0}
+                  className="brutalist-button text-xl disabled:opacity-50"
                 >
-                  +
+                  BUY INGREDIENTS
                 </button>
               </div>
-            </div>
-
-            {/* Start Day Button */}
-            <div className="text-center">
-              <button
-                onClick={runDay}
-                className="brutalist-button text-2xl px-12 py-6"
-              >
-                START DAY {currentDay}
-              </button>
             </div>
           </div>
-        ) : dayResult ? (
-          /* Day Results */
+        )}
+
+        {/* Production Phase */}
+        {gamePhase === 'production' && (
+          <div className="space-y-8">
+            <div className="border-3 border-black p-8 bg-gray-100">
+              <h2 className="text-2xl font-bold mono mb-8 text-center">MAKE LEMONADE</h2>
+              
+              <div className="text-center space-y-6">
+                <div className="text-lg">
+                  Inventory: {inventory.lemons} 🍋 | {inventory.sugar} 🍯 | {inventory.water} 💧
+                </div>
+                <div className="text-lg">
+                  Max cups you can make: <span className="font-bold">{getMaxCups()}</span>
+                </div>
+                
+                <div className="flex items-center justify-center space-x-6">
+                  <button
+                    onClick={() => setCupsToMake(Math.max(0, cupsToMake - 1))}
+                    className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
+                  >
+                    -
+                  </button>
+                  
+                  <div className="text-center">
+                    <div className="text-6xl font-bold mono">{cupsToMake}</div>
+                    <div className="text-lg">CUPS</div>
+                  </div>
+                  
+                  <button
+                    onClick={() => setCupsToMake(Math.min(getMaxCups(), cupsToMake + 1))}
+                    className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
+
+                <button
+                  onClick={startProduction}
+                  disabled={cupsToMake === 0}
+                  className="brutalist-button text-xl disabled:opacity-50"
+                >
+                  MAKE {cupsToMake} CUPS
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Pricing Phase */}
+        {gamePhase === 'pricing' && (
+          <div className="space-y-8">
+            <div className="border-3 border-black p-8 bg-white">
+              <h2 className="text-2xl font-bold mono mb-8 text-center">SET PRICE</h2>
+              
+              <div className="text-center space-y-6">
+                <div className="text-lg">
+                  You made <span className="font-bold">{cupsToMake} cups</span>
+                </div>
+                <div className="text-lg">
+                  Weather: {WEATHER_ICONS[weather]} {weather} (Expected demand: ~{WEATHER_DEMAND[weather]} customers)
+                </div>
+                
+                <div className="flex items-center justify-center space-x-6">
+                  <button
+                    onClick={() => setPrice(Math.max(0.25, price - 0.05))}
+                    className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
+                  >
+                    -
+                  </button>
+                  
+                  <div className="text-6xl font-bold mono">
+                    ${price.toFixed(2)}
+                  </div>
+                  
+                  <button
+                    onClick={() => setPrice(Math.min(2.00, price + 0.05))}
+                    className="text-4xl font-bold border-3 border-black px-6 py-3 hover:bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
+
+                <button
+                  onClick={runDay}
+                  className="brutalist-button text-xl"
+                >
+                  OPEN STAND
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Results Phase */}
+        {gamePhase === 'results' && dayResult && (
           <div className="space-y-8">
             <div className="border-3 border-black p-8 bg-gray-100 text-center">
               <h2 className="text-3xl font-bold mono mb-6">DAY {currentDay} RESULTS</h2>
               
-              <div className="grid md:grid-cols-3 gap-6 text-center">
+              <div className="grid md:grid-cols-4 gap-4 text-center mb-6">
                 <div>
-                  <div className="text-4xl font-bold mono">{dayResult.customers}</div>
-                  <div className="text-lg">Customers</div>
+                  <div className="text-3xl font-bold mono">{dayResult.cupsSold}</div>
+                  <div className="text-sm">Sold</div>
                 </div>
-                
                 <div>
-                  <div className="text-4xl font-bold mono">{Math.round(dayResult.satisfaction * 100)}%</div>
-                  <div className="text-lg">Satisfaction</div>
+                  <div className="text-3xl font-bold mono">{dayResult.wastedCups}</div>
+                  <div className="text-sm">Wasted</div>
                 </div>
-                
                 <div>
-                  <div className={`text-4xl font-bold mono ${dayResult.profit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  <div className="text-3xl font-bold mono">${dayResult.revenue.toFixed(2)}</div>
+                  <div className="text-sm">Revenue</div>
+                </div>
+                <div>
+                  <div className={`text-3xl font-bold mono ${dayResult.profit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                     ${dayResult.profit.toFixed(2)}
                   </div>
-                  <div className="text-lg">Profit</div>
+                  <div className="text-sm">Profit</div>
                 </div>
               </div>
-            </div>
 
-            <div className="text-center space-y-4">
-              <div className="text-2xl font-bold">
-                Total Profit: ${totalProfit.toFixed(2)} / $50.00
+              <div className="text-xl font-bold mb-4">
+                Cash: ${cash.toFixed(2)} / $50.00
               </div>
               
               <button
                 onClick={nextDay}
-                className="brutalist-button text-xl px-8 py-4"
+                className="brutalist-button text-xl"
               >
                 NEXT DAY
               </button>
             </div>
-          </div>
-        ) : (
-          /* Loading State */
-          <div className="text-center">
-            <div className="text-2xl font-bold mono">Running Day {currentDay}...</div>
           </div>
         )}
       </div>
