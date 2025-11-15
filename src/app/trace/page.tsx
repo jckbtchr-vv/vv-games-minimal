@@ -2,32 +2,36 @@
 
 import { useState, useEffect, useRef } from 'react'
 
-// SVG paths for traceable letters (simplified)
-const TRACE_LETTERS = [
+// SVG paths for traceable shapes
+const TRACE_SHAPES = [
   {
-    letter: 'A',
-    path: 'M 50 150 L 75 50 L 100 150 M 62.5 100 L 87.5 100',
-    viewBox: '0 0 150 200'
+    name: 'Circle',
+    path: 'M 75 25 A 50 50 0 1 1 74.9 25 Z',
+    viewBox: '0 0 150 150',
+    icon: '⭕'
   },
   {
-    letter: 'B',
-    path: 'M 30 50 L 30 150 M 30 50 Q 80 50 80 75 Q 80 100 30 100 M 30 100 Q 80 100 80 125 Q 80 150 30 150',
-    viewBox: '0 0 120 200'
+    name: 'Square',
+    path: 'M 25 25 L 125 25 L 125 125 L 25 125 Z',
+    viewBox: '0 0 150 150',
+    icon: '⬜'
   },
   {
-    letter: 'C',
-    path: 'M 100 60 Q 40 60 40 100 Q 40 140 100 140',
-    viewBox: '0 0 150 200'
+    name: 'Triangle',
+    path: 'M 75 25 L 125 125 L 25 125 Z',
+    viewBox: '0 0 150 150',
+    icon: '🔺'
   },
   {
-    letter: 'D',
-    path: 'M 30 50 L 30 150 Q 80 150 80 100 Q 80 50 30 50',
-    viewBox: '0 0 120 200'
+    name: 'Star',
+    path: 'M 75 10 L 90 55 L 135 55 L 105 80 L 115 125 L 75 100 L 35 125 L 45 80 L 15 55 L 60 55 Z',
+    viewBox: '0 0 150 150',
+    icon: '⭐'
   }
 ]
 
 export default function TraceGame() {
-  const [currentLetterIndex, setCurrentLetterIndex] = useState(0)
+  const [currentShapeIndex, setCurrentShapeIndex] = useState(0)
   const [userPath, setUserPath] = useState<string[]>([])
   const [isTracing, setIsTracing] = useState(false)
   const [startTime, setStartTime] = useState<number | null>(null)
@@ -41,13 +45,13 @@ export default function TraceGame() {
 
   const svgRef = useRef<SVGSVGElement>(null)
 
-  const currentLetter = TRACE_LETTERS[currentLetterIndex]
+  const currentShape = TRACE_SHAPES[currentShapeIndex]
 
   const startNewGame = () => {
     setGameStarted(true)
     setScore(0)
     setTotalAttempts(0)
-    setCurrentLetterIndex(0)
+    setCurrentShapeIndex(0)
     resetTrace()
   }
 
@@ -61,9 +65,9 @@ export default function TraceGame() {
     setTimeTaken(0)
   }
 
-  const nextLetter = () => {
-    if (currentLetterIndex < TRACE_LETTERS.length - 1) {
-      setCurrentLetterIndex(prev => prev + 1)
+  const nextShape = () => {
+    if (currentShapeIndex < TRACE_SHAPES.length - 1) {
+      setCurrentShapeIndex(prev => prev + 1)
       resetTrace()
     } else {
       // Game complete
@@ -83,11 +87,23 @@ export default function TraceGame() {
     if (!isTracing || !svgRef.current) return
 
     const rect = svgRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    const svg = svgRef.current
 
-    if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-      setUserPath(prev => [...prev, `${x},${y}`])
+    // Get mouse position relative to SVG element
+    const mouseX = e.clientX - rect.left
+    const mouseY = e.clientY - rect.top
+
+    // Only track if mouse is within SVG bounds
+    if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
+      // Convert screen coordinates to SVG viewBox coordinates
+      const viewBox = svg.viewBox.baseVal
+      const scaleX = viewBox.width / rect.width
+      const scaleY = viewBox.height / rect.height
+
+      const svgX = mouseX * scaleX + viewBox.x
+      const svgY = mouseY * scaleY + viewBox.y
+
+      setUserPath(prev => [...prev, `${svgX.toFixed(1)},${svgY.toFixed(1)}`])
     }
   }
 
@@ -126,13 +142,13 @@ export default function TraceGame() {
         {/* Game Intro */}
         <div className="border-b border-gray-300 p-8 text-center">
           <h1 className="text-4xl font-bold mono mb-6 uppercase">
-            LETTER TRACING
+            SHAPE TRACING
           </h1>
           <p className="text-xl mb-6">
-            Trace letters with speed and accuracy. Follow the dotted path as closely as possible.
+            Trace shapes with speed and accuracy. Follow the dotted path as closely as possible.
           </p>
           <p className="text-lg text-gray-600 mb-8 uppercase">
-            Improves fine motor skills, letter recognition, and hand-eye coordination.
+            Improves fine motor skills, shape recognition, and hand-eye coordination.
             Points awarded for accuracy and speed!
           </p>
           <button
@@ -154,7 +170,7 @@ export default function TraceGame() {
         <div className="flex border-b border-gray-300">
           <div className="flex-1 border-r border-gray-300 p-6 text-center">
             <div className="text-2xl font-bold mono">
-              LETTER {currentLetterIndex + 1}/{TRACE_LETTERS.length}
+              SHAPE {currentShapeIndex + 1}/{TRACE_SHAPES.length}
             </div>
           </div>
           <div className="flex-1 p-6 text-center">
@@ -164,12 +180,15 @@ export default function TraceGame() {
           </div>
         </div>
 
-        {/* Row 2: Letter Display */}
+        {/* Row 2: Shape Display */}
         <div className="border-b border-gray-300 p-8">
           <div className="flex items-center justify-center min-h-[300px]">
             <div className="text-center">
-              <div className="text-8xl font-bold mono mb-4 text-gray-300">
-                {currentLetter.letter}
+              <div className="text-8xl mb-4">
+                {currentShape.icon}
+              </div>
+              <div className="text-2xl font-bold mono mb-4 uppercase">
+                {currentShape.name}
               </div>
               <div className="text-lg text-gray-600 uppercase">
                 Trace the dotted path below
@@ -183,8 +202,8 @@ export default function TraceGame() {
           <div className="flex items-center justify-center">
             <svg
               ref={svgRef}
-              viewBox={currentLetter.viewBox}
-              className="w-64 h-48 border-2 border-gray-300 bg-white cursor-crosshair"
+              viewBox={currentShape.viewBox}
+              className="w-64 h-64 border-2 border-gray-300 bg-white cursor-crosshair"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -192,10 +211,10 @@ export default function TraceGame() {
             >
               {/* Target path */}
               <path
-                d={currentLetter.path}
+                d={currentShape.path}
                 fill="none"
                 stroke="#e5e7eb"
-                strokeWidth="8"
+                strokeWidth="4"
                 strokeDasharray="5,5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -243,17 +262,17 @@ export default function TraceGame() {
         {/* Row 6: Action Button */}
         <div className="p-6 text-center">
           {showResult ? (
-            currentLetterIndex < TRACE_LETTERS.length - 1 ? (
+            currentShapeIndex < TRACE_SHAPES.length - 1 ? (
               <button
-                onClick={nextLetter}
+                onClick={nextShape}
                 className="brutalist-button text-lg"
               >
-                NEXT LETTER
+                NEXT SHAPE
               </button>
             ) : (
               <div className="text-center">
                 <div className="text-4xl font-bold mono mb-4 uppercase">
-                  ALL LETTERS COMPLETE!
+                  ALL SHAPES COMPLETE!
                 </div>
                 <div className="text-2xl mb-6 uppercase">
                   Final Score: {score} points

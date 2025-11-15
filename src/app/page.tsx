@@ -110,9 +110,9 @@ export default function HomePage() {
 
             <a href="/trace" className="flex-1 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
               <div className="text-3xl mb-3">✏️</div>
-              <h3 className="text-lg font-bold mono uppercase mb-3">Letter Tracing</h3>
+              <h3 className="text-lg font-bold mono uppercase mb-3">Shape Tracing</h3>
               <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
-                TRACE LETTERS WITH SPEED AND ACCURACY.<br/>
+                TRACE SHAPES WITH SPEED AND ACCURACY.<br/>
                 FINE MOTOR SKILLS TRAINING.
               </p>
               <div className="brutalist-button inline-block text-xs">
