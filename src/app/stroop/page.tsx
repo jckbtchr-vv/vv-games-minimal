@@ -16,6 +16,7 @@ export default function ColorStroopGame() {
   const [wordColor, setWordColor] = useState('')
   const [correctAnswer, setCorrectAnswer] = useState('')
   const [options, setOptions] = useState<string[]>([])
+  const [optionColors, setOptionColors] = useState<string[]>([])
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
@@ -50,6 +51,15 @@ export default function ColorStroopGame() {
     
     const finalOptions = Array.from(optionSet).sort(() => Math.random() - 0.5)
     setOptions(finalOptions)
+    
+    // Assign random colors to each option button (different from the option text)
+    const buttonColors = finalOptions.map(option => {
+      // Get all colors except the one that matches the option name
+      const availableColors = COLORS.filter(c => c.name !== option)
+      const randomColor = availableColors[Math.floor(Math.random() * availableColors.length)]
+      return randomColor.value
+    })
+    setOptionColors(buttonColors)
     
     setSelectedAnswer(null)
     setShowResult(false)
@@ -129,7 +139,7 @@ export default function ColorStroopGame() {
           <p className="text-xl mb-8">
             Read the COLOR of the word, not the word itself. 
             For example, if you see <span className="text-red-500 font-bold">BLUE</span>, 
-            the answer is RED.
+            the answer is RED. The answer buttons are also colored to add extra challenge!
           </p>
           <p className="text-lg text-gray-600 mb-12">
             This classic cognitive test improves focus, attention, and mental flexibility. 
@@ -194,7 +204,7 @@ export default function ColorStroopGame() {
                   : showResult
                   ? 'bg-gray-200 text-gray-500'
                   : 'bg-white hover:bg-gray-100'
-              }`}
+              } ${!showResult ? optionColors[index] : ''}`}
             >
               {option}
             </button>
