@@ -22,7 +22,16 @@
 
 [data-theme="dark"] {
   --foreground-rgb: 255, 255, 255;
-  --background-rgb: 0, 0, 0;
+  --background-rgb: 18, 18, 18;
+}
+
+/* Prevent white flash on page transitions */
+html {
+  background-color: rgb(var(--background-rgb));
+}
+
+html[data-theme="dark"] {
+  background-color: rgb(18, 18, 18);
 }
 
 body {
@@ -48,16 +57,17 @@ body {
 
 /* Dark mode styles */
 [data-theme="dark"] .brutalist-button {
-  @apply bg-white text-black border-white;
+  background-color: rgb(18, 18, 18);
+  @apply text-white border-gray-300;
 }
 
 [data-theme="dark"] .brutalist-button:hover {
-  @apply bg-black text-white;
-  box-shadow: 4px 4px 0px 0px white;
+  @apply bg-gray-800 text-white;
+  box-shadow: 4px 4px 0px 0px rgb(209, 213, 219);
 }
 
 [data-theme="dark"] .bg-white {
-  @apply bg-black;
+  background-color: rgb(18, 18, 18);
 }
 
 [data-theme="dark"] .bg-gray-100 {
@@ -69,7 +79,7 @@ body {
 }
 
 [data-theme="dark"] .border-black {
-  @apply border-white;
+  @apply border-gray-300;
 }
 
 [data-theme="dark"] .text-black {
@@ -102,7 +112,7 @@ body {
 }
 
 [data-theme="dark"] .focus\:border-black:focus {
-  @apply border-white;
+  @apply border-gray-300;
 }
 
 [data-theme="dark"] .hover\:underline:hover {

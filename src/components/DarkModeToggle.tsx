@@ -13,11 +13,13 @@ export default function DarkModeToggle() {
     const shouldBeDark = stored === 'true' || (stored === null && systemPrefersDark)
     setIsDark(shouldBeDark)
     
-    // Apply theme to document
+    // Apply theme to document and html element
     if (shouldBeDark) {
       document.documentElement.setAttribute('data-theme', 'dark')
+      document.documentElement.style.backgroundColor = 'rgb(18, 18, 18)'
     } else {
       document.documentElement.removeAttribute('data-theme')
+      document.documentElement.style.backgroundColor = 'rgb(255, 255, 255)'
     }
   }, [])
 
@@ -28,11 +30,13 @@ export default function DarkModeToggle() {
     // Save to localStorage
     localStorage.setItem('dark-mode', newIsDark.toString())
     
-    // Apply to document
+    // Apply to document and html element
     if (newIsDark) {
       document.documentElement.setAttribute('data-theme', 'dark')
+      document.documentElement.style.backgroundColor = 'rgb(18, 18, 18)'
     } else {
       document.documentElement.removeAttribute('data-theme')
+      document.documentElement.style.backgroundColor = 'rgb(255, 255, 255)'
     }
   }
 
