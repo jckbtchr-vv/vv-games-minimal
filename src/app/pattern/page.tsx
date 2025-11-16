@@ -9,6 +9,7 @@ export default function PatternMemoryGame() {
   const [userPattern, setUserPattern] = useState<number[]>([])
   const [showingPattern, setShowingPattern] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
+  const [highlightedSquare, setHighlightedSquare] = useState<number | null>(null)
   const [gamePhase, setGamePhase] = useState<'waiting' | 'showing' | 'input' | 'result'>('waiting')
   const [score, setScore] = useState(0)
   const [level, setLevel] = useState(3) // Start with 3 squares
@@ -38,7 +39,7 @@ export default function PatternMemoryGame() {
   const showPattern = () => {
     setGamePhase('showing')
     setShowingPattern(true)
-    setCurrentStep(0)
+    setHighlightedSquare(null)
 
     // Clear any existing timeout
     if (patternTimeoutRef.current) {
@@ -46,18 +47,25 @@ export default function PatternMemoryGame() {
     }
 
     // Show each color in sequence with proper timing
-    for (let i = 0; i < pattern.length; i++) {
-      patternTimeoutRef.current = setTimeout(() => {
-        setCurrentStep(i)
-      }, 500 + (i * 800)) // 500ms initial delay + 800ms per step
+    const showNextColor = (step: number) => {
+      if (step < pattern.length) {
+        setHighlightedSquare(pattern[step])
+        patternTimeoutRef.current = setTimeout(() => {
+          setHighlightedSquare(null)
+          setTimeout(() => showNextColor(step + 1), 200) // 200ms pause between colors
+        }, 800) // Show each color for 800ms
+      } else {
+        // Pattern complete
+        setShowingPattern(false)
+        setHighlightedSquare(null)
+        setGamePhase('input')
+      }
     }
 
-    // End the pattern display
+    // Start the sequence after initial delay
     patternTimeoutRef.current = setTimeout(() => {
-      setShowingPattern(false)
-      setCurrentStep(-1)
-      setGamePhase('input')
-    }, 500 + (pattern.length * 800))
+      showNextColor(0)
+    }, 500)
   }
 
   const startNewGame = () => {
@@ -157,7 +165,7 @@ export default function PatternMemoryGame() {
                   onClick={() => handleColorClick(index)}
                   disabled={gamePhase !== 'input'}
                   className={`w-24 h-24 border-2 border-black transition-all duration-200 ${color} ${
-                    showingPattern && currentStep < pattern.length && pattern[currentStep] === index
+                    showingPattern && highlightedSquare === index
                       ? 'scale-110 shadow-lg'
                       : showingPattern
                       ? 'opacity-50'
