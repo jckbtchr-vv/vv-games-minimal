@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const COLORS = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500', 'bg-orange-500']
 
@@ -14,6 +14,16 @@ export default function PatternMemoryGame() {
   const [level, setLevel] = useState(3) // Start with 3 squares
   const [gameStarted, setGameStarted] = useState(false)
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
+  const patternTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (patternTimeoutRef.current) {
+        clearTimeout(patternTimeoutRef.current)
+      }
+    }
+  }, [])
 
   const generatePattern = () => {
     const newPattern: number[] = []
@@ -28,22 +38,26 @@ export default function PatternMemoryGame() {
   const showPattern = () => {
     setGamePhase('showing')
     setShowingPattern(true)
-    
-    // Show each color in sequence
-    let step = 0
-    const showNext = () => {
-      if (step < pattern.length) {
-        setCurrentStep(step)
-        step++
-        setTimeout(showNext, 800) // 800ms per color
-      } else {
-        setShowingPattern(false)
-        setCurrentStep(-1)
-        setGamePhase('input')
-      }
+    setCurrentStep(0)
+
+    // Clear any existing timeout
+    if (patternTimeoutRef.current) {
+      clearTimeout(patternTimeoutRef.current)
     }
-    
-    setTimeout(showNext, 500) // Initial delay
+
+    // Show each color in sequence with proper timing
+    for (let i = 0; i < pattern.length; i++) {
+      patternTimeoutRef.current = setTimeout(() => {
+        setCurrentStep(i)
+      }, 500 + (i * 800)) // 500ms initial delay + 800ms per step
+    }
+
+    // End the pattern display
+    patternTimeoutRef.current = setTimeout(() => {
+      setShowingPattern(false)
+      setCurrentStep(-1)
+      setGamePhase('input')
+    }, 500 + (pattern.length * 800))
   }
 
   const startNewGame = () => {
