@@ -76,10 +76,14 @@ export default function PatternMemoryGame() {
   }
 
   const startNewRound = () => {
+    // Clear all user input and reset state
+    setUserPattern([])
+    setIsCorrect(null)
+    setHighlightedSquare(null)
+
     generatePattern()
     setGamePhase('waiting')
-    setIsCorrect(null)
-    
+
     // Auto-start showing pattern after 1 second
     setTimeout(() => {
       showPattern()
@@ -163,12 +167,12 @@ export default function PatternMemoryGame() {
                 <button
                   key={index}
                   onClick={() => handleColorClick(index)}
-                  disabled={gamePhase !== 'input'}
+                  disabled={gamePhase !== 'input' || showingPattern}
                   className={`w-24 h-24 border-2 border-black transition-all duration-200 ${color} ${
                     showingPattern && highlightedSquare === index
                       ? 'scale-110 shadow-lg'
-                      : showingPattern
-                      ? 'opacity-50'
+                      : showingPattern || gamePhase === 'waiting' || gamePhase === 'result'
+                      ? 'opacity-50 cursor-not-allowed'
                       : gamePhase === 'input'
                       ? 'hover:scale-105 cursor-pointer'
                       : 'opacity-75'
