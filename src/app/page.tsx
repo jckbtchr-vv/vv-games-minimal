@@ -109,12 +109,48 @@ export default function HomePage() {
           </a>
 
           {/* Shape Tracing */}
-          <a href="/trace" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+          <a href="/trace" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
             <div className="text-3xl mb-3">⎓</div>
             <h3 className="text-lg font-bold mono uppercase mb-3">Trace</h3>
             <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
               TRACE SHAPES WITH SPEED AND ACCURACY.<br/>
               FINE MOTOR SKILLS TRAINING.
+            </p>
+            <div className="brutalist-button inline-block text-xs">
+              Play
+            </div>
+          </a>
+
+          {/* Checks */}
+          <a href="/checks" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
+            <div className="text-3xl mb-3">✓</div>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Checks</h3>
+            <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
+              EXPLORE THE VALUE OF VERIFICATION.
+            </p>
+            <div className="brutalist-button inline-block text-xs">
+              Play
+            </div>
+          </a>
+
+          {/* Opepen */}
+          <a href="/opepen" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center md:border-r">
+            <div className="text-3xl mb-3">📝</div>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Opepen</h3>
+            <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
+              CONSENSUS IS TEMPORARY.
+            </p>
+            <div className="brutalist-button inline-block text-xs">
+              Play
+            </div>
+          </a>
+
+          {/* Gas Wars */}
+          <a href="/gas-wars" className="border-b border-gray-300 py-6 px-4 hover:bg-gray-50 transition-colors block text-center">
+            <div className="text-3xl mb-3">🔥</div>
+            <h3 className="text-lg font-bold mono uppercase mb-3">Gas Wars</h3>
+            <p className="text-gray-700 text-xs mb-4 leading-relaxed uppercase">
+              DESTRUCTION CONTAINS MORE INFORMATION THAN SURVIVAL.
             </p>
             <div className="brutalist-button inline-block text-xs">
               Play
